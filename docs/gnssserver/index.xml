@@ -1,0 +1,540 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>GnssServer Dev Docs on CHCNAV Develop</title><link>http://localhost:51922/docs/gnssserver/</link><description>Recent content in GnssServer Dev Docs on CHCNAV Develop</description><generator>Hugo</generator><language>en</language><atom:link href="http://localhost:51922/docs/gnssserver/index.xml" rel="self" type="application/rss+xml"/><item><title>Quick Start</title><link>http://localhost:51922/docs/gnssserver/01_%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://localhost:51922/docs/gnssserver/01_%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/</guid><description>&lt;h1 id="quick-start">
+ Quick Start
+ &lt;a class="anchor" href="#quick-start">#&lt;/a>
+&lt;/h1>
+&lt;h2 id="permissions">
+ Permissions
+ &lt;a class="anchor" href="#permissions">#&lt;/a>
+&lt;/h2>
+&lt;p>Before using the SDK, make sure that the application has the necessary permissions. These permissions include Bluetooth (only Bluetooth connections are used in this section and WIFI is not involved), and the ability to read and write external storage, as the SDK requires external storage to read and write configuration files and log files. Please add permissions in &lt;code>AndroidManifest.xml&lt;/code>.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-xml" data-lang="xml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&amp;lt;!-- Permission to use Bluetooth features --&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">&amp;lt;uses-permission&lt;/span> &lt;span style="color:#a6e22e">android:name=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;android.permission.BLUETOOTH&amp;#34;&lt;/span>&lt;span style="color:#f92672">/&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&amp;lt;!-- Permission to administer Bluetooth settings --&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">&amp;lt;uses-permission&lt;/span> &lt;span style="color:#a6e22e">android:name=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;android.permission.BLUETOOTH_ADMIN&amp;#34;&lt;/span>&lt;span style="color:#f92672">/&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&amp;lt;!-- Permission to read from external storage --&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">&amp;lt;uses-permission&lt;/span> &lt;span style="color:#a6e22e">android:name=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;android.permission.READ_EXTERNAL_STORAGE&amp;#34;&lt;/span>&lt;span style="color:#f92672">/&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&amp;lt;!-- Permission to write to external storage --&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">&amp;lt;uses-permission&lt;/span> &lt;span style="color:#a6e22e">android:name=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;android.permission.WRITE_EXTERNAL_STORAGE&amp;#34;&lt;/span>&lt;span style="color:#f92672">/&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>It should be noted that in Android10, Android11 and later versions, there will be some differences in the application method for external storage.&lt;/strong> Android 10 introduces 
+ &lt;a href="https://developer.android.com/about/versions/11/privacy/storage">Scoped Storage&lt;/a>, You can add the following code to AndroidManifest.xml:&lt;/p></description></item><item><title>Connection</title><link>http://localhost:51922/docs/gnssserver/02_%E8%BF%9E%E6%8E%A5/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://localhost:51922/docs/gnssserver/02_%E8%BF%9E%E6%8E%A5/</guid><description>&lt;h1 id="connection">
+ Connection
+ &lt;a class="anchor" href="#connection">#&lt;/a>
+&lt;/h1>
+&lt;h2 id="connection-mode">
+ Connection Mode
+ &lt;a class="anchor" href="#connection-mode">#&lt;/a>
+&lt;/h2>
+&lt;h3 id="bluetooth-connection">
+ Bluetooth connection
+ &lt;a class="anchor" href="#bluetooth-connection">#&lt;/a>
+&lt;/h3>
+&lt;p>The main steps and codes for Bluetooth connection are as follows:&lt;/p>
+&lt;ol>
+&lt;li>Configure the connection parameters via ReceiverConnectionOption;&lt;/li>
+&lt;li>Get the IReceiverConnectManager object from the service obtained in 
+ &lt;a href="chapter1.md#sdk-initialization">SDK Initialization&lt;/a>;&lt;/li>
+&lt;li>Pass the ReceiverConnectionOption object obtained in &amp;ldquo;1&amp;rdquo; as a parameter to the connect method of IReceiverConnectManager object.&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-java" data-lang="java">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// Connection event&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>mBTConnect.&lt;span style="color:#a6e22e">setOnClickListener&lt;/span>(&lt;span style="color:#66d9ef">new&lt;/span> View.&lt;span style="color:#a6e22e">OnClickListener&lt;/span>() {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">@Override&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">void&lt;/span> &lt;span style="color:#a6e22e">onClick&lt;/span>(View view) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// Connect directly through the SDK&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ReceiverConnectionOption option &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> ReceiverConnectionOption()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> .&lt;span style="color:#a6e22e">setConnectionType&lt;/span>(ConnectionType.&lt;span style="color:#a6e22e">CONNECTION_BLUETOOTH&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> .&lt;span style="color:#a6e22e">setProductName&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;SMART-RTK&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> .&lt;span style="color:#a6e22e">setBluetoothName&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;GNSS-9999848&amp;#34;&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">try&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// Get receiverConnectManager through mService and then connect using receiverConnectManager&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> IReceiverConnectManager receiverConnectManager &lt;span style="color:#f92672">=&lt;/span> IReceiverConnectManager
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> .&lt;span style="color:#a6e22e">Stub&lt;/span>.&lt;span style="color:#a6e22e">asInterface&lt;/span>(mService.&lt;span style="color:#a6e22e">getReceiverConnectManager&lt;/span>());
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// Connect using receiverConnectManager&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> (&lt;span style="color:#f92672">!&lt;/span>receiverConnectManager.&lt;span style="color:#a6e22e">connect&lt;/span>(option)) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// Connection failure&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> } &lt;span style="color:#66d9ef">catch&lt;/span> (RemoteException e) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">throw&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> RuntimeException(e);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>});
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="bluetooth-injection-connection-optional">
+ Bluetooth injection connection (optional)
+ &lt;a class="anchor" href="#bluetooth-injection-connection-optional">#&lt;/a>
+&lt;/h3>
+&lt;p>Recommended use &amp;ldquo;Bluetooth connection&amp;rdquo; method in &amp;ldquo;Bluetooth Connection&amp;rdquo;, the connection method injected by Bluetooth here only provides a choice for developers with special needs.&lt;/p></description></item><item><title>Receiver communication</title><link>http://localhost:51922/docs/gnssserver/03_%E6%8E%A5%E6%94%B6%E6%9C%BA%E9%80%9A%E4%BF%A1/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://localhost:51922/docs/gnssserver/03_%E6%8E%A5%E6%94%B6%E6%9C%BA%E9%80%9A%E4%BF%A1/</guid><description>&lt;h1 id="receiver-communication">
+ Receiver communication
+ &lt;a class="anchor" href="#receiver-communication">#&lt;/a>
+&lt;/h1>
+&lt;h2 id="obtain-data-from-receiver">
+ Obtain data from receiver
+ &lt;a class="anchor" href="#obtain-data-from-receiver">#&lt;/a>
+&lt;/h2>
+&lt;p>After you get the service (refer to 
+ &lt;a href="chapter1.md#sdk-initialization">SDK Initialization&lt;/a>), you can use the requestReceiverListener method of the service to monitor the receiver data. The requestReceiverListener requires you to pass in the IReceiverListener.Stub object. You can inherit the object, implement the relevant interface, and obtain the required data through the implementation of the interface. Some callback interfaces call back at a certain frequency (such as location information and satellite information), and some interfaces require a command to the receiver (refer to 
+ &lt;a href="http://localhost:51922/#send-data-to-the-receiver-set-up-the-receiver">Send data to the receiver&lt;/a>) before calling back.&lt;/p></description></item><item><title>Coordinate conversion</title><link>http://localhost:51922/docs/gnssserver/04_%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://localhost:51922/docs/gnssserver/04_%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2/</guid><description>&lt;h1 id="coordinate-conversion">
+ Coordinate conversion
+ &lt;a class="anchor" href="#coordinate-conversion">#&lt;/a>
+&lt;/h1>
+&lt;p>This chapter introduces the setup functions related to coordinate system transformation, including setting source ellipsoid, target ellipsoid, projection parameters, datum conversion parameters and so on. Here we introduce the usage of related functions through the examples of forward and backward calculation, for more usage, readers can refer to the related interfaces given later.&lt;/p>
+&lt;h2 id="how-to-realize-forward-and-backward-calculation-by-sdk">
+ How to realize forward and backward calculation by SDK
+ &lt;a class="anchor" href="#how-to-realize-forward-and-backward-calculation-by-sdk">#&lt;/a>
+&lt;/h2>
+&lt;h3 id="preparations">
+ Preparations
+ &lt;a class="anchor" href="#preparations">#&lt;/a>
+&lt;/h3>
+&lt;p>Whether it is a forward or backward calculation, the Coordinate Transformation needs to be initialized, and the parameters of the relevant conversion need to be set, the specific steps are as follows:&lt;/p></description></item><item><title>IMU</title><link>http://localhost:51922/docs/gnssserver/05_IMU/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://localhost:51922/docs/gnssserver/05_IMU/</guid><description>&lt;h1 id="imu">
+ IMU
+ &lt;a class="anchor" href="#imu">#&lt;/a>
+&lt;/h1>
+&lt;h2 id="coordinate-information">
+ Coordinate information
+ &lt;a class="anchor" href="#coordinate-information">#&lt;/a>
+&lt;/h2>
+&lt;p>If you need to use the inertial navigation function, you can get the coordinate information in the inertial state by getting an instance of the PositionSource class and adding a listener. Using this way, you don&amp;rsquo;t need to care about the switching of data source, that is, you don&amp;rsquo;t need to manually switch the data source according to the inertial guidance state. The specific steps are as follows:&lt;/p></description></item><item><title>AR Stakeout</title><link>http://localhost:51922/docs/gnssserver/06_AR%E6%94%BE%E6%A0%B7/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://localhost:51922/docs/gnssserver/06_AR%E6%94%BE%E6%A0%B7/</guid><description>&lt;h1 id="ar-stakeout">
+ AR Stakeout
+ &lt;a class="anchor" href="#ar-stakeout">#&lt;/a>
+&lt;/h1>
+&lt;p>This section aims to help developers quickly integrate and use AR stakeout functionality. The core module that the SDK depends on is &amp;ldquo;business&amp;rdquo;. By integrating ArViewLayout and ArPointStakeoutController, developers can implement AR-related stakeout functions. This document will focus on how to configure, initialize, and use related APIs, while also covering view layout and UI component configuration.&lt;/p>
+&lt;h2 id="layout">
+ Layout
+ &lt;a class="anchor" href="#layout">#&lt;/a>
+&lt;/h2>
+&lt;p>In the layout file, ArViewLayout is used to host the AR view. This layout provides an area on the screen for the AR view, and subsequent AR operations will be displayed through ArViewLayout. Specifically:&lt;/p></description></item><item><title>Common data types</title><link>http://localhost:51922/docs/gnssserver/07_%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://localhost:51922/docs/gnssserver/07_%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</guid><description>&lt;h1 id="common-data-types">
+ Common data types
+ &lt;a class="anchor" href="#common-data-types">#&lt;/a>
+&lt;/h1>
+&lt;h2 id="satelliteposition">
+ SatellitePosition
+ &lt;a class="anchor" href="#satelliteposition">#&lt;/a>
+&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Type&lt;/th>
+ &lt;th style="text-align: left">Name&lt;/th>
+ &lt;th style="text-align: left">Described&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">Position&lt;/td>
+ &lt;td style="text-align: left">mPosition&lt;/td>
+ &lt;td style="text-align: left">Contain location information x、y、z（Double type radian，corresponding to BLH）&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">EnumSolveStatus&lt;/td>
+ &lt;td style="text-align: left">mEnumSolveStatus&lt;/td>
+ &lt;td style="text-align: left">Contains solution status information&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="enumsolvestatus">
+ EnumSolveStatus
+ &lt;a class="anchor" href="#enumsolvestatus">#&lt;/a>
+&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Name&lt;/th>
+ &lt;th style="text-align: left">Described&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">SOLVE_STATUS_FIX&lt;/td>
+ &lt;td style="text-align: left">Fix&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">SOLVE_STATUS_FLOAT&lt;/td>
+ &lt;td style="text-align: left">Float&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">SOLVE_STATUS_WIDE&lt;/td>
+ &lt;td style="text-align: left">Float&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">SOLVE_STATUS_COS&lt;/td>
+ &lt;td style="text-align: left">Float&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">SOLVE_STATUS_RTD&lt;/td>
+ &lt;td style="text-align: left">Float&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">SOLVE_STATUS_DIFF&lt;/td>
+ &lt;td style="text-align: left">Float&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">SOLVE_STATUS_NONE&lt;/td>
+ &lt;td style="text-align: left">Unknown&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">SOLVE_STATUS_BASE_WRONG&lt;/td>
+ &lt;td style="text-align: left">Unknown&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">SOLVE_STATUS_SEARCH_SAT&lt;/td>
+ &lt;td style="text-align: left">Unknown&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">SOLVE_STATUS_STAR_TIMEOUT&lt;/td>
+ &lt;td style="text-align: left">Abnormal&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">SOLVE_STATUS_STAR_OUTAREA&lt;/td>
+ &lt;td style="text-align: left">Abnormal&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">SOLVE_STATUS_STAR_SERVER_ERR&lt;/td>
+ &lt;td style="text-align: left">Abnormal&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="satelliteprecision">
+ SatellitePrecision
+ &lt;a class="anchor" href="#satelliteprecision">#&lt;/a>
+&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Type&lt;/th>
+ &lt;th style="text-align: left">Name&lt;/th>
+ &lt;th style="text-align: left">Described&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">double&lt;/td>
+ &lt;td style="text-align: left">mHpre&lt;/td>
+ &lt;td style="text-align: left">Horizontal accuracy&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">double&lt;/td>
+ &lt;td style="text-align: left">mVpre&lt;/td>
+ &lt;td style="text-align: left">Vertical accuracy&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">double&lt;/td>
+ &lt;td style="text-align: left">mXpre&lt;/td>
+ &lt;td style="text-align: left">Geodetic latitude accuracy&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">double&lt;/td>
+ &lt;td style="text-align: left">mYpre&lt;/td>
+ &lt;td style="text-align: left">Earth intensive reading accuracy&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">double&lt;/td>
+ &lt;td style="text-align: left">mRms&lt;/td>
+ &lt;td style="text-align: left">spatial accuracy&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="ntripprotocolcode">
+ NtripProtocolCode
+ &lt;a class="anchor" href="#ntripprotocolcode">#&lt;/a>
+&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Type&lt;/th>
+ &lt;th style="text-align: left">Name&lt;/th>
+ &lt;th style="text-align: left">Described&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">NtripProtocolCode&lt;/td>
+ &lt;td style="text-align: left">NC_ICY_200_OK&lt;/td>
+ &lt;td style="text-align: left">Login is successful&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">NtripProtocolCode&lt;/td>
+ &lt;td style="text-align: left">ERROR_401_UNAUTHORIZED&lt;/td>
+ &lt;td style="text-align: left">Login failed&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="empdaworkmodestatus">
+ EmPdaWorkModeStatus
+ &lt;a class="anchor" href="#empdaworkmodestatus">#&lt;/a>
+&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Type&lt;/th>
+ &lt;th style="text-align: left">Name&lt;/th>
+ &lt;th style="text-align: left">Described&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">EmPdaWorkModeStatus&lt;/td>
+ &lt;td style="text-align: left">LOGINING&lt;/td>
+ &lt;td style="text-align: left">Signing in&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">EmPdaWorkModeStatus&lt;/td>
+ &lt;td style="text-align: left">LOGOUT&lt;/td>
+ &lt;td style="text-align: left">Cancellation&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">EmPdaWorkModeStatus&lt;/td>
+ &lt;td style="text-align: left">LOGINED&lt;/td>
+ &lt;td style="text-align: left">Logged in/Logged in successfully&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="nonemagnetictiltinfo">
+ NoneMagneticTiltInfo
+ &lt;a class="anchor" href="#nonemagnetictiltinfo">#&lt;/a>
+&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Type&lt;/th>
+ &lt;th style="text-align: left">Name&lt;/th>
+ &lt;th style="text-align: left">Described&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">double&lt;/td>
+ &lt;td style="text-align: left">mVarE&lt;/td>
+ &lt;td style="text-align: left">Standard deviation of longitude at compensation point&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">double&lt;/td>
+ &lt;td style="text-align: left">mVarN&lt;/td>
+ &lt;td style="text-align: left">Compensation point latitude standard deviation&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">double&lt;/td>
+ &lt;td style="text-align: left">mVarU&lt;/td>
+ &lt;td style="text-align: left">Standard deviation of compensation point elevation&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">double&lt;/td>
+ &lt;td style="text-align: left">mVarTilt&lt;/td>
+ &lt;td style="text-align: left">Standard deviation of vertical inclination&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">double&lt;/td>
+ &lt;td style="text-align: left">mVarDirect&lt;/td>
+ &lt;td style="text-align: left">Standard deviation of tilt direction angle&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">double&lt;/td>
+ &lt;td style="text-align: left">mLatitude&lt;/td>
+ &lt;td style="text-align: left">Compensation point latitude&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">double&lt;/td>
+ &lt;td style="text-align: left">mLontitude&lt;/td>
+ &lt;td style="text-align: left">Compensation point longitude&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">double&lt;/td>
+ &lt;td style="text-align: left">mHeight&lt;/td>
+ &lt;td style="text-align: left">Compensation point elevation&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">double&lt;/td>
+ &lt;td style="text-align: left">mHeightOffset&lt;/td>
+ &lt;td style="text-align: left">Elevation offset&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">double&lt;/td>
+ &lt;td style="text-align: left">mDiffAge&lt;/td>
+ &lt;td style="text-align: left">Differential age&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">double&lt;/td>
+ &lt;td style="text-align: left">mPitch&lt;/td>
+ &lt;td style="text-align: left">Pitch&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">double&lt;/td>
+ &lt;td style="text-align: left">mRoll&lt;/td>
+ &lt;td style="text-align: left">Roll angle&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">double&lt;/td>
+ &lt;td style="text-align: left">mHeading&lt;/td>
+ &lt;td style="text-align: left">Heading angle&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="coorkernal">
+ CoorKernal
+ &lt;a class="anchor" href="#coorkernal">#&lt;/a>
+&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Type&lt;/th>
+ &lt;th style="text-align: left">Name&lt;/th>
+ &lt;th style="text-align: left">Described&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">Position&lt;/td>
+ &lt;td style="text-align: left">rawBlh&lt;/td>
+ &lt;td style="text-align: left">Receiver Raw Output&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">Position&lt;/td>
+ &lt;td style="text-align: left">wgsBlh&lt;/td>
+ &lt;td style="text-align: left">Longitude and latitude&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">Position&lt;/td>
+ &lt;td style="text-align: left">wgsXyz&lt;/td>
+ &lt;td style="text-align: left">Space coordinate&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">Position&lt;/td>
+ &lt;td style="text-align: left">localBlh&lt;/td>
+ &lt;td style="text-align: left">Local latitude and longitude&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">Position&lt;/td>
+ &lt;td style="text-align: left">localXyz&lt;/td>
+ &lt;td style="text-align: left">Local XYZ&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">Position&lt;/td>
+ &lt;td style="text-align: left">localNeh&lt;/td>
+ &lt;td style="text-align: left">Local plane coordinates&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="surveypointpositioninfo">
+ SurveyPointPositionInfo
+ &lt;a class="anchor" href="#surveypointpositioninfo">#&lt;/a>
+&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Type&lt;/th>
+ &lt;th style="text-align: left">Name&lt;/th>
+ &lt;th style="text-align: left">Described&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">CoorKernal&lt;/td>
+ &lt;td style="text-align: left">mCoorKernal&lt;/td>
+ &lt;td style="text-align: left">Set of point coordinates&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">GpsTime&lt;/td>
+ &lt;td style="text-align: left">mGpsTime&lt;/td>
+ &lt;td style="text-align: left">Satellite time&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">Time&lt;/td>
+ &lt;td style="text-align: left">mTime&lt;/td>
+ &lt;td style="text-align: left">Timing&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">SatellitePrecision&lt;/td>
+ &lt;td style="text-align: left">mSatellitePrecision&lt;/td>
+ &lt;td style="text-align: left">Precision Information&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">double&lt;/td>
+ &lt;td style="text-align: left">diffAge&lt;/td>
+ &lt;td style="text-align: left">Differential age&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="rtkcamera">
+ RTKCamera
+ &lt;a class="anchor" href="#rtkcamera">#&lt;/a>
+&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Type&lt;/th>
+ &lt;th style="text-align: left">Name&lt;/th>
+ &lt;th style="text-align: left">Described&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">CoorKernal&lt;/td>
+ &lt;td style="text-align: left">mCoorKernal&lt;/td>
+ &lt;td style="text-align: left">Set of point coordinates&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">GpsTime&lt;/td>
+ &lt;td style="text-align: left">mGpsTime&lt;/td>
+ &lt;td style="text-align: left">Satellite time&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">Time&lt;/td>
+ &lt;td style="text-align: left">mTime&lt;/td>
+ &lt;td style="text-align: left">Timing&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">SatellitePrecision&lt;/td>
+ &lt;td style="text-align: left">mSatellitePrecision&lt;/td>
+ &lt;td style="text-align: left">Precision Information&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">double&lt;/td>
+ &lt;td style="text-align: left">diffAge&lt;/td>
+ &lt;td style="text-align: left">Differential age&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="basewarning">
+ BaseWarning
+ &lt;a class="anchor" href="#basewarning">#&lt;/a>
+&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Type&lt;/th>
+ &lt;th style="text-align: left">Name&lt;/th>
+ &lt;th style="text-align: left">Described&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">EnumBaseWarning&lt;/td>
+ &lt;td style="text-align: left">EnumBaseWarning&lt;/td>
+ &lt;td style="text-align: left">Offset state&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="enumbasewarning">
+ EnumBaseWarning
+ &lt;a class="anchor" href="#enumbasewarning">#&lt;/a>
+&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Type&lt;/th>
+ &lt;th style="text-align: left">Name&lt;/th>
+ &lt;th style="text-align: left">Described&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">BASE_WARNING_NONE&lt;/td>
+ &lt;td style="text-align: left">BASE_WARNING_NONE&lt;/td>
+ &lt;td style="text-align: left">No offset&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">BASE_WARNING_BASE_MOVE&lt;/td>
+ &lt;td style="text-align: left">BASE_WARNING_BASE_MOVE&lt;/td>
+ &lt;td style="text-align: left">Offset&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table></description></item></channel></rss>

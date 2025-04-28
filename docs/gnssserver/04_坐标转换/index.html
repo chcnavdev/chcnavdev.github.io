@@ -1,0 +1,214 @@
+<!doctype html><html lang=en dir=ltr><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=51922&amp;path=livereload" data-no-instant defer></script><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="
+  Coordinate conversion
+  #
+
+This chapter introduces the setup functions related to coordinate system transformation, including setting source ellipsoid, target ellipsoid, projection parameters, datum conversion parameters and so on. Here we introduce the usage of related functions through the examples of forward and backward calculation, for more usage, readers can refer to the related interfaces given later.
+
+  How to realize forward and backward calculation by SDK
+  #
+
+
+  Preparations
+  #
+
+Whether it is a forward or backward calculation, the Coordinate Transformation needs to be initialized, and the parameters of the relevant conversion need to be set, the specific steps are as follows:"><meta name=theme-color media="(prefers-color-scheme: light)" content="#ffffff"><meta name=theme-color media="(prefers-color-scheme: dark)" content="#343a40"><meta name=color-scheme content="light dark"><meta property="og:url" content="http://localhost:51922/docs/gnssserver/04_%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2/"><meta property="og:site_name" content="CHCNAV Develop"><meta property="og:title" content="Coordinate conversion"><meta property="og:description" content=" Coordinate conversion # This chapter introduces the setup functions related to coordinate system transformation, including setting source ellipsoid, target ellipsoid, projection parameters, datum conversion parameters and so on. Here we introduce the usage of related functions through the examples of forward and backward calculation, for more usage, readers can refer to the related interfaces given later.
+How to realize forward and backward calculation by SDK # Preparations # Whether it is a forward or backward calculation, the Coordinate Transformation needs to be initialized, and the parameters of the relevant conversion need to be set, the specific steps are as follows:"><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="article:section" content="docs"><title>Coordinate conversion | CHCNAV Develop</title>
+<link rel=icon href=/favicon.png><link rel=manifest href=/manifest.json><link rel=canonical href=http://localhost:51922/docs/gnssserver/04_%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2/><link rel=alternate hreflang=zh href=http://localhost:51922/zh/docs/gnssserver/04_%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2/ title=坐标转换><link rel=stylesheet href=/book.min.a7616cf2799b58bddffce9438e31fdbfc6393687cfc0950a4a17cd1cce7e35f6.css integrity="sha256-p2Fs8nmbWL3f/OlDjjH9v8Y5NofPwJUKShfNHM5+NfY=" crossorigin=anonymous><script defer src=/fuse.min.js></script><script defer src=/en.search.min.35539b26fb5abbffc92080f5b63d4fde6d9b40538cdd7d40e98f24b870b0b389.js integrity="sha256-NVObJvtau//JIID1tj1P3m2bQFOM3X1A6Y8kuHCws4k=" crossorigin=anonymous></script><script defer src=/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js integrity="sha256-b2+Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC+NdcPIvZhzk=" crossorigin=anonymous></script></head><body dir=ltr><input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><div class=book-menu-content><nav><h2 class=book-brand><a class="flex align-center" href=/><span>CHCNAV Develop</span></a></h2><div class="book-search hidden"><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><script>document.querySelector(".book-search").classList.remove("hidden")</script><ul class=book-languages><li><input type=checkbox id=languages class=toggle>
+<label for=languages class="flex justify-between"><a role=button class="flex align-center"><img src=/svg/translate.svg class=book-icon alt=Languages>
+English</a></label><ul><li><a href=/zh/docs/gnssserver/04_%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2/>Chinese</a></li></ul></li></ul><ul><li class=book-section-flat><input type=checkbox id=section-e5ecee4c7d3b31e85f9a9a56df882b94 class=toggle checked>
+<label for=section-e5ecee4c7d3b31e85f9a9a56df882b94 class="flex justify-between"><a href=/docs/gnssserver/>GnssServer Dev Docs</a></label><ul><li><a href=/docs/gnssserver/01_%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/>Quick Start</a></li><li><a href=/docs/gnssserver/02_%E8%BF%9E%E6%8E%A5/>Connection</a></li><li><a href=/docs/gnssserver/03_%E6%8E%A5%E6%94%B6%E6%9C%BA%E9%80%9A%E4%BF%A1/>Receiver communication</a></li><li><a href=/docs/gnssserver/04_%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2/ class=active>Coordinate conversion</a></li><li><a href=/docs/gnssserver/05_IMU/>IMU</a></li><li><a href=/docs/gnssserver/06_AR%E6%94%BE%E6%A0%B7/>AR Stakeout</a></li><li><a href=/docs/gnssserver/07_%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/>Common data types</a></li></ul></li><li class=book-section-flat><input type=checkbox id=section-546412403a510171ebc0a5bba25dab59 class=toggle>
+<label for=section-546412403a510171ebc0a5bba25dab59 class="flex justify-between"><a href=/docs/landstar/>Secondary Dev of LandStar</a></label><ul><li><a href=/docs/landstar/1_%E5%9F%BA%E4%BA%8E%E5%B9%BF%E6%92%AD%E6%B6%88%E6%81%AF%E5%BC%80%E5%8F%91/>Development based on broadcast messages</a></li><li><a href=/docs/landstar/2_%E5%9F%BA%E4%BA%8Etxt%E6%96%87%E4%BB%B6%E5%BC%80%E5%8F%91/>Development based on txt file</a></li></ul></li></ul><ul><li><a href=/posts/>Blog</a></li><li><a href=https://www.huace.cn/ target=_blank rel=noopener>华测导航官网</a></li><li><a href=https://themes.gohugo.io/themes/hugo-book/ target=_blank rel=noopener>Hugo Themes</a></li></ul></nav><script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></div></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu></label><h3>Coordinate conversion</h3><label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#coordinate-conversion>Coordinate conversion</a><ul><li><a href=#how-to-realize-forward-and-backward-calculation-by-sdk>How to realize forward and backward calculation by SDK</a><ul><li><a href=#preparations>Preparations</a></li><li><a href=#counting-backwards-and-forwards>Counting backwards and forwards</a></li></ul></li><li><a href=#coordinate-transformation-interface>Coordinate transformation interface</a></li></ul></li></ul></nav></aside></header><article class="markdown book-article"><h1 id=coordinate-conversion>Coordinate conversion
+<a class=anchor href=#coordinate-conversion>#</a></h1><p>This chapter introduces the setup functions related to coordinate system transformation, including setting source ellipsoid, target ellipsoid, projection parameters, datum conversion parameters and so on. Here we introduce the usage of related functions through the examples of forward and backward calculation, for more usage, readers can refer to the related interfaces given later.</p><h2 id=how-to-realize-forward-and-backward-calculation-by-sdk>How to realize forward and backward calculation by SDK
+<a class=anchor href=#how-to-realize-forward-and-backward-calculation-by-sdk>#</a></h2><h3 id=preparations>Preparations
+<a class=anchor href=#preparations>#</a></h3><p>Whether it is a forward or backward calculation, the Coordinate Transformation needs to be initialized, and the parameters of the relevant conversion need to be set, the specific steps are as follows:</p><ol><li>Initialization</li><li>Setting the target ellipsoid</li><li>Setting up the projection</li><li>Setting the Reference Transformation Parameters</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>private</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>init</span>() <span style=color:#66d9ef>throws</span> RemoteException {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Step 1: Initialize, must be done first</span>
+</span></span><span style=display:flex><span>    mCoordinate.<span style=color:#a6e22e>init</span>();
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Step 2: Set the parameters for the coordinate system</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Set the destination ellipsoid (e.g., Beijing 1954)</span>
+</span></span><span style=display:flex><span>    mCoordinate.<span style=color:#a6e22e>setDstEllipse</span>(getBeijign54Elps()); 
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Step 3: Set the projection</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Set the projection method (e.g., UTM, Mercator)</span>
+</span></span><span style=display:flex><span>    mCoordinate.<span style=color:#a6e22e>setProjection</span>(getProjection()); 
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Step 4: Set benchmark conversion parameters    </span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Set the parameters for ellipsoid conversion</span>
+</span></span><span style=display:flex><span>    mCoordinate.<span style=color:#a6e22e>setElpsConvert</span>(<span style=color:#66d9ef>new</span> ElpsConvertData()); 
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Set the parameters for plane conversion</span>
+</span></span><span style=display:flex><span>    mCoordinate.<span style=color:#a6e22e>setPlaneConvert</span>(<span style=color:#66d9ef>new</span> PlaneConvertData()); 
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span><span style=color:#75715e>// Method to get the parameters of the Beijing 1954 ellipsoid</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>private</span> ElpseData <span style=color:#a6e22e>getBeijign54Elps</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> ElpseData(1, <span style=color:#e6db74>&#34;BeiJing54(China)&#34;</span>, 6378245.<span style=color:#a6e22e>0</span>, 298.<span style=color:#a6e22e>3</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span><span style=color:#75715e>// Method to get the projection parameters</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>private</span> ProjectionData <span style=color:#a6e22e>getProjection</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> ProjectionData(40, Math.<span style=color:#a6e22e>toRadians</span>(117), 0.<span style=color:#a6e22e>0</span>, 0.<span style=color:#a6e22e>0</span>, 1.<span style=color:#a6e22e>0</span>, 500000.<span style=color:#a6e22e>0</span>, 0.<span style=color:#a6e22e>0</span>, 0.<span style=color:#a6e22e>0</span>, 0.<span style=color:#a6e22e>0</span>, 0.<span style=color:#a6e22e>0</span>, 0.<span style=color:#a6e22e>0</span>, 0, 0.<span style=color:#a6e22e>0</span>);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=counting-backwards-and-forwards>Counting backwards and forwards
+<a class=anchor href=#counting-backwards-and-forwards>#</a></h3><p>Initialization has been described above, and now give the code related to forwards and backwards calculations respectively.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * Method to perform forward transformation (from source BLH to local NEH)
+</span></span></span><span style=display:flex><span><span style=color:#75715e> */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>private</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>trans</span>() <span style=color:#66d9ef>throws</span> RemoteException {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Initialize array for source coordinates (WGS84)</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>double</span><span style=color:#f92672>[]</span> src84 <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#66d9ef>double</span><span style=color:#f92672>[</span>3<span style=color:#f92672>]</span>;
+</span></span><span style=display:flex><span>    src84<span style=color:#f92672>[</span>0<span style=color:#f92672>]</span> <span style=color:#f92672>=</span> Math.<span style=color:#a6e22e>toRadians</span>(31); <span style=color:#75715e>// Latitude (B) in radians</span>
+</span></span><span style=display:flex><span>    src84<span style=color:#f92672>[</span>1<span style=color:#f92672>]</span> <span style=color:#f92672>=</span> Math.<span style=color:#a6e22e>toRadians</span>(117); <span style=color:#75715e>// Longitude (L) in radians</span>
+</span></span><span style=display:flex><span>    src84<span style=color:#f92672>[</span>2<span style=color:#f92672>]</span> <span style=color:#f92672>=</span> 30; <span style=color:#75715e>// Height (H)</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Initialize array for target coordinates (Beijing 54)</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>double</span><span style=color:#f92672>[]</span> tgt54 <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#66d9ef>double</span><span style=color:#f92672>[</span>3<span style=color:#f92672>]</span>;
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Perform forward transformation from source BLH to local NEH</span>
+</span></span><span style=display:flex><span>    mCoordinate.<span style=color:#a6e22e>transformSrcBlhToLocalNeh</span>(src84, tgt54);
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Update UI elements with transformed coordinates and error code</span>
+</span></span><span style=display:flex><span>    mTvN.<span style=color:#a6e22e>setText</span>(String.<span style=color:#a6e22e>valueOf</span>(tgt54<span style=color:#f92672>[</span>0<span style=color:#f92672>]</span>)); <span style=color:#75715e>// Northing (N)</span>
+</span></span><span style=display:flex><span>    mTvE.<span style=color:#a6e22e>setText</span>(String.<span style=color:#a6e22e>valueOf</span>(tgt54<span style=color:#f92672>[</span>1<span style=color:#f92672>]</span>)); <span style=color:#75715e>// Easting (E)</span>
+</span></span><span style=display:flex><span>    mTvH.<span style=color:#a6e22e>setText</span>(String.<span style=color:#a6e22e>valueOf</span>(tgt54<span style=color:#f92672>[</span>2<span style=color:#f92672>]</span>)); <span style=color:#75715e>// Height (H)</span>
+</span></span><span style=display:flex><span>    mTvErroeCode.<span style=color:#a6e22e>setText</span>(String.<span style=color:#a6e22e>valueOf</span>(errorcode1)); <span style=color:#75715e>// Error code for transformation</span>
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * Method to perform inverse transformation (from local NEH to source BLH)
+</span></span></span><span style=display:flex><span><span style=color:#75715e> */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>private</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>antiTrans</span>() <span style=color:#66d9ef>throws</span> RemoteException {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Initialize arrays for source (WGS84) and target (Beijing 54) coordinates</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>double</span><span style=color:#f92672>[]</span> src84 <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#66d9ef>double</span><span style=color:#f92672>[</span>3<span style=color:#f92672>]</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>double</span><span style=color:#f92672>[]</span> tgt54 <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#66d9ef>double</span><span style=color:#f92672>[</span>3<span style=color:#f92672>]</span>;
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Set initial source coordinates (WGS84) to zero</span>
+</span></span><span style=display:flex><span>    src84<span style=color:#f92672>[</span>0<span style=color:#f92672>]</span> <span style=color:#f92672>=</span> 0;
+</span></span><span style=display:flex><span>    src84<span style=color:#f92672>[</span>1<span style=color:#f92672>]</span> <span style=color:#f92672>=</span> 0;
+</span></span><span style=display:flex><span>    src84<span style=color:#f92672>[</span>2<span style=color:#f92672>]</span> <span style=color:#f92672>=</span> 0;
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Set target coordinates (Beijing 54)</span>
+</span></span><span style=display:flex><span>    tgt54<span style=color:#f92672>[</span>0<span style=color:#f92672>]</span> <span style=color:#f92672>=</span> 3431025.<span style=color:#a6e22e>93297</span>; <span style=color:#75715e>// Northing (N)</span>
+</span></span><span style=display:flex><span>    tgt54<span style=color:#f92672>[</span>1<span style=color:#f92672>]</span> <span style=color:#f92672>=</span> 499943.<span style=color:#a6e22e>686606</span>; <span style=color:#75715e>// Easting (E)</span>
+</span></span><span style=display:flex><span>    tgt54<span style=color:#f92672>[</span>2<span style=color:#f92672>]</span> <span style=color:#f92672>=</span> 88.<span style=color:#a6e22e>423175</span>; <span style=color:#75715e>// Height (H)</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Perform inverse transformation from local NEH to source BLH</span>
+</span></span><span style=display:flex><span>    mCoordinate.<span style=color:#a6e22e>transformLocalNehToSrcBlh</span>(tgt54, src84);
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Update UI elements with transformed coordinates and error code</span>
+</span></span><span style=display:flex><span>    mTv84B.<span style=color:#a6e22e>setText</span>(String.<span style=color:#a6e22e>valueOf</span>(Math.<span style=color:#a6e22e>toDegrees</span>(src84<span style=color:#f92672>[</span>0<span style=color:#f92672>]</span>))); <span style=color:#75715e>// Convert radians to degrees for latitude (B)</span>
+</span></span><span style=display:flex><span>    mTv84l.<span style=color:#a6e22e>setText</span>(String.<span style=color:#a6e22e>valueOf</span>(Math.<span style=color:#a6e22e>toDegrees</span>(src84<span style=color:#f92672>[</span>1<span style=color:#f92672>]</span>))); <span style=color:#75715e>// Convert radians to degrees for longitude (L)</span>
+</span></span><span style=display:flex><span>    mTv84H.<span style=color:#a6e22e>setText</span>(String.<span style=color:#a6e22e>valueOf</span>(src84<span style=color:#f92672>[</span>2<span style=color:#f92672>]</span>)); <span style=color:#75715e>// Height (H)</span>
+</span></span><span style=display:flex><span>    mTvAntiErroeCode.<span style=color:#a6e22e>setText</span>(String.<span style=color:#a6e22e>valueOf</span>(errorcode2)); <span style=color:#75715e>// Error code for transformation</span>
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>This is the end of the introduction of the example of forward and backward calculation, about the use of Coordinate Transformation, you can refer to the Coordinate transformation interface section.</p><h2 id=coordinate-transformation-interface>Coordinate transformation interface
+<a class=anchor href=#coordinate-transformation-interface>#</a></h2><p>You can refer to the example in the previous section to learn how to use the interfaces related to Coordinate Transformation.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * Must initialize before coordinate transformation, then set the coordinate system.
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @return whether the initialization is successful
+</span></span></span><span style=display:flex><span><span style=color:#75715e> */</span> 
+</span></span><span style=display:flex><span><span style=color:#66d9ef>boolean</span> <span style=color:#a6e22e>init</span>() <span style=color:#66d9ef>throws</span> RemoteException;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * Sets the source ellipsoid.
+</span></span></span><span style=display:flex><span><span style=color:#75715e> *
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param elpse the source ellipsoid.
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @return whether the setting is successful
+</span></span></span><span style=display:flex><span><span style=color:#75715e> */</span> 
+</span></span><span style=display:flex><span><span style=color:#66d9ef>boolean</span> <span style=color:#a6e22e>setSrcEllipse</span>(ElpseData var1) <span style=color:#66d9ef>throws</span> RemoteException;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * Sets the destination ellipsoid.
+</span></span></span><span style=display:flex><span><span style=color:#75715e> *
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param elpse the destination ellipsoid.
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @return whether the setting is successful
+</span></span></span><span style=display:flex><span><span style=color:#75715e> */</span> 
+</span></span><span style=display:flex><span><span style=color:#66d9ef>boolean</span> <span style=color:#a6e22e>setDstEllipse</span>(ElpseData var1) <span style=color:#66d9ef>throws</span> RemoteException;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * Sets the projection parameters.
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * 
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param projection the projection parameters
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @return whether the setting is successful
+</span></span></span><span style=display:flex><span><span style=color:#75715e> */</span> 
+</span></span><span style=display:flex><span><span style=color:#66d9ef>boolean</span> <span style=color:#a6e22e>setProjection</span>(ProjectionData var1) <span style=color:#66d9ef>throws</span> RemoteException;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * Sets the datum transformation parameters.
+</span></span></span><span style=display:flex><span><span style=color:#75715e> *
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param elps the datum transformation parameters.
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @return whether the setting is successful
+</span></span></span><span style=display:flex><span><span style=color:#75715e> */</span> 
+</span></span><span style=display:flex><span><span style=color:#66d9ef>boolean</span> <span style=color:#a6e22e>setElpsConvert</span>(ElpsConvertData var1) <span style=color:#66d9ef>throws</span> RemoteException;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * After initializing the coordinate system parameters, compute the local coordinates using WGS84 coordinates.
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * 
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param wgs84blh WGS84 coordinates (longitude, latitude, altitude), units in radians, cannot be null
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param localNeh Local ellipsoid coordinates (North, East, Height), cannot be null
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @return error code, see section 10.4.2 for coordinate transformation error code index
+</span></span></span><span style=display:flex><span><span style=color:#75715e> */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>transformSrcBlhToLocalNeh</span>(<span style=color:#66d9ef>double</span><span style=color:#f92672>[]</span> var1, <span style=color:#66d9ef>double</span><span style=color:#f92672>[]</span> var2) <span style=color:#66d9ef>throws</span> RemoteException;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * After initializing the coordinate system parameters, compute the WGS84 coordinates using local coordinates.
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * 
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param localNeh Local ellipsoid coordinates (North, East, Height), cannot be null
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param wgs84blh WGS84 coordinates (longitude, latitude, altitude), units in radians, cannot be null
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @return error code, see section 10.4.2 for coordinate transformation error code index
+</span></span></span><span style=display:flex><span><span style=color:#75715e> */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>transformLocalNehToSrcBlh</span>(<span style=color:#66d9ef>double</span><span style=color:#f92672>[]</span> var1, <span style=color:#66d9ef>double</span><span style=color:#f92672>[]</span> var2) <span style=color:#66d9ef>throws</span> RemoteException;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * Sets the horizontal adjustment parameters.
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * 
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param planeData the horizontal adjustment parameters.
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @return whether the setting is successful
+</span></span></span><span style=display:flex><span><span style=color:#75715e> */</span> 
+</span></span><span style=display:flex><span><span style=color:#66d9ef>boolean</span> <span style=color:#a6e22e>setPlaneConvert</span>(PlaneConvertData var1) <span style=color:#66d9ef>throws</span> RemoteException;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * Sets the height fitting parameters.
+</span></span></span><span style=display:flex><span><span style=color:#75715e> *
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param hFitting the height fitting parameters.
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @return whether the setting is successful
+</span></span></span><span style=display:flex><span><span style=color:#75715e> */</span> 
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>boolean</span> <span style=color:#a6e22e>setHeightFitting</span>(HeightFittingData hFitting) <span style=color:#66d9ef>throws</span> RemoteException;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * Sets the geoid model parameters.
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * 
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param geoidParas the geoid model parameters.
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @return whether the setting is successful
+</span></span></span><span style=display:flex><span><span style=color:#75715e> */</span> 
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>boolean</span> <span style=color:#a6e22e>setHeightFittingConvert</span>(GeoidParamsData geoidParas) <span style=color:#66d9ef>throws</span> RemoteException;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * Curve surface fitting (8 parameters).
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * 
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param srcxy the source coordinate array
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param dsth the target point height array
+</span></span></span><span style=display:flex><span><span style=color:#75715e> */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> VerticalAdjResult <span style=color:#a6e22e>calCurveSurfaceVerticalAdjParamsEightParams</span>(<span style=color:#66d9ef>double</span><span style=color:#f92672>[]</span> srcxy, <span style=color:#66d9ef>double</span><span style=color:#f92672>[]</span> dsth);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * TGO adjustment.
+</span></span></span><span style=display:flex><span><span style=color:#75715e> *
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param srcxy the source coordinate array
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param dsth the target point height array
+</span></span></span><span style=display:flex><span><span style=color:#75715e> */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> VerticalAdjResult <span style=color:#a6e22e>calTgoVerticalAdjParams</span>(<span style=color:#66d9ef>double</span><span style=color:#f92672>[]</span> srcxy, <span style=color:#66d9ef>double</span><span style=color:#f92672>[]</span> dsth);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * Fixed difference adjustment.
+</span></span></span><span style=display:flex><span><span style=color:#75715e> *
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param dsth the target point height array
+</span></span></span><span style=display:flex><span><span style=color:#75715e> */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> VerticalAdjResult <span style=color:#a6e22e>calFixedVerticalAdjParams</span>(<span style=color:#66d9ef>double</span><span style=color:#f92672>[]</span> dsth);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * Horizontal adjustment.
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * 
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param srcxy the source coordinate array
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param dstxy the target coordinate array
+</span></span></span><span style=display:flex><span><span style=color:#75715e> */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> HorizAdjResult <span style=color:#a6e22e>calTgoHorizAdjParams</span>(<span style=color:#66d9ef>double</span><span style=color:#f92672>[]</span> srcxy, <span style=color:#66d9ef>double</span><span style=color:#f92672>[]</span> dstxy);
+</span></span></code></pre></div></article><footer class=book-footer><div class="flex flex-wrap justify-between"></div><script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents><ul><li><a href=#coordinate-conversion>Coordinate conversion</a><ul><li><a href=#how-to-realize-forward-and-backward-calculation-by-sdk>How to realize forward and backward calculation by SDK</a><ul><li><a href=#preparations>Preparations</a></li><li><a href=#counting-backwards-and-forwards>Counting backwards and forwards</a></li></ul></li><li><a href=#coordinate-transformation-interface>Coordinate transformation interface</a></li></ul></li></ul></nav></div></aside></main></body></html>
