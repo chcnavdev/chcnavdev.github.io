@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>GnssServer Dev Docs on CHCNAV Develop</title><link>http://localhost:51922/docs/gnssserver/</link><description>Recent content in GnssServer Dev Docs on CHCNAV Develop</description><generator>Hugo</generator><language>en</language><atom:link href="http://localhost:51922/docs/gnssserver/index.xml" rel="self" type="application/rss+xml"/><item><title>Quick Start</title><link>http://localhost:51922/docs/gnssserver/01_%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://localhost:51922/docs/gnssserver/01_%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/</guid><description>&lt;h1 id="quick-start">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>GnssServer Dev Docs on CHCNAV DEV</title><link>http://localhost:56704/docs/gnssserver/</link><description>Recent content in GnssServer Dev Docs on CHCNAV DEV</description><generator>Hugo</generator><language>en</language><atom:link href="http://localhost:56704/docs/gnssserver/index.xml" rel="self" type="application/rss+xml"/><item><title>Quick Start</title><link>http://localhost:56704/docs/gnssserver/01_%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://localhost:56704/docs/gnssserver/01_%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/</guid><description>&lt;h1 id="quick-start">
  Quick Start
  &lt;a class="anchor" href="#quick-start">#&lt;/a>
 &lt;/h1>
@@ -16,7 +16,7 @@
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&amp;lt;!-- Permission to write to external storage --&amp;gt;&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">&amp;lt;uses-permission&lt;/span> &lt;span style="color:#a6e22e">android:name=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;android.permission.WRITE_EXTERNAL_STORAGE&amp;#34;&lt;/span>&lt;span style="color:#f92672">/&amp;gt;&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>It should be noted that in Android10, Android11 and later versions, there will be some differences in the application method for external storage.&lt;/strong> Android 10 introduces 
- &lt;a href="https://developer.android.com/about/versions/11/privacy/storage">Scoped Storage&lt;/a>, You can add the following code to AndroidManifest.xml:&lt;/p></description></item><item><title>Connection</title><link>http://localhost:51922/docs/gnssserver/02_%E8%BF%9E%E6%8E%A5/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://localhost:51922/docs/gnssserver/02_%E8%BF%9E%E6%8E%A5/</guid><description>&lt;h1 id="connection">
+ &lt;a href="https://developer.android.com/about/versions/11/privacy/storage">Scoped Storage&lt;/a>, You can add the following code to AndroidManifest.xml:&lt;/p></description></item><item><title>Connection</title><link>http://localhost:56704/docs/gnssserver/02_%E8%BF%9E%E6%8E%A5/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://localhost:56704/docs/gnssserver/02_%E8%BF%9E%E6%8E%A5/</guid><description>&lt;h1 id="connection">
  Connection
  &lt;a class="anchor" href="#connection">#&lt;/a>
 &lt;/h1>
@@ -62,7 +62,7 @@
  Bluetooth injection connection (optional)
  &lt;a class="anchor" href="#bluetooth-injection-connection-optional">#&lt;/a>
 &lt;/h3>
-&lt;p>Recommended use &amp;ldquo;Bluetooth connection&amp;rdquo; method in &amp;ldquo;Bluetooth Connection&amp;rdquo;, the connection method injected by Bluetooth here only provides a choice for developers with special needs.&lt;/p></description></item><item><title>Receiver communication</title><link>http://localhost:51922/docs/gnssserver/03_%E6%8E%A5%E6%94%B6%E6%9C%BA%E9%80%9A%E4%BF%A1/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://localhost:51922/docs/gnssserver/03_%E6%8E%A5%E6%94%B6%E6%9C%BA%E9%80%9A%E4%BF%A1/</guid><description>&lt;h1 id="receiver-communication">
+&lt;p>Recommended use &amp;ldquo;Bluetooth connection&amp;rdquo; method in &amp;ldquo;Bluetooth Connection&amp;rdquo;, the connection method injected by Bluetooth here only provides a choice for developers with special needs.&lt;/p></description></item><item><title>Receiver communication</title><link>http://localhost:56704/docs/gnssserver/03_%E6%8E%A5%E6%94%B6%E6%9C%BA%E9%80%9A%E4%BF%A1/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://localhost:56704/docs/gnssserver/03_%E6%8E%A5%E6%94%B6%E6%9C%BA%E9%80%9A%E4%BF%A1/</guid><description>&lt;h1 id="receiver-communication">
  Receiver communication
  &lt;a class="anchor" href="#receiver-communication">#&lt;/a>
 &lt;/h1>
@@ -72,7 +72,7 @@
 &lt;/h2>
 &lt;p>After you get the service (refer to 
  &lt;a href="chapter1.md#sdk-initialization">SDK Initialization&lt;/a>), you can use the requestReceiverListener method of the service to monitor the receiver data. The requestReceiverListener requires you to pass in the IReceiverListener.Stub object. You can inherit the object, implement the relevant interface, and obtain the required data through the implementation of the interface. Some callback interfaces call back at a certain frequency (such as location information and satellite information), and some interfaces require a command to the receiver (refer to 
- &lt;a href="http://localhost:51922/#send-data-to-the-receiver-set-up-the-receiver">Send data to the receiver&lt;/a>) before calling back.&lt;/p></description></item><item><title>Coordinate conversion</title><link>http://localhost:51922/docs/gnssserver/04_%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://localhost:51922/docs/gnssserver/04_%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2/</guid><description>&lt;h1 id="coordinate-conversion">
+ &lt;a href="http://localhost:56704/#send-data-to-the-receiver-set-up-the-receiver">Send data to the receiver&lt;/a>) before calling back.&lt;/p></description></item><item><title>Coordinate conversion</title><link>http://localhost:56704/docs/gnssserver/04_%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://localhost:56704/docs/gnssserver/04_%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2/</guid><description>&lt;h1 id="coordinate-conversion">
  Coordinate conversion
  &lt;a class="anchor" href="#coordinate-conversion">#&lt;/a>
 &lt;/h1>
@@ -85,7 +85,7 @@
  Preparations
  &lt;a class="anchor" href="#preparations">#&lt;/a>
 &lt;/h3>
-&lt;p>Whether it is a forward or backward calculation, the Coordinate Transformation needs to be initialized, and the parameters of the relevant conversion need to be set, the specific steps are as follows:&lt;/p></description></item><item><title>IMU</title><link>http://localhost:51922/docs/gnssserver/05_IMU/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://localhost:51922/docs/gnssserver/05_IMU/</guid><description>&lt;h1 id="imu">
+&lt;p>Whether it is a forward or backward calculation, the Coordinate Transformation needs to be initialized, and the parameters of the relevant conversion need to be set, the specific steps are as follows:&lt;/p></description></item><item><title>IMU</title><link>http://localhost:56704/docs/gnssserver/05_imu/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://localhost:56704/docs/gnssserver/05_imu/</guid><description>&lt;h1 id="imu">
  IMU
  &lt;a class="anchor" href="#imu">#&lt;/a>
 &lt;/h1>
@@ -93,7 +93,7 @@
  Coordinate information
  &lt;a class="anchor" href="#coordinate-information">#&lt;/a>
 &lt;/h2>
-&lt;p>If you need to use the inertial navigation function, you can get the coordinate information in the inertial state by getting an instance of the PositionSource class and adding a listener. Using this way, you don&amp;rsquo;t need to care about the switching of data source, that is, you don&amp;rsquo;t need to manually switch the data source according to the inertial guidance state. The specific steps are as follows:&lt;/p></description></item><item><title>AR Stakeout</title><link>http://localhost:51922/docs/gnssserver/06_AR%E6%94%BE%E6%A0%B7/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://localhost:51922/docs/gnssserver/06_AR%E6%94%BE%E6%A0%B7/</guid><description>&lt;h1 id="ar-stakeout">
+&lt;p>If you need to use the inertial navigation function, you can get the coordinate information in the inertial state by getting an instance of the PositionSource class and adding a listener. Using this way, you don&amp;rsquo;t need to care about the switching of data source, that is, you don&amp;rsquo;t need to manually switch the data source according to the inertial guidance state. The specific steps are as follows:&lt;/p></description></item><item><title>AR Stakeout</title><link>http://localhost:56704/docs/gnssserver/06_ar%E6%94%BE%E6%A0%B7/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://localhost:56704/docs/gnssserver/06_ar%E6%94%BE%E6%A0%B7/</guid><description>&lt;h1 id="ar-stakeout">
  AR Stakeout
  &lt;a class="anchor" href="#ar-stakeout">#&lt;/a>
 &lt;/h1>
@@ -102,7 +102,7 @@
  Layout
  &lt;a class="anchor" href="#layout">#&lt;/a>
 &lt;/h2>
-&lt;p>In the layout file, ArViewLayout is used to host the AR view. This layout provides an area on the screen for the AR view, and subsequent AR operations will be displayed through ArViewLayout. Specifically:&lt;/p></description></item><item><title>Common data types</title><link>http://localhost:51922/docs/gnssserver/07_%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://localhost:51922/docs/gnssserver/07_%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</guid><description>&lt;h1 id="common-data-types">
+&lt;p>In the layout file, ArViewLayout is used to host the AR view. This layout provides an area on the screen for the AR view, and subsequent AR operations will be displayed through ArViewLayout. Specifically:&lt;/p></description></item><item><title>Common data types</title><link>http://localhost:56704/docs/gnssserver/07_%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://localhost:56704/docs/gnssserver/07_%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</guid><description>&lt;h1 id="common-data-types">
  Common data types
  &lt;a class="anchor" href="#common-data-types">#&lt;/a>
 &lt;/h1>
