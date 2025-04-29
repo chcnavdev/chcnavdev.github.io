@@ -1,4 +1,9 @@
-<!doctype html><html lang=en dir=ltr><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=56704&amp;path=livereload" data-no-instant defer></script><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="
   IMU
   #
 
@@ -6,76 +11,499 @@
   Coordinate information
   #
 
-If you need to use the inertial navigation function, you can get the coordinate information in the inertial state by getting an instance of the PositionSource class and adding a listener. Using this way, you don&rsquo;t need to care about the switching of data source, that is, you don&rsquo;t need to manually switch the data source according to the inertial guidance state. The specific steps are as follows:"><meta name=theme-color media="(prefers-color-scheme: light)" content="#ffffff"><meta name=theme-color media="(prefers-color-scheme: dark)" content="#343a40"><meta name=color-scheme content="light dark"><meta property="og:url" content="http://localhost:56704/docs/gnssserver/05_imu/"><meta property="og:site_name" content="CHCNAV DEV"><meta property="og:title" content="IMU"><meta property="og:description" content=" IMU # Coordinate information # If you need to use the inertial navigation function, you can get the coordinate information in the inertial state by getting an instance of the PositionSource class and adding a listener. Using this way, you don’t need to care about the switching of data source, that is, you don’t need to manually switch the data source according to the inertial guidance state. The specific steps are as follows:"><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="article:section" content="docs"><title>IMU | CHCNAV DEV</title>
-<link rel=icon href=/favicon.png><link rel=manifest href=/manifest.json><link rel=canonical href=http://localhost:56704/docs/gnssserver/05_imu/><link rel=alternate hreflang=zh href=http://localhost:56704/zh/docs/gnssserver/05_imu/ title=IMU><link rel=stylesheet href=/book.min.a7616cf2799b58bddffce9438e31fdbfc6393687cfc0950a4a17cd1cce7e35f6.css integrity="sha256-p2Fs8nmbWL3f/OlDjjH9v8Y5NofPwJUKShfNHM5+NfY=" crossorigin=anonymous><script defer src=/fuse.min.js></script><script defer src=/en.search.min.855095c5545940c5a22efc64b2211ba5064c7a08a0595b5f34b25e5034aaca9e.js integrity="sha256-hVCVxVRZQMWiLvxksiEbpQZMegigWVtfNLJeUDSqyp4=" crossorigin=anonymous></script><script defer src=/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js integrity="sha256-b2+Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC+NdcPIvZhzk=" crossorigin=anonymous></script></head><body dir=ltr><input type=checkbox class="hidden toggle" id=menu-control>
-<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><div class=book-menu-content><nav><h2 class=book-brand><a class="flex align-center" href=/><span>CHCNAV DEV</span></a></h2><div class="book-search hidden"><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><script>document.querySelector(".book-search").classList.remove("hidden")</script><ul class=book-languages><li><input type=checkbox id=languages class=toggle>
-<label for=languages class="flex justify-between"><a role=button class="flex align-center"><img src=/svg/translate.svg class=book-icon alt=Languages>
-English</a></label><ul><li><a href=/zh/docs/gnssserver/05_imu/>Chinese</a></li></ul></li></ul><ul><li class=book-section-flat><input type=checkbox id=section-e5ecee4c7d3b31e85f9a9a56df882b94 class=toggle checked>
-<label for=section-e5ecee4c7d3b31e85f9a9a56df882b94 class="flex justify-between"><a href=/docs/gnssserver/>GnssServer Dev Docs</a></label><ul><li><a href=/docs/gnssserver/01_%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/>Quick Start</a></li><li><a href=/docs/gnssserver/02_%E8%BF%9E%E6%8E%A5/>Connection</a></li><li><a href=/docs/gnssserver/03_%E6%8E%A5%E6%94%B6%E6%9C%BA%E9%80%9A%E4%BF%A1/>Receiver communication</a></li><li><a href=/docs/gnssserver/04_%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2/>Coordinate conversion</a></li><li><a href=/docs/gnssserver/05_imu/ class=active>IMU</a></li><li><a href=/docs/gnssserver/06_ar%E6%94%BE%E6%A0%B7/>AR Stakeout</a></li><li><a href=/docs/gnssserver/07_%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/>Common data types</a></li></ul></li><li class=book-section-flat><input type=checkbox id=section-546412403a510171ebc0a5bba25dab59 class=toggle>
-<label for=section-546412403a510171ebc0a5bba25dab59 class="flex justify-between"><a href=/docs/landstar/>Secondary Dev of LandStar</a></label><ul><li><a href=/docs/landstar/1_%E5%9F%BA%E4%BA%8E%E5%B9%BF%E6%92%AD%E6%B6%88%E6%81%AF%E5%BC%80%E5%8F%91/>Development based on broadcast messages</a></li><li><a href=/docs/landstar/2_%E5%9F%BA%E4%BA%8Etxt%E6%96%87%E4%BB%B6%E5%BC%80%E5%8F%91/>Development based on txt file</a></li></ul></li></ul><ul><li><a href=https://www.chcnav.com/ target=_blank rel=noopener>CHCNAV</a></li></ul></nav><script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></div></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu></label><h3>IMU</h3><label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#imu>IMU</a><ul><li><a href=#coordinate-information>Coordinate information</a></li><li><a href=#turning-inertial-navigation-on-or-off>Turning inertial navigation on or off</a></li><li><a href=#other>Other</a></li></ul></li></ul></nav></aside></header><article class="markdown book-article"><h1 id=imu>IMU
-<a class=anchor href=#imu>#</a></h1><h2 id=coordinate-information>Coordinate information
-<a class=anchor href=#coordinate-information>#</a></h2><p>If you need to use the inertial navigation function, you can get the coordinate information in the inertial state by getting an instance of the PositionSource class and adding a listener. Using this way, you don&rsquo;t need to care about the switching of data source, that is, you don&rsquo;t need to manually switch the data source according to the inertial guidance state. The specific steps are as follows:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>// Listening for coordinate information</span>
-</span></span><span style=display:flex><span>PositionSource.<span style=color:#a6e22e>getInstance</span>().<span style=color:#a6e22e>addListener</span>(<span style=color:#66d9ef>new</span> IPositionListener.<span style=color:#a6e22e>Stub</span>() {
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>onCoordinatePosition</span>(SurveyPointPositionInfo positionInfo) {
-</span></span><span style=display:flex><span>        runOnUiThread(<span style=color:#66d9ef>new</span> Runnable() {
-</span></span><span style=display:flex><span>            <span style=color:#a6e22e>@Override</span>
-</span></span><span style=display:flex><span>            <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>run</span>() {
-</span></span><span style=display:flex><span>                updatePositionInfoUi(positionInfo);
-</span></span><span style=display:flex><span>            }
-</span></span><span style=display:flex><span>        });
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>});
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e>// Render the coordinate information to the page</span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>private</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>updatePositionInfoUi</span>(<span style=color:#a6e22e>@NonNull</span> SurveyPointPositionInfo surveyPointPositionInfo) {
-</span></span><span style=display:flex><span>    Position position <span style=color:#f92672>=</span> surveyPointPositionInfo.<span style=color:#a6e22e>getCoorKernal</span>().<span style=color:#a6e22e>getWgsBlh</span>();
-</span></span><span style=display:flex><span>    mTVB.<span style=color:#a6e22e>setText</span>(String.<span style=color:#a6e22e>valueOf</span>(position.<span style=color:#a6e22e>getX</span>()));
-</span></span><span style=display:flex><span>    mTVL.<span style=color:#a6e22e>setText</span>(String.<span style=color:#a6e22e>valueOf</span>(position.<span style=color:#a6e22e>getY</span>()));
-</span></span><span style=display:flex><span>    mTVH.<span style=color:#a6e22e>setText</span>(String.<span style=color:#a6e22e>valueOf</span>(position.<span style=color:#a6e22e>getZ</span>()));
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div><p>For more information about the SurveyPointPositionInfo class, you can refer to the SurveyPointPositionInfo section.</p><h2 id=turning-inertial-navigation-on-or-off>Turning inertial navigation on or off
-<a class=anchor href=#turning-inertial-navigation-on-or-off>#</a></h2><p>As described in the &ldquo;Getting Data from Receiver&rdquo; section, you can send commands to the receiver through the ReceiverCmdManager class. Therefore, the IMU on or off operation is also performed through this class. The specific operation code is as follows:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>private</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>setIMUListener</span>() {
-</span></span><span style=display:flex><span>    mOpenIMU.<span style=color:#a6e22e>setOnClickListener</span>(<span style=color:#66d9ef>new</span> View.<span style=color:#a6e22e>OnClickListener</span>() {
-</span></span><span style=display:flex><span>        <span style=color:#a6e22e>@Override</span>
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>onClick</span>(View view) {
-</span></span><span style=display:flex><span>            NoneMagneticTiltStartInfo startInfo <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> NoneMagneticTiltStartInfo();
-</span></span><span style=display:flex><span>            <span style=color:#75715e>// Setting the antenna height and frequency</span>
-</span></span><span style=display:flex><span>            startInfo.<span style=color:#a6e22e>setAntennaHeight</span>(0);
-</span></span><span style=display:flex><span>            startInfo.<span style=color:#a6e22e>setFrequency</span>(EnumDataFrequency.<span style=color:#a6e22e>DATA_FREQUENCY_5HZ</span>);
-</span></span><span style=display:flex><span>            isOpenIMU(<span style=color:#66d9ef>true</span>, startInfo);
-</span></span><span style=display:flex><span>        }
-</span></span><span style=display:flex><span>    });
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    mCloseIMU.<span style=color:#a6e22e>setOnClickListener</span>(<span style=color:#66d9ef>new</span> View.<span style=color:#a6e22e>OnClickListener</span>() {
-</span></span><span style=display:flex><span>        <span style=color:#a6e22e>@Override</span>
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>onClick</span>(View view) {
-</span></span><span style=display:flex><span>            isOpenIMU(<span style=color:#66d9ef>false</span>, <span style=color:#66d9ef>null</span>);
-</span></span><span style=display:flex><span>        }
-</span></span><span style=display:flex><span>    });
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>private</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>isOpenIMU</span>(<span style=color:#66d9ef>boolean</span> isOpen, <span style=color:#a6e22e>@Nullable</span> NoneMagneticTiltStartInfo startInfo) {
-</span></span><span style=display:flex><span>    
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (isOpen <span style=color:#f92672>&amp;&amp;</span> (startInfo <span style=color:#f92672>!=</span> <span style=color:#66d9ef>null</span>)) {
-</span></span><span style=display:flex><span>        <span style=color:#75715e>// Open IMU</span>
-</span></span><span style=display:flex><span>        ReceiverCmdManager.<span style=color:#a6e22e>getInstance</span>().<span style=color:#a6e22e>setCmdStartNoneMagneticTilt</span>(<span style=color:#66d9ef>this</span>, startInfo);
-</span></span><span style=display:flex><span>    } <span style=color:#66d9ef>else</span> {
-</span></span><span style=display:flex><span>        <span style=color:#75715e>// Close IMU</span>
-</span></span><span style=display:flex><span>        ReceiverCmdManager.<span style=color:#a6e22e>getInstance</span>().<span style=color:#a6e22e>setCmdStopNoneMagneticTilt</span>(<span style=color:#66d9ef>this</span>);
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div><h2 id=other>Other
-<a class=anchor href=#other>#</a></h2><p>For other data of IMU, you can refer to the &ldquo;Getting Data from Receiver&rdquo; section to get it from the receiver, the related code is as follows.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ReceiverListener</span> <span style=color:#66d9ef>extends</span> IReceiverListener.<span style=color:#a6e22e>Stub</span> {
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>final</span> String TAG <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;ReceiverListener&#34;</span>;
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    <span style=color:#75715e>// ......</span>
-</span></span><span style=display:flex><span>    
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>getNoneMagneticTiltInfo</span>(NoneMagneticTiltInfo info) <span style=color:#66d9ef>throws</span> RemoteException {
-</span></span><span style=display:flex><span>        <span style=color:#75715e>// Implementation of code related to obtaining data</span>
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>    
-</span></span><span style=display:flex><span>    <span style=color:#75715e>// ......</span>
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div><p>For more detailed information about NoneMagneticTiltInfo, you can refer to the NoneMagneticTiltInfo section.</p></article><footer class=book-footer><div class="flex flex-wrap justify-between"></div><script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents><ul><li><a href=#imu>IMU</a><ul><li><a href=#coordinate-information>Coordinate information</a></li><li><a href=#turning-inertial-navigation-on-or-off>Turning inertial navigation on or off</a></li><li><a href=#other>Other</a></li></ul></li></ul></nav></div></aside></main></body></html>
+If you need to use the inertial navigation function, you can get the coordinate information in the inertial state by getting an instance of the PositionSource class and adding a listener. Using this way, you don&rsquo;t need to care about the switching of data source, that is, you don&rsquo;t need to manually switch the data source according to the inertial guidance state. The specific steps are as follows:">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/docs/gnssserver/05_imu/">
+  <meta property="og:site_name" content="CHCNAV DEV">
+  <meta property="og:title" content="IMU">
+  <meta property="og:description" content=" IMU # Coordinate information # If you need to use the inertial navigation function, you can get the coordinate information in the inertial state by getting an instance of the PositionSource class and adding a listener. Using this way, you don’t need to care about the switching of data source, that is, you don’t need to manually switch the data source according to the inertial guidance state. The specific steps are as follows:">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="docs">
+<title>IMU | CHCNAV DEV</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://localhost:1313/docs/gnssserver/05_imu/">
+  <link rel="alternate" hreflang="zh" href="http://localhost:1313/zh/docs/gnssserver/05_imu/" title="IMU">
+<link rel="stylesheet" href="/book.min.a7616cf2799b58bddffce9438e31fdbfc6393687cfc0950a4a17cd1cce7e35f6.css" integrity="sha256-p2Fs8nmbWL3f/OlDjjH9v8Y5NofPwJUKShfNHM5&#43;NfY=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.855095c5545940c5a22efc64b2211ba5064c7a08a0595b5f34b25e5034aaca9e.js" integrity="sha256-hVCVxVRZQMWiLvxksiEbpQZMegigWVtfNLJeUDSqyp4=" crossorigin="anonymous"></script>
+
+  <script defer src="/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js" integrity="sha256-b2&#43;Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC&#43;NdcPIvZhzk=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>CHCNAV DEV</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+  
+
+
+
+  
+    
+  
+
+
+  
+
+
+<ul class="book-languages">
+  <li>
+    <input type="checkbox" id="languages" class="toggle" />
+    <label for="languages" class="flex justify-between">
+      <a role="button" class="flex align-center">
+        <img src="/svg/translate.svg" class="book-icon" alt="Languages" />
+        English
+      </a>
+    </label>
+
+    <ul>
+      
+      <li>
+        <a href="/zh/docs/gnssserver/05_imu/">
+          Chinese
+        </a>
+      </li>
+      
+    </ul>
+  </li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-e5ecee4c7d3b31e85f9a9a56df882b94" class="toggle" checked />
+    <label for="section-e5ecee4c7d3b31e85f9a9a56df882b94" class="flex justify-between">
+      <a href="/docs/gnssserver/" class="">GnssServer Dev Docs</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/gnssserver/01_%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/" class="">Quick Start</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/gnssserver/02_%E8%BF%9E%E6%8E%A5/" class="">Connection</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/gnssserver/03_%E6%8E%A5%E6%94%B6%E6%9C%BA%E9%80%9A%E4%BF%A1/" class="">Receiver communication</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/gnssserver/04_%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2/" class="">Coordinate conversion</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/gnssserver/05_imu/" class="active">IMU</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/gnssserver/06_ar%E6%94%BE%E6%A0%B7/" class="">AR Stakeout</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/gnssserver/07_%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="">Common data types</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-546412403a510171ebc0a5bba25dab59" class="toggle"  />
+    <label for="section-546412403a510171ebc0a5bba25dab59" class="flex justify-between">
+      <a href="/docs/landstar/" class="">Secondary Dev of LandStar</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/landstar/1_%E5%9F%BA%E4%BA%8E%E5%B9%BF%E6%92%AD%E6%B6%88%E6%81%AF%E5%BC%80%E5%8F%91/" class="">Development based on broadcast messages</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/landstar/2_%E5%9F%BA%E4%BA%8Etxt%E6%96%87%E4%BB%B6%E5%BC%80%E5%8F%91/" class="">Development based on txt file</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="https://www.chcnav.com/"  target="_blank" rel="noopener">
+        CHCNAV
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>IMU</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#imu">IMU</a>
+      <ul>
+        <li><a href="#coordinate-information">Coordinate information</a></li>
+        <li><a href="#turning-inertial-navigation-on-or-off">Turning inertial navigation on or off</a></li>
+        <li><a href="#other">Other</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h1 id="imu">
+  IMU
+  <a class="anchor" href="#imu">#</a>
+</h1>
+<h2 id="coordinate-information">
+  Coordinate information
+  <a class="anchor" href="#coordinate-information">#</a>
+</h2>
+<p>If you need to use the inertial navigation function, you can get the coordinate information in the inertial state by getting an instance of the PositionSource class and adding a listener. Using this way, you don&rsquo;t need to care about the switching of data source, that is, you don&rsquo;t need to manually switch the data source according to the inertial guidance state. The specific steps are as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// Listening for coordinate information</span>
+</span></span><span style="display:flex;"><span>PositionSource.<span style="color:#a6e22e">getInstance</span>().<span style="color:#a6e22e">addListener</span>(<span style="color:#66d9ef">new</span> IPositionListener.<span style="color:#a6e22e">Stub</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onCoordinatePosition</span>(SurveyPointPositionInfo positionInfo) {
+</span></span><span style="display:flex;"><span>        runOnUiThread(<span style="color:#66d9ef">new</span> Runnable() {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">run</span>() {
+</span></span><span style="display:flex;"><span>                updatePositionInfoUi(positionInfo);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        });
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Render the coordinate information to the page</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">updatePositionInfoUi</span>(<span style="color:#a6e22e">@NonNull</span> SurveyPointPositionInfo surveyPointPositionInfo) {
+</span></span><span style="display:flex;"><span>    Position position <span style="color:#f92672">=</span> surveyPointPositionInfo.<span style="color:#a6e22e">getCoorKernal</span>().<span style="color:#a6e22e">getWgsBlh</span>();
+</span></span><span style="display:flex;"><span>    mTVB.<span style="color:#a6e22e">setText</span>(String.<span style="color:#a6e22e">valueOf</span>(position.<span style="color:#a6e22e">getX</span>()));
+</span></span><span style="display:flex;"><span>    mTVL.<span style="color:#a6e22e">setText</span>(String.<span style="color:#a6e22e">valueOf</span>(position.<span style="color:#a6e22e">getY</span>()));
+</span></span><span style="display:flex;"><span>    mTVH.<span style="color:#a6e22e">setText</span>(String.<span style="color:#a6e22e">valueOf</span>(position.<span style="color:#a6e22e">getZ</span>()));
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>For more information about the SurveyPointPositionInfo class, you can refer to the SurveyPointPositionInfo section.</p>
+<h2 id="turning-inertial-navigation-on-or-off">
+  Turning inertial navigation on or off
+  <a class="anchor" href="#turning-inertial-navigation-on-or-off">#</a>
+</h2>
+<p>As described in the &ldquo;Getting Data from Receiver&rdquo; section, you can send commands to the receiver through the ReceiverCmdManager class. Therefore, the IMU on or off operation is also performed through this class. The specific operation code is as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setIMUListener</span>() {
+</span></span><span style="display:flex;"><span>    mOpenIMU.<span style="color:#a6e22e">setOnClickListener</span>(<span style="color:#66d9ef">new</span> View.<span style="color:#a6e22e">OnClickListener</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onClick</span>(View view) {
+</span></span><span style="display:flex;"><span>            NoneMagneticTiltStartInfo startInfo <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> NoneMagneticTiltStartInfo();
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Setting the antenna height and frequency</span>
+</span></span><span style="display:flex;"><span>            startInfo.<span style="color:#a6e22e">setAntennaHeight</span>(0);
+</span></span><span style="display:flex;"><span>            startInfo.<span style="color:#a6e22e">setFrequency</span>(EnumDataFrequency.<span style="color:#a6e22e">DATA_FREQUENCY_5HZ</span>);
+</span></span><span style="display:flex;"><span>            isOpenIMU(<span style="color:#66d9ef">true</span>, startInfo);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    mCloseIMU.<span style="color:#a6e22e">setOnClickListener</span>(<span style="color:#66d9ef">new</span> View.<span style="color:#a6e22e">OnClickListener</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onClick</span>(View view) {
+</span></span><span style="display:flex;"><span>            isOpenIMU(<span style="color:#66d9ef">false</span>, <span style="color:#66d9ef">null</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">isOpenIMU</span>(<span style="color:#66d9ef">boolean</span> isOpen, <span style="color:#a6e22e">@Nullable</span> NoneMagneticTiltStartInfo startInfo) {
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (isOpen <span style="color:#f92672">&amp;&amp;</span> (startInfo <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>)) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Open IMU</span>
+</span></span><span style="display:flex;"><span>        ReceiverCmdManager.<span style="color:#a6e22e">getInstance</span>().<span style="color:#a6e22e">setCmdStartNoneMagneticTilt</span>(<span style="color:#66d9ef">this</span>, startInfo);
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Close IMU</span>
+</span></span><span style="display:flex;"><span>        ReceiverCmdManager.<span style="color:#a6e22e">getInstance</span>().<span style="color:#a6e22e">setCmdStopNoneMagneticTilt</span>(<span style="color:#66d9ef">this</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="other">
+  Other
+  <a class="anchor" href="#other">#</a>
+</h2>
+<p>For other data of IMU, you can refer to the &ldquo;Getting Data from Receiver&rdquo; section to get it from the receiver, the related code is as follows.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ReceiverListener</span> <span style="color:#66d9ef">extends</span> IReceiverListener.<span style="color:#a6e22e">Stub</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> String TAG <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ReceiverListener&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ......</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">getNoneMagneticTiltInfo</span>(NoneMagneticTiltInfo info) <span style="color:#66d9ef">throws</span> RemoteException {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Implementation of code related to obtaining data</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ......</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>For more detailed information about NoneMagneticTiltInfo, you can refer to the NoneMagneticTiltInfo section.</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#imu">IMU</a>
+      <ul>
+        <li><a href="#coordinate-information">Coordinate information</a></li>
+        <li><a href="#turning-inertial-navigation-on-or-off">Turning inertial navigation on or off</a></li>
+        <li><a href="#other">Other</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

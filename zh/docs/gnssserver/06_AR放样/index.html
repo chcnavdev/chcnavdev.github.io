@@ -1,4 +1,9 @@
-<!doctype html><html lang=zh dir=ltr><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=56704&amp;path=livereload" data-no-instant defer></script><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content='
+<!DOCTYPE html>
+<html lang="zh" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="
   AR放样
   #
 
@@ -8,11 +13,11 @@
   #
 
 在布局文件中，ArViewLayout用于承载AR视图。该布局将为AR视图提供一个占据屏幕的区域，后续的AR操作将通过ArViewLayout展示。具体如下：
-<com.huace.gnssserver.business.api.ar.ArViewLayout
-    android:id="@+id/viewAr"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="1" />
+&lt;com.huace.gnssserver.business.api.ar.ArViewLayout
+    android:id=&#34;@&#43;id/viewAr&#34;
+    android:layout_width=&#34;match_parent&#34;
+    android:layout_height=&#34;0dp&#34;
+    android:layout_weight=&#34;1&#34; /&gt;
 
   初始化AR功能
   #
@@ -51,197 +56,645 @@ private void initAr() throws RemoteException {
 设置目标点：使用setTargetPointOfSrcBlh()方法，可以设置AR视图中的目标点。目标点通过Point3DMutable传递；
 
 // 打开或关闭相机
-findViewById(R.id.openCamera).setOnClickListener(view -> {
+findViewById(R.id.openCamera).setOnClickListener(view -&gt; {
     mArPointStakeoutController.open();
 });
 
 // 设置目标点
-findViewById(R.id.closeCamera).setOnClickListener(view -> {
+findViewById(R.id.closeCamera).setOnClickListener(view -&gt; {
     mArPointStakeoutController.close();
 });
 
   相机切换
   #
 
-ArSettings 类是一个配置类，用于存储和获取与AR模式相关的距离设置，即摄像头切换的自动距离阈值。这个类通过静态变量和静态方法来实现全局配置，可以在项目中的其他地方使用这些配置进行操作，比如自动切换相机模式等，使用场景如下：'><meta name=theme-color media="(prefers-color-scheme: light)" content="#ffffff"><meta name=theme-color media="(prefers-color-scheme: dark)" content="#343a40"><meta name=color-scheme content="light dark"><meta property="og:url" content="http://localhost:56704/zh/docs/gnssserver/06_ar%E6%94%BE%E6%A0%B7/"><meta property="og:site_name" content="CHCNAV DEV"><meta property="og:title" content="AR放样"><meta property="og:description" content=' AR放样 # 本节旨在帮助开发者快速集成并使用AR放样功能。SDK依赖的核心模块是business，通过集成ArViewLayout和ArPointStakeoutController，开发者能够实现与AR相关的放样功能。文档将重点介绍如何配置、初始化以及使用相关API，同时也会涉及到视图的布局和UI组件的配置。
+ArSettings 类是一个配置类，用于存储和获取与AR模式相关的距离设置，即摄像头切换的自动距离阈值。这个类通过静态变量和静态方法来实现全局配置，可以在项目中的其他地方使用这些配置进行操作，比如自动切换相机模式等，使用场景如下：">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/zh/docs/gnssserver/06_ar%E6%94%BE%E6%A0%B7/">
+  <meta property="og:site_name" content="CHCNAV DEV">
+  <meta property="og:title" content="AR放样">
+  <meta property="og:description" content=" AR放样 # 本节旨在帮助开发者快速集成并使用AR放样功能。SDK依赖的核心模块是business，通过集成ArViewLayout和ArPointStakeoutController，开发者能够实现与AR相关的放样功能。文档将重点介绍如何配置、初始化以及使用相关API，同时也会涉及到视图的布局和UI组件的配置。
 布局 # 在布局文件中，ArViewLayout用于承载AR视图。该布局将为AR视图提供一个占据屏幕的区域，后续的AR操作将通过ArViewLayout展示。具体如下：
-<com.huace.gnssserver.business.api.ar.ArViewLayout android:id="@+id/viewAr" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" /> 初始化AR功能 # 创建并初始化ArPointStakeoutController的步骤和代码如下：
+&lt;com.huace.gnssserver.business.api.ar.ArViewLayout android:id=&#34;@&#43;id/viewAr&#34; android:layout_width=&#34;match_parent&#34; android:layout_height=&#34;0dp&#34; android:layout_weight=&#34;1&#34; /&gt; 初始化AR功能 # 创建并初始化ArPointStakeoutController的步骤和代码如下：
 在onCreate方法中，首先初始化ArViewLayout并创建ArPointStakeoutController实例； ArPointStakeoutController用于控制AR视图的操作，并管理与AR相关的放样功能； ArPointStakeoutController的构造函数接收两个参数：Context和ArViewLayout，并绑定了IArModeListener，以便监听AR模式的状态变化； private void initAr() throws RemoteException { ArViewLayout arViewLayout = findViewById(R.id.viewAr); mArPointStakeoutController = new ArPointStakeoutController( this, arViewLayout, new IArModeListener() { @Override public void onBeforeEnter() { // Callback before entering AR mode } @Override public void onAfterExit() { // Callback after exiting AR mode } } ); } 设置AR操作 # 关于AR常见的操作和代码如下：
-打开/关闭相机：ArPointStakeoutController提供了open()和close()方法，分别用于打开和关闭AR视图中的相机； 设置目标点：使用setTargetPointOfSrcBlh()方法，可以设置AR视图中的目标点。目标点通过Point3DMutable传递； // 打开或关闭相机 findViewById(R.id.openCamera).setOnClickListener(view -> { mArPointStakeoutController.open(); }); // 设置目标点 findViewById(R.id.closeCamera).setOnClickListener(view -> { mArPointStakeoutController.close(); }); 相机切换 # ArSettings 类是一个配置类，用于存储和获取与AR模式相关的距离设置，即摄像头切换的自动距离阈值。这个类通过静态变量和静态方法来实现全局配置，可以在项目中的其他地方使用这些配置进行操作，比如自动切换相机模式等，使用场景如下：'><meta property="og:locale" content="zh"><meta property="og:type" content="article"><meta property="article:section" content="docs"><title>AR放样 | CHCNAV DEV</title>
-<link rel=icon href=/favicon.png><link rel=manifest href=/manifest.json><link rel=canonical href=http://localhost:56704/zh/docs/gnssserver/06_ar%E6%94%BE%E6%A0%B7/><link rel=alternate hreflang=en href=http://localhost:56704/docs/gnssserver/06_ar%E6%94%BE%E6%A0%B7/ title="AR Stakeout"><link rel=stylesheet href=/book.min.a7616cf2799b58bddffce9438e31fdbfc6393687cfc0950a4a17cd1cce7e35f6.css integrity="sha256-p2Fs8nmbWL3f/OlDjjH9v8Y5NofPwJUKShfNHM5+NfY=" crossorigin=anonymous><script defer src=/fuse.min.js></script><script defer src=/zh.search.min.ebe753d9e29aee2a3dc96cb36c7e7a22821900f09af1ff2159ee943ad0081b06.js integrity="sha256-6+dT2eKa7io9yWyzbH56IoIZAPCa8f8hWe6UOtAIGwY=" crossorigin=anonymous></script><script defer src=/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js integrity="sha256-b2+Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC+NdcPIvZhzk=" crossorigin=anonymous></script></head><body dir=ltr><input type=checkbox class="hidden toggle" id=menu-control>
-<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><div class=book-menu-content><nav><h2 class=book-brand><a class="flex align-center" href=/zh/><span>CHCNAV DEV</span></a></h2><div class="book-search hidden"><input type=text id=book-search-input placeholder=搜索 aria-label=搜索 maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><script>document.querySelector(".book-search").classList.remove("hidden")</script><ul class=book-languages><li><input type=checkbox id=languages class=toggle>
-<label for=languages class="flex justify-between"><a role=button class="flex align-center"><img src=/svg/translate.svg class=book-icon alt=Languages>
-Chinese</a></label><ul><li><a href=/docs/gnssserver/06_ar%E6%94%BE%E6%A0%B7/>English</a></li></ul></li></ul><ul><li class=book-section-flat><input type=checkbox id=section-e5ecee4c7d3b31e85f9a9a56df882b94 class=toggle checked>
-<label for=section-e5ecee4c7d3b31e85f9a9a56df882b94 class="flex justify-between"><a href=/zh/docs/gnssserver/>GnssServer开发文档</a></label><ul><li><a href=/zh/docs/gnssserver/01_%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/>快速开始</a></li><li><a href=/zh/docs/gnssserver/02_%E8%BF%9E%E6%8E%A5/>连接</a></li><li><a href=/zh/docs/gnssserver/03_%E6%8E%A5%E6%94%B6%E6%9C%BA%E9%80%9A%E4%BF%A1/>接收机通信</a></li><li><a href=/zh/docs/gnssserver/04_%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2/>坐标转换</a></li><li><a href=/zh/docs/gnssserver/05_imu/>IMU</a></li><li><a href=/zh/docs/gnssserver/06_ar%E6%94%BE%E6%A0%B7/ class=active>AR放样</a></li><li><a href=/zh/docs/gnssserver/07_%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/>常用数据类型</a></li></ul></li><li class=book-section-flat><input type=checkbox id=section-546412403a510171ebc0a5bba25dab59 class=toggle>
-<label for=section-546412403a510171ebc0a5bba25dab59 class="flex justify-between"><a href=/zh/docs/landstar/>测地通二次开发</a></label><ul><li><a href=/zh/docs/landstar/1_%E5%9F%BA%E4%BA%8E%E5%B9%BF%E6%92%AD%E6%B6%88%E6%81%AF%E5%BC%80%E5%8F%91/>基于广播消息开发</a></li><li><a href=/zh/docs/landstar/2_%E5%9F%BA%E4%BA%8Etxt%E6%96%87%E4%BB%B6%E5%BC%80%E5%8F%91/>基于txt文件开发</a></li></ul></li></ul><ul><li><a href=https://www.chcnav.com/ target=_blank rel=noopener>CHCNAV</a></li></ul></nav><script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></div></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu></label><h3>AR放样</h3><label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#ar放样>AR放样</a><ul><li><a href=#布局>布局</a></li><li><a href=#初始化ar功能>初始化AR功能</a></li><li><a href=#设置ar操作>设置AR操作</a></li><li><a href=#相机切换>相机切换</a></li><li><a href=#完整代码>完整代码</a></li></ul></li></ul></nav></aside></header><article class="markdown book-article"><h1 id=ar放样>AR放样
-<a class=anchor href=#ar%e6%94%be%e6%a0%b7>#</a></h1><p>本节旨在帮助开发者快速集成并使用AR放样功能。SDK依赖的核心模块是business，通过集成ArViewLayout和ArPointStakeoutController，开发者能够实现与AR相关的放样功能。文档将重点介绍如何配置、初始化以及使用相关API，同时也会涉及到视图的布局和UI组件的配置。</p><h2 id=布局>布局
-<a class=anchor href=#%e5%b8%83%e5%b1%80>#</a></h2><p>在布局文件中，ArViewLayout用于承载AR视图。该布局将为AR视图提供一个占据屏幕的区域，后续的AR操作将通过ArViewLayout展示。具体如下：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#f92672>&lt;com.huace.gnssserver.business.api.ar.ArViewLayout</span>
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>android:id=</span><span style=color:#e6db74>&#34;@+id/viewAr&#34;</span>
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>android:layout_width=</span><span style=color:#e6db74>&#34;match_parent&#34;</span>
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>android:layout_height=</span><span style=color:#e6db74>&#34;0dp&#34;</span>
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>android:layout_weight=</span><span style=color:#e6db74>&#34;1&#34;</span> <span style=color:#f92672>/&gt;</span>
-</span></span></code></pre></div><h2 id=初始化ar功能>初始化AR功能
-<a class=anchor href=#%e5%88%9d%e5%a7%8b%e5%8c%96ar%e5%8a%9f%e8%83%bd>#</a></h2><p>创建并初始化ArPointStakeoutController的步骤和代码如下：</p><ol><li>在onCreate方法中，首先初始化ArViewLayout并创建ArPointStakeoutController实例；</li><li>ArPointStakeoutController用于控制AR视图的操作，并管理与AR相关的放样功能；</li><li>ArPointStakeoutController的构造函数接收两个参数：Context和ArViewLayout，并绑定了IArModeListener，以便监听AR模式的状态变化；</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>private</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>initAr</span>() <span style=color:#66d9ef>throws</span> RemoteException {
-</span></span><span style=display:flex><span>    ArViewLayout arViewLayout <span style=color:#f92672>=</span> findViewById(R.<span style=color:#a6e22e>id</span>.<span style=color:#a6e22e>viewAr</span>);
-</span></span><span style=display:flex><span>    mArPointStakeoutController <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ArPointStakeoutController(
-</span></span><span style=display:flex><span>            <span style=color:#66d9ef>this</span>, 
-</span></span><span style=display:flex><span>            arViewLayout, 
-</span></span><span style=display:flex><span>            <span style=color:#66d9ef>new</span> IArModeListener() {
-</span></span><span style=display:flex><span>                <span style=color:#a6e22e>@Override</span>
-</span></span><span style=display:flex><span>                <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>onBeforeEnter</span>() {
-</span></span><span style=display:flex><span>                    <span style=color:#75715e>// Callback before entering AR mode</span>
-</span></span><span style=display:flex><span>                }
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>                <span style=color:#a6e22e>@Override</span>
-</span></span><span style=display:flex><span>                <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>onAfterExit</span>() {
-</span></span><span style=display:flex><span>                    <span style=color:#75715e>// Callback after exiting AR mode</span>
-</span></span><span style=display:flex><span>                }
-</span></span><span style=display:flex><span>            }
-</span></span><span style=display:flex><span>    );
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div><h2 id=设置ar操作>设置AR操作
-<a class=anchor href=#%e8%ae%be%e7%bd%aear%e6%93%8d%e4%bd%9c>#</a></h2><p>关于AR常见的操作和代码如下：</p><ol><li>打开/关闭相机：ArPointStakeoutController提供了open()和close()方法，分别用于打开和关闭AR视图中的相机；</li><li>设置目标点：使用setTargetPointOfSrcBlh()方法，可以设置AR视图中的目标点。目标点通过Point3DMutable传递；</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>// 打开或关闭相机</span>
-</span></span><span style=display:flex><span>findViewById(R.<span style=color:#a6e22e>id</span>.<span style=color:#a6e22e>openCamera</span>).<span style=color:#a6e22e>setOnClickListener</span>(view <span style=color:#f92672>-&gt;</span> {
-</span></span><span style=display:flex><span>    mArPointStakeoutController.<span style=color:#a6e22e>open</span>();
-</span></span><span style=display:flex><span>});
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e>// 设置目标点</span>
-</span></span><span style=display:flex><span>findViewById(R.<span style=color:#a6e22e>id</span>.<span style=color:#a6e22e>closeCamera</span>).<span style=color:#a6e22e>setOnClickListener</span>(view <span style=color:#f92672>-&gt;</span> {
-</span></span><span style=display:flex><span>    mArPointStakeoutController.<span style=color:#a6e22e>close</span>();
-</span></span><span style=display:flex><span>});
-</span></span></code></pre></div><h2 id=相机切换>相机切换
-<a class=anchor href=#%e7%9b%b8%e6%9c%ba%e5%88%87%e6%8d%a2>#</a></h2><p>ArSettings 类是一个配置类，用于存储和获取与AR模式相关的距离设置，即摄像头切换的自动距离阈值。这个类通过静态变量和静态方法来实现全局配置，可以在项目中的其他地方使用这些配置进行操作，比如自动切换相机模式等，使用场景如下：</p><ol><li>自动相机切换：在AR放样过程中，当用户的设备与目标点的距离发生变化时，ArSettings 允许系统自动切换前摄相机和下摄相机，以确保AR显示效果的最佳化。例如，当设备距离目标较远时，系统可以自动切换到前摄相机进行远距离的AR显示；当设备距离目标较近时，则切换到下摄相机显示更精确的AR数据；</li><li>调试与优化：在开发过程中，可以通过调整这两个距离阈值来便捷调试相机的切换；</li></ol><p>如下为开发过程中便捷调试的示例代码：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>// 相机切换</span>
-</span></span><span style=display:flex><span>findViewById(R.<span style=color:#a6e22e>id</span>.<span style=color:#a6e22e>switchCamera</span>).<span style=color:#a6e22e>setOnClickListener</span>(view <span style=color:#f92672>-&gt;</span> {
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>double</span> dist <span style=color:#f92672>=</span> mArPointStakeoutController.<span style=color:#a6e22e>getDist</span>();
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (dist <span style=color:#f92672>&gt;</span> ArSettings.<span style=color:#a6e22e>getFarDistOfAutoSwitchToArMode</span>()) {
-</span></span><span style=display:flex><span>        ArSettings.<span style=color:#a6e22e>setFarDistOfAutoSwitchToArMode</span>(dist <span style=color:#f92672>+</span> 20);
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span>;
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (dist <span style=color:#f92672>&gt;</span> ArSettings.<span style=color:#a6e22e>getGroundDistOfAutoSwitchToArMode</span>()) {
-</span></span><span style=display:flex><span>        ArSettings.<span style=color:#a6e22e>setGroundDistOfAutoSwitchToArMode</span>(dist <span style=color:#f92672>+</span> 2);
-</span></span><span style=display:flex><span>    } <span style=color:#66d9ef>else</span> {
-</span></span><span style=display:flex><span>        ArSettings.<span style=color:#a6e22e>setGroundDistOfAutoSwitchToArMode</span>(dist <span style=color:#f92672>-</span> 2);
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>});
-</span></span></code></pre></div><p>ArSettings类为AR放样应用提供了灵活的自动切换相机的配置。通过设置groundDistOfAutoSwitchToArMode和farDistOfAutoSwitchToArMode，开发者可以控制何时切换到下摄相机或前摄相机，从而提供更好的用户体验。</p><h2 id=完整代码>完整代码
-<a class=anchor href=#%e5%ae%8c%e6%95%b4%e4%bb%a3%e7%a0%81>#</a></h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ArStakeoutActivity</span> <span style=color:#66d9ef>extends</span> AppCompatActivity {
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> TextView tvB;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> TextView tvL;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> TextView tvH;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> TextView tvPositionState;
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> ArPointStakeoutController mArPointStakeoutController;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> Point3DMutable mPoint3DMutable;
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>protected</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>onCreate</span>(Bundle savedInstanceState) {
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>super</span>.<span style=color:#a6e22e>onCreate</span>(savedInstanceState);
-</span></span><span style=display:flex><span>        setContentView(R.<span style=color:#a6e22e>layout</span>.<span style=color:#a6e22e>activity_ar_stakeout</span>);
-</span></span><span style=display:flex><span>        initAr();
-</span></span><span style=display:flex><span>        initView();
-</span></span><span style=display:flex><span>        initClickListener();
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>initAr</span>() {
-</span></span><span style=display:flex><span>        ArViewLayout arViewLayout <span style=color:#f92672>=</span> findViewById(R.<span style=color:#a6e22e>id</span>.<span style=color:#a6e22e>viewAr</span>);
-</span></span><span style=display:flex><span>        mArPointStakeoutController <span style=color:#f92672>=</span>
-</span></span><span style=display:flex><span>                <span style=color:#66d9ef>new</span> ArPointStakeoutController(<span style=color:#66d9ef>this</span>, arViewLayout, <span style=color:#66d9ef>new</span> IArModeListener() {
-</span></span><span style=display:flex><span>                    <span style=color:#a6e22e>@Override</span>
-</span></span><span style=display:flex><span>                    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>onBeforeEnter</span>() {
-</span></span><span style=display:flex><span>                    <span style=color:#75715e>// Callback before entering AR mode</span>
-</span></span><span style=display:flex><span>                    }
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>                    <span style=color:#a6e22e>@Override</span>
-</span></span><span style=display:flex><span>                    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>onAfterExit</span>() {
-</span></span><span style=display:flex><span>                    <span style=color:#75715e>// Callback after exiting AR mode</span>
-</span></span><span style=display:flex><span>                    }
-</span></span><span style=display:flex><span>                });
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>initView</span>() {
-</span></span><span style=display:flex><span>        tvB <span style=color:#f92672>=</span> (TextView) findViewById(R.<span style=color:#a6e22e>id</span>.<span style=color:#a6e22e>tvB</span>);
-</span></span><span style=display:flex><span>        tvL <span style=color:#f92672>=</span> (TextView) findViewById(R.<span style=color:#a6e22e>id</span>.<span style=color:#a6e22e>tvL</span>);
-</span></span><span style=display:flex><span>        tvH <span style=color:#f92672>=</span> (TextView) findViewById(R.<span style=color:#a6e22e>id</span>.<span style=color:#a6e22e>tvH</span>);
-</span></span><span style=display:flex><span>        tvPositionState <span style=color:#f92672>=</span> (TextView) findViewById(R.<span style=color:#a6e22e>id</span>.<span style=color:#a6e22e>tvPositionState</span>);
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>try</span> {
-</span></span><span style=display:flex><span>            PositionSource.<span style=color:#a6e22e>getInstance</span>().<span style=color:#a6e22e>addListener</span>(<span style=color:#66d9ef>new</span> IPositionListener.<span style=color:#a6e22e>Stub</span>() {
-</span></span><span style=display:flex><span>                <span style=color:#a6e22e>@Override</span>
-</span></span><span style=display:flex><span>                <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>onCoordinatePosition</span>(SurveyPointPositionInfo positionInfo) {
-</span></span><span style=display:flex><span>                    runOnUiThread(<span style=color:#66d9ef>new</span> Runnable() {
-</span></span><span style=display:flex><span>                        <span style=color:#a6e22e>@Override</span>
-</span></span><span style=display:flex><span>                        <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>run</span>() {
-</span></span><span style=display:flex><span>                            updatePositionInfoUi(positionInfo);
-</span></span><span style=display:flex><span>                        }
-</span></span><span style=display:flex><span>                    });
-</span></span><span style=display:flex><span>                }
-</span></span><span style=display:flex><span>            });
-</span></span><span style=display:flex><span>        } <span style=color:#66d9ef>catch</span> (RemoteException e) {
-</span></span><span style=display:flex><span>            <span style=color:#66d9ef>throw</span> <span style=color:#66d9ef>new</span> RuntimeException(e);
-</span></span><span style=display:flex><span>        }
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>initClickListener</span>() {
-</span></span><span style=display:flex><span>        <span style=color:#75715e>// 便捷调试，一键切换地面相机和前摄相机</span>
-</span></span><span style=display:flex><span>        findViewById(R.<span style=color:#a6e22e>id</span>.<span style=color:#a6e22e>switchCamera</span>).<span style=color:#a6e22e>setOnClickListener</span>(view <span style=color:#f92672>-&gt;</span> {
-</span></span><span style=display:flex><span>            <span style=color:#75715e>// 当距离在 ArSettings.getGroundDistOfAutoSwitchToArMode() 和 ArSettings.getFarDistOfAutoSwitchToArMode() 之间时，自动切换到前摄相机。</span>
-</span></span><span style=display:flex><span>            <span style=color:#75715e>// 当距离小于 ArSettings.getGroundDistOfAutoSwitchToArMode() 时，自动切换到地面相机。</span>
-</span></span><span style=display:flex><span>            <span style=color:#75715e>// 以下逻辑确保地面相机和前摄相机之间的自动切换。</span>
-</span></span><span style=display:flex><span>            <span style=color:#66d9ef>double</span> dist <span style=color:#f92672>=</span> mArPointStakeoutController.<span style=color:#a6e22e>getDist</span>();
-</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> (dist <span style=color:#f92672>&gt;</span> ArSettings.<span style=color:#a6e22e>getFarDistOfAutoSwitchToArMode</span>()) {
-</span></span><span style=display:flex><span>                <span style=color:#75715e>// 更新远距离阈值，以允许距离增加时进一步切换</span>
-</span></span><span style=display:flex><span>                ArSettings.<span style=color:#a6e22e>setFarDistOfAutoSwitchToArMode</span>(dist <span style=color:#f92672>+</span> 20);
-</span></span><span style=display:flex><span>                <span style=color:#66d9ef>return</span>;
-</span></span><span style=display:flex><span>            }
-</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> (dist <span style=color:#f92672>&gt;</span> ArSettings.<span style=color:#a6e22e>getGroundDistOfAutoSwitchToArMode</span>()) {
-</span></span><span style=display:flex><span>                <span style=color:#75715e>// 略微增加地面距离阈值以实现更平滑的切换</span>
-</span></span><span style=display:flex><span>                ArSettings.<span style=color:#a6e22e>setGroundDistOfAutoSwitchToArMode</span>(dist <span style=color:#f92672>+</span> 2);
-</span></span><span style=display:flex><span>            } <span style=color:#66d9ef>else</span> {
-</span></span><span style=display:flex><span>                <span style=color:#75715e>// 略微减少地面距离阈值以实现更平滑的切换</span>
-</span></span><span style=display:flex><span>                ArSettings.<span style=color:#a6e22e>setGroundDistOfAutoSwitchToArMode</span>(dist <span style=color:#f92672>-</span> 2);
-</span></span><span style=display:flex><span>            }
-</span></span><span style=display:flex><span>        });
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>        findViewById(R.<span style=color:#a6e22e>id</span>.<span style=color:#a6e22e>setTarget</span>).<span style=color:#a6e22e>setOnClickListener</span>(view <span style=color:#f92672>-&gt;</span> {
-</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> (mPoint3DMutable <span style=color:#f92672>!=</span> <span style=color:#66d9ef>null</span>) {
-</span></span><span style=display:flex><span>                Point3DMutable target <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Point3DMutable(mPoint3DMutable);
-</span></span><span style=display:flex><span>                mArPointStakeoutController.<span style=color:#a6e22e>setTargetPointOfSrcBlh</span>(target);
-</span></span><span style=display:flex><span>            }
-</span></span><span style=display:flex><span>        });
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>        findViewById(R.<span style=color:#a6e22e>id</span>.<span style=color:#a6e22e>openCamera</span>).<span style=color:#a6e22e>setOnClickListener</span>(view <span style=color:#f92672>-&gt;</span> {
-</span></span><span style=display:flex><span>            mArPointStakeoutController.<span style=color:#a6e22e>open</span>();
-</span></span><span style=display:flex><span>        });
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>        findViewById(R.<span style=color:#a6e22e>id</span>.<span style=color:#a6e22e>closeCamera</span>).<span style=color:#a6e22e>setOnClickListener</span>(view <span style=color:#f92672>-&gt;</span> {
-</span></span><span style=display:flex><span>            mArPointStakeoutController.<span style=color:#a6e22e>close</span>();
-</span></span><span style=display:flex><span>        });
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>protected</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>onResume</span>() {
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>super</span>.<span style=color:#a6e22e>onResume</span>();
-</span></span><span style=display:flex><span>        mArPointStakeoutController.<span style=color:#a6e22e>onResume</span>();
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>protected</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>onPause</span>() {
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>super</span>.<span style=color:#a6e22e>onPause</span>();
-</span></span><span style=display:flex><span>        mArPointStakeoutController.<span style=color:#a6e22e>onPause</span>();
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    <span style=color:#75715e>// 渲染坐标信息到页面</span>
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>updatePositionInfoUi</span>(<span style=color:#a6e22e>@NonNull</span> SurveyPointPositionInfo surveyPointPositionInfo) {
-</span></span><span style=display:flex><span>        Position position <span style=color:#f92672>=</span> surveyPointPositionInfo.<span style=color:#a6e22e>getCoorKernal</span>().<span style=color:#a6e22e>getWgsBlh</span>();
-</span></span><span style=display:flex><span>        mPoint3DMutable <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Point3DMutable(
-</span></span><span style=display:flex><span>                position.<span style=color:#a6e22e>getX</span>(),
-</span></span><span style=display:flex><span>                position.<span style=color:#a6e22e>getY</span>(),
-</span></span><span style=display:flex><span>                position.<span style=color:#a6e22e>getZ</span>()
-</span></span><span style=display:flex><span>        );
-</span></span><span style=display:flex><span>        tvB.<span style=color:#a6e22e>setText</span>(String.<span style=color:#a6e22e>valueOf</span>(position.<span style=color:#a6e22e>getX</span>()));
-</span></span><span style=display:flex><span>        tvL.<span style=color:#a6e22e>setText</span>(String.<span style=color:#a6e22e>valueOf</span>(position.<span style=color:#a6e22e>getY</span>()));
-</span></span><span style=display:flex><span>        tvH.<span style=color:#a6e22e>setText</span>(String.<span style=color:#a6e22e>valueOf</span>(position.<span style=color:#a6e22e>getZ</span>()));
-</span></span><span style=display:flex><span>        tvPositionState.<span style=color:#a6e22e>setText</span>(String.<span style=color:#a6e22e>valueOf</span>(surveyPointPositionInfo.<span style=color:#a6e22e>getSolveStatus</span>().<span style=color:#a6e22e>getValue</span>()));
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>} 
-</span></span></code></pre></div></article><footer class=book-footer><div class="flex flex-wrap justify-between"></div><script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents><ul><li><a href=#ar放样>AR放样</a><ul><li><a href=#布局>布局</a></li><li><a href=#初始化ar功能>初始化AR功能</a></li><li><a href=#设置ar操作>设置AR操作</a></li><li><a href=#相机切换>相机切换</a></li><li><a href=#完整代码>完整代码</a></li></ul></li></ul></nav></div></aside></main></body></html>
+打开/关闭相机：ArPointStakeoutController提供了open()和close()方法，分别用于打开和关闭AR视图中的相机； 设置目标点：使用setTargetPointOfSrcBlh()方法，可以设置AR视图中的目标点。目标点通过Point3DMutable传递； // 打开或关闭相机 findViewById(R.id.openCamera).setOnClickListener(view -&gt; { mArPointStakeoutController.open(); }); // 设置目标点 findViewById(R.id.closeCamera).setOnClickListener(view -&gt; { mArPointStakeoutController.close(); }); 相机切换 # ArSettings 类是一个配置类，用于存储和获取与AR模式相关的距离设置，即摄像头切换的自动距离阈值。这个类通过静态变量和静态方法来实现全局配置，可以在项目中的其他地方使用这些配置进行操作，比如自动切换相机模式等，使用场景如下：">
+  <meta property="og:locale" content="zh">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="docs">
+<title>AR放样 | CHCNAV DEV</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://localhost:1313/zh/docs/gnssserver/06_ar%E6%94%BE%E6%A0%B7/">
+  <link rel="alternate" hreflang="en" href="http://localhost:1313/docs/gnssserver/06_ar%E6%94%BE%E6%A0%B7/" title="AR Stakeout">
+<link rel="stylesheet" href="/book.min.a7616cf2799b58bddffce9438e31fdbfc6393687cfc0950a4a17cd1cce7e35f6.css" integrity="sha256-p2Fs8nmbWL3f/OlDjjH9v8Y5NofPwJUKShfNHM5&#43;NfY=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/zh.search.min.ebe753d9e29aee2a3dc96cb36c7e7a22821900f09af1ff2159ee943ad0081b06.js" integrity="sha256-6&#43;dT2eKa7io9yWyzbH56IoIZAPCa8f8hWe6UOtAIGwY=" crossorigin="anonymous"></script>
+
+  <script defer src="/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js" integrity="sha256-b2&#43;Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC&#43;NdcPIvZhzk=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/zh/"><span>CHCNAV DEV</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="搜索" aria-label="搜索" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+  
+
+
+
+  
+    
+  
+
+
+  
+
+
+<ul class="book-languages">
+  <li>
+    <input type="checkbox" id="languages" class="toggle" />
+    <label for="languages" class="flex justify-between">
+      <a role="button" class="flex align-center">
+        <img src="/svg/translate.svg" class="book-icon" alt="Languages" />
+        Chinese
+      </a>
+    </label>
+
+    <ul>
+      
+      <li>
+        <a href="/docs/gnssserver/06_ar%E6%94%BE%E6%A0%B7/">
+          English
+        </a>
+      </li>
+      
+    </ul>
+  </li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-e5ecee4c7d3b31e85f9a9a56df882b94" class="toggle" checked />
+    <label for="section-e5ecee4c7d3b31e85f9a9a56df882b94" class="flex justify-between">
+      <a href="/zh/docs/gnssserver/" class="">GnssServer开发文档</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/zh/docs/gnssserver/01_%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/" class="">快速开始</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/zh/docs/gnssserver/02_%E8%BF%9E%E6%8E%A5/" class="">连接</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/zh/docs/gnssserver/03_%E6%8E%A5%E6%94%B6%E6%9C%BA%E9%80%9A%E4%BF%A1/" class="">接收机通信</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/zh/docs/gnssserver/04_%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2/" class="">坐标转换</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/zh/docs/gnssserver/05_imu/" class="">IMU</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/zh/docs/gnssserver/06_ar%E6%94%BE%E6%A0%B7/" class="active">AR放样</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/zh/docs/gnssserver/07_%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="">常用数据类型</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-546412403a510171ebc0a5bba25dab59" class="toggle"  />
+    <label for="section-546412403a510171ebc0a5bba25dab59" class="flex justify-between">
+      <a href="/zh/docs/landstar/" class="">测地通二次开发</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/zh/docs/landstar/1_%E5%9F%BA%E4%BA%8E%E5%B9%BF%E6%92%AD%E6%B6%88%E6%81%AF%E5%BC%80%E5%8F%91/" class="">基于广播消息开发</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/zh/docs/landstar/2_%E5%9F%BA%E4%BA%8Etxt%E6%96%87%E4%BB%B6%E5%BC%80%E5%8F%91/" class="">基于txt文件开发</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="https://www.chcnav.com/"  target="_blank" rel="noopener">
+        CHCNAV
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>AR放样</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#ar放样">AR放样</a>
+      <ul>
+        <li><a href="#布局">布局</a></li>
+        <li><a href="#初始化ar功能">初始化AR功能</a></li>
+        <li><a href="#设置ar操作">设置AR操作</a></li>
+        <li><a href="#相机切换">相机切换</a></li>
+        <li><a href="#完整代码">完整代码</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h1 id="ar放样">
+  AR放样
+  <a class="anchor" href="#ar%e6%94%be%e6%a0%b7">#</a>
+</h1>
+<p>本节旨在帮助开发者快速集成并使用AR放样功能。SDK依赖的核心模块是business，通过集成ArViewLayout和ArPointStakeoutController，开发者能够实现与AR相关的放样功能。文档将重点介绍如何配置、初始化以及使用相关API，同时也会涉及到视图的布局和UI组件的配置。</p>
+<h2 id="布局">
+  布局
+  <a class="anchor" href="#%e5%b8%83%e5%b1%80">#</a>
+</h2>
+<p>在布局文件中，ArViewLayout用于承载AR视图。该布局将为AR视图提供一个占据屏幕的区域，后续的AR操作将通过ArViewLayout展示。具体如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;com.huace.gnssserver.business.api.ar.ArViewLayout</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">android:id=</span><span style="color:#e6db74">&#34;@+id/viewAr&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">android:layout_width=</span><span style="color:#e6db74">&#34;match_parent&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">android:layout_height=</span><span style="color:#e6db74">&#34;0dp&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">android:layout_weight=</span><span style="color:#e6db74">&#34;1&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span></code></pre></div><h2 id="初始化ar功能">
+  初始化AR功能
+  <a class="anchor" href="#%e5%88%9d%e5%a7%8b%e5%8c%96ar%e5%8a%9f%e8%83%bd">#</a>
+</h2>
+<p>创建并初始化ArPointStakeoutController的步骤和代码如下：</p>
+<ol>
+<li>在onCreate方法中，首先初始化ArViewLayout并创建ArPointStakeoutController实例；</li>
+<li>ArPointStakeoutController用于控制AR视图的操作，并管理与AR相关的放样功能；</li>
+<li>ArPointStakeoutController的构造函数接收两个参数：Context和ArViewLayout，并绑定了IArModeListener，以便监听AR模式的状态变化；</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">initAr</span>() <span style="color:#66d9ef">throws</span> RemoteException {
+</span></span><span style="display:flex;"><span>    ArViewLayout arViewLayout <span style="color:#f92672">=</span> findViewById(R.<span style="color:#a6e22e">id</span>.<span style="color:#a6e22e">viewAr</span>);
+</span></span><span style="display:flex;"><span>    mArPointStakeoutController <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArPointStakeoutController(
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">this</span>, 
+</span></span><span style="display:flex;"><span>            arViewLayout, 
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">new</span> IArModeListener() {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onBeforeEnter</span>() {
+</span></span><span style="display:flex;"><span>                    <span style="color:#75715e">// Callback before entering AR mode</span>
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onAfterExit</span>() {
+</span></span><span style="display:flex;"><span>                    <span style="color:#75715e">// Callback after exiting AR mode</span>
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>    );
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="设置ar操作">
+  设置AR操作
+  <a class="anchor" href="#%e8%ae%be%e7%bd%aear%e6%93%8d%e4%bd%9c">#</a>
+</h2>
+<p>关于AR常见的操作和代码如下：</p>
+<ol>
+<li>打开/关闭相机：ArPointStakeoutController提供了open()和close()方法，分别用于打开和关闭AR视图中的相机；</li>
+<li>设置目标点：使用setTargetPointOfSrcBlh()方法，可以设置AR视图中的目标点。目标点通过Point3DMutable传递；</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// 打开或关闭相机</span>
+</span></span><span style="display:flex;"><span>findViewById(R.<span style="color:#a6e22e">id</span>.<span style="color:#a6e22e">openCamera</span>).<span style="color:#a6e22e">setOnClickListener</span>(view <span style="color:#f92672">-&gt;</span> {
+</span></span><span style="display:flex;"><span>    mArPointStakeoutController.<span style="color:#a6e22e">open</span>();
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 设置目标点</span>
+</span></span><span style="display:flex;"><span>findViewById(R.<span style="color:#a6e22e">id</span>.<span style="color:#a6e22e">closeCamera</span>).<span style="color:#a6e22e">setOnClickListener</span>(view <span style="color:#f92672">-&gt;</span> {
+</span></span><span style="display:flex;"><span>    mArPointStakeoutController.<span style="color:#a6e22e">close</span>();
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre></div><h2 id="相机切换">
+  相机切换
+  <a class="anchor" href="#%e7%9b%b8%e6%9c%ba%e5%88%87%e6%8d%a2">#</a>
+</h2>
+<p>ArSettings 类是一个配置类，用于存储和获取与AR模式相关的距离设置，即摄像头切换的自动距离阈值。这个类通过静态变量和静态方法来实现全局配置，可以在项目中的其他地方使用这些配置进行操作，比如自动切换相机模式等，使用场景如下：</p>
+<ol>
+<li>自动相机切换：在AR放样过程中，当用户的设备与目标点的距离发生变化时，ArSettings 允许系统自动切换前摄相机和下摄相机，以确保AR显示效果的最佳化。例如，当设备距离目标较远时，系统可以自动切换到前摄相机进行远距离的AR显示；当设备距离目标较近时，则切换到下摄相机显示更精确的AR数据；</li>
+<li>调试与优化：在开发过程中，可以通过调整这两个距离阈值来便捷调试相机的切换；</li>
+</ol>
+<p>如下为开发过程中便捷调试的示例代码：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// 相机切换</span>
+</span></span><span style="display:flex;"><span>findViewById(R.<span style="color:#a6e22e">id</span>.<span style="color:#a6e22e">switchCamera</span>).<span style="color:#a6e22e">setOnClickListener</span>(view <span style="color:#f92672">-&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">double</span> dist <span style="color:#f92672">=</span> mArPointStakeoutController.<span style="color:#a6e22e">getDist</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (dist <span style="color:#f92672">&gt;</span> ArSettings.<span style="color:#a6e22e">getFarDistOfAutoSwitchToArMode</span>()) {
+</span></span><span style="display:flex;"><span>        ArSettings.<span style="color:#a6e22e">setFarDistOfAutoSwitchToArMode</span>(dist <span style="color:#f92672">+</span> 20);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (dist <span style="color:#f92672">&gt;</span> ArSettings.<span style="color:#a6e22e">getGroundDistOfAutoSwitchToArMode</span>()) {
+</span></span><span style="display:flex;"><span>        ArSettings.<span style="color:#a6e22e">setGroundDistOfAutoSwitchToArMode</span>(dist <span style="color:#f92672">+</span> 2);
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        ArSettings.<span style="color:#a6e22e">setGroundDistOfAutoSwitchToArMode</span>(dist <span style="color:#f92672">-</span> 2);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre></div><p>ArSettings类为AR放样应用提供了灵活的自动切换相机的配置。通过设置groundDistOfAutoSwitchToArMode和farDistOfAutoSwitchToArMode，开发者可以控制何时切换到下摄相机或前摄相机，从而提供更好的用户体验。</p>
+<h2 id="完整代码">
+  完整代码
+  <a class="anchor" href="#%e5%ae%8c%e6%95%b4%e4%bb%a3%e7%a0%81">#</a>
+</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ArStakeoutActivity</span> <span style="color:#66d9ef">extends</span> AppCompatActivity {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> TextView tvB;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> TextView tvL;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> TextView tvH;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> TextView tvPositionState;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> ArPointStakeoutController mArPointStakeoutController;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> Point3DMutable mPoint3DMutable;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onCreate</span>(Bundle savedInstanceState) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">super</span>.<span style="color:#a6e22e">onCreate</span>(savedInstanceState);
+</span></span><span style="display:flex;"><span>        setContentView(R.<span style="color:#a6e22e">layout</span>.<span style="color:#a6e22e">activity_ar_stakeout</span>);
+</span></span><span style="display:flex;"><span>        initAr();
+</span></span><span style="display:flex;"><span>        initView();
+</span></span><span style="display:flex;"><span>        initClickListener();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">initAr</span>() {
+</span></span><span style="display:flex;"><span>        ArViewLayout arViewLayout <span style="color:#f92672">=</span> findViewById(R.<span style="color:#a6e22e">id</span>.<span style="color:#a6e22e">viewAr</span>);
+</span></span><span style="display:flex;"><span>        mArPointStakeoutController <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">new</span> ArPointStakeoutController(<span style="color:#66d9ef">this</span>, arViewLayout, <span style="color:#66d9ef">new</span> IArModeListener() {
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onBeforeEnter</span>() {
+</span></span><span style="display:flex;"><span>                    <span style="color:#75715e">// Callback before entering AR mode</span>
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onAfterExit</span>() {
+</span></span><span style="display:flex;"><span>                    <span style="color:#75715e">// Callback after exiting AR mode</span>
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                });
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">initView</span>() {
+</span></span><span style="display:flex;"><span>        tvB <span style="color:#f92672">=</span> (TextView) findViewById(R.<span style="color:#a6e22e">id</span>.<span style="color:#a6e22e">tvB</span>);
+</span></span><span style="display:flex;"><span>        tvL <span style="color:#f92672">=</span> (TextView) findViewById(R.<span style="color:#a6e22e">id</span>.<span style="color:#a6e22e">tvL</span>);
+</span></span><span style="display:flex;"><span>        tvH <span style="color:#f92672">=</span> (TextView) findViewById(R.<span style="color:#a6e22e">id</span>.<span style="color:#a6e22e">tvH</span>);
+</span></span><span style="display:flex;"><span>        tvPositionState <span style="color:#f92672">=</span> (TextView) findViewById(R.<span style="color:#a6e22e">id</span>.<span style="color:#a6e22e">tvPositionState</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>            PositionSource.<span style="color:#a6e22e">getInstance</span>().<span style="color:#a6e22e">addListener</span>(<span style="color:#66d9ef">new</span> IPositionListener.<span style="color:#a6e22e">Stub</span>() {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onCoordinatePosition</span>(SurveyPointPositionInfo positionInfo) {
+</span></span><span style="display:flex;"><span>                    runOnUiThread(<span style="color:#66d9ef">new</span> Runnable() {
+</span></span><span style="display:flex;"><span>                        <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">run</span>() {
+</span></span><span style="display:flex;"><span>                            updatePositionInfoUi(positionInfo);
+</span></span><span style="display:flex;"><span>                        }
+</span></span><span style="display:flex;"><span>                    });
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            });
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">catch</span> (RemoteException e) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> RuntimeException(e);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">initClickListener</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 便捷调试，一键切换地面相机和前摄相机</span>
+</span></span><span style="display:flex;"><span>        findViewById(R.<span style="color:#a6e22e">id</span>.<span style="color:#a6e22e">switchCamera</span>).<span style="color:#a6e22e">setOnClickListener</span>(view <span style="color:#f92672">-&gt;</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 当距离在 ArSettings.getGroundDistOfAutoSwitchToArMode() 和 ArSettings.getFarDistOfAutoSwitchToArMode() 之间时，自动切换到前摄相机。</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 当距离小于 ArSettings.getGroundDistOfAutoSwitchToArMode() 时，自动切换到地面相机。</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 以下逻辑确保地面相机和前摄相机之间的自动切换。</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">double</span> dist <span style="color:#f92672">=</span> mArPointStakeoutController.<span style="color:#a6e22e">getDist</span>();
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (dist <span style="color:#f92672">&gt;</span> ArSettings.<span style="color:#a6e22e">getFarDistOfAutoSwitchToArMode</span>()) {
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// 更新远距离阈值，以允许距离增加时进一步切换</span>
+</span></span><span style="display:flex;"><span>                ArSettings.<span style="color:#a6e22e">setFarDistOfAutoSwitchToArMode</span>(dist <span style="color:#f92672">+</span> 20);
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (dist <span style="color:#f92672">&gt;</span> ArSettings.<span style="color:#a6e22e">getGroundDistOfAutoSwitchToArMode</span>()) {
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// 略微增加地面距离阈值以实现更平滑的切换</span>
+</span></span><span style="display:flex;"><span>                ArSettings.<span style="color:#a6e22e">setGroundDistOfAutoSwitchToArMode</span>(dist <span style="color:#f92672">+</span> 2);
+</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// 略微减少地面距离阈值以实现更平滑的切换</span>
+</span></span><span style="display:flex;"><span>                ArSettings.<span style="color:#a6e22e">setGroundDistOfAutoSwitchToArMode</span>(dist <span style="color:#f92672">-</span> 2);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        findViewById(R.<span style="color:#a6e22e">id</span>.<span style="color:#a6e22e">setTarget</span>).<span style="color:#a6e22e">setOnClickListener</span>(view <span style="color:#f92672">-&gt;</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (mPoint3DMutable <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>) {
+</span></span><span style="display:flex;"><span>                Point3DMutable target <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Point3DMutable(mPoint3DMutable);
+</span></span><span style="display:flex;"><span>                mArPointStakeoutController.<span style="color:#a6e22e">setTargetPointOfSrcBlh</span>(target);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        findViewById(R.<span style="color:#a6e22e">id</span>.<span style="color:#a6e22e">openCamera</span>).<span style="color:#a6e22e">setOnClickListener</span>(view <span style="color:#f92672">-&gt;</span> {
+</span></span><span style="display:flex;"><span>            mArPointStakeoutController.<span style="color:#a6e22e">open</span>();
+</span></span><span style="display:flex;"><span>        });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        findViewById(R.<span style="color:#a6e22e">id</span>.<span style="color:#a6e22e">closeCamera</span>).<span style="color:#a6e22e">setOnClickListener</span>(view <span style="color:#f92672">-&gt;</span> {
+</span></span><span style="display:flex;"><span>            mArPointStakeoutController.<span style="color:#a6e22e">close</span>();
+</span></span><span style="display:flex;"><span>        });
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onResume</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">super</span>.<span style="color:#a6e22e">onResume</span>();
+</span></span><span style="display:flex;"><span>        mArPointStakeoutController.<span style="color:#a6e22e">onResume</span>();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onPause</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">super</span>.<span style="color:#a6e22e">onPause</span>();
+</span></span><span style="display:flex;"><span>        mArPointStakeoutController.<span style="color:#a6e22e">onPause</span>();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 渲染坐标信息到页面</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">updatePositionInfoUi</span>(<span style="color:#a6e22e">@NonNull</span> SurveyPointPositionInfo surveyPointPositionInfo) {
+</span></span><span style="display:flex;"><span>        Position position <span style="color:#f92672">=</span> surveyPointPositionInfo.<span style="color:#a6e22e">getCoorKernal</span>().<span style="color:#a6e22e">getWgsBlh</span>();
+</span></span><span style="display:flex;"><span>        mPoint3DMutable <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Point3DMutable(
+</span></span><span style="display:flex;"><span>                position.<span style="color:#a6e22e">getX</span>(),
+</span></span><span style="display:flex;"><span>                position.<span style="color:#a6e22e">getY</span>(),
+</span></span><span style="display:flex;"><span>                position.<span style="color:#a6e22e">getZ</span>()
+</span></span><span style="display:flex;"><span>        );
+</span></span><span style="display:flex;"><span>        tvB.<span style="color:#a6e22e">setText</span>(String.<span style="color:#a6e22e">valueOf</span>(position.<span style="color:#a6e22e">getX</span>()));
+</span></span><span style="display:flex;"><span>        tvL.<span style="color:#a6e22e">setText</span>(String.<span style="color:#a6e22e">valueOf</span>(position.<span style="color:#a6e22e">getY</span>()));
+</span></span><span style="display:flex;"><span>        tvH.<span style="color:#a6e22e">setText</span>(String.<span style="color:#a6e22e">valueOf</span>(position.<span style="color:#a6e22e">getZ</span>()));
+</span></span><span style="display:flex;"><span>        tvPositionState.<span style="color:#a6e22e">setText</span>(String.<span style="color:#a6e22e">valueOf</span>(surveyPointPositionInfo.<span style="color:#a6e22e">getSolveStatus</span>().<span style="color:#a6e22e">getValue</span>()));
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>} 
+</span></span></code></pre></div></article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#ar放样">AR放样</a>
+      <ul>
+        <li><a href="#布局">布局</a></li>
+        <li><a href="#初始化ar功能">初始化AR功能</a></li>
+        <li><a href="#设置ar操作">设置AR操作</a></li>
+        <li><a href="#相机切换">相机切换</a></li>
+        <li><a href="#完整代码">完整代码</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

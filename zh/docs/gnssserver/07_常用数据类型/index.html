@@ -1,4 +1,9 @@
-<!doctype html><html lang=zh dir=ltr><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=56704&amp;path=livereload" data-no-instant defer></script><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="
+<!DOCTYPE html>
+<html lang="zh" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="
   常用数据类型
   #
 
@@ -434,23 +439,870 @@
           位置发生偏移
       
   
-"><meta name=theme-color media="(prefers-color-scheme: light)" content="#ffffff"><meta name=theme-color media="(prefers-color-scheme: dark)" content="#343a40"><meta name=color-scheme content="light dark"><meta property="og:url" content="http://localhost:56704/zh/docs/gnssserver/07_%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/"><meta property="og:site_name" content="CHCNAV DEV"><meta property="og:title" content="常用数据类型"><meta property="og:description" content=" 常用数据类型 # SatellitePosition # 类型 名称 描述 Position mPosition 包含位置信息 x、y、z（double 类型弧度，对应 BLH） EnumSolveStatus mEnumSolveStatus 包含解状态信息 EnumSolveStatus # 名称 描述 SOLVE_STATUS_FIX 固定 SOLVE_STATUS_FLOAT 浮动 SOLVE_STATUS_WIDE 浮动 SOLVE_STATUS_COS 浮动 SOLVE_STATUS_RTD 浮动 SOLVE_STATUS_DIFF 浮动 SOLVE_STATUS_NONE 未知 SOLVE_STATUS_BASE_WRONG 未知 SOLVE_STATUS_SEARCH_SAT 未知 SOLVE_STATUS_STAR_TIMEOUT 异常 SOLVE_STATUS_STAR_OUTAREA 异常 SOLVE_STATUS_STAR_SERVER_ERR 异常 除上表所述外，其余所有状态，您可以定义为单点。
-SatellitePrecision # 类型 名称 描述 double mHpre 水平方向精度 double mVpre 垂直方向精度 double mXpre 大地纬度精度 double mYpre 大地经度精度 double mRms 空间精度 NtripProtocolCode # 类型 名称 描述 NtripProtocolCode NC_ICY_200_OK 登录成功 NtripProtocolCode ERROR_401_UNAUTHORIZED 登录失败 EmPdaWorkModeStatus # 类型 名称 描述 EmPdaWorkModeStatus LOGINING 正在登录 EmPdaWorkModeStatus LOGOUT 注销 EmPdaWorkModeStatus LOGINED 已登录/登录成功 NoneMagneticTiltInfo # 类型 名称 描述 double mVarE 补偿点经度标准差 double mVarN 补偿点纬度标准差 double mVarU 补偿点高程标准差 double mVarTilt 竖直倾角标准差 double mVarDirect 倾斜方向角标准差 double mLatitude 补偿点纬度 double mLontitude 补偿点经度 double mHeight 补偿点高程 double mHeightOffset 高程偏移 double mDiffAge 差分龄期 double mPitch 俯仰角 double mRoll 横滚角 double mHeading 航向角 CoorKernal # 类型 名称 描述 Position rawBlh 接收机原始输出 Position wgsBlh 经纬度 Position wgsXyz 空间坐标 Position localBlh 本地经纬度 Position localXyz 本地XYZ Position localNeh 本地平面坐标 SurveyPointPositionInfo # 类型 名称 描述 CoorKernal mCoorKernal 点坐标集合 GpsTime mGpsTime 卫星时 Time mTime 时间 SatellitePrecision mSatellitePrecision 精度信息 double diffAge 差分龄期 RTKCamera # 类型 名称 描述 CoorKernal mCoorKernal 点坐标集合 GpsTime mGpsTime 卫星时 Time mTime 时间 SatellitePrecision mSatellitePrecision 精度信息 double diffAge 差分龄期 BaseWarning # 类型 名称 描述 EnumBaseWarning mEnumBaseWarning 偏移状态 EnumBaseWarning # 类型 名称 描述 BASE_WARNING_NONE BASE_WARNING_NONE 未偏移 BASE_WARNING_BASE_MOVE BASE_WARNING_BASE_MOVE 位置发生偏移 "><meta property="og:locale" content="zh"><meta property="og:type" content="article"><meta property="article:section" content="docs"><title>常用数据类型 | CHCNAV DEV</title>
-<link rel=icon href=/favicon.png><link rel=manifest href=/manifest.json><link rel=canonical href=http://localhost:56704/zh/docs/gnssserver/07_%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/><link rel=alternate hreflang=en href=http://localhost:56704/docs/gnssserver/07_%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/ title="Common data types"><link rel=stylesheet href=/book.min.a7616cf2799b58bddffce9438e31fdbfc6393687cfc0950a4a17cd1cce7e35f6.css integrity="sha256-p2Fs8nmbWL3f/OlDjjH9v8Y5NofPwJUKShfNHM5+NfY=" crossorigin=anonymous><script defer src=/fuse.min.js></script><script defer src=/zh.search.min.ebe753d9e29aee2a3dc96cb36c7e7a22821900f09af1ff2159ee943ad0081b06.js integrity="sha256-6+dT2eKa7io9yWyzbH56IoIZAPCa8f8hWe6UOtAIGwY=" crossorigin=anonymous></script><script defer src=/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js integrity="sha256-b2+Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC+NdcPIvZhzk=" crossorigin=anonymous></script></head><body dir=ltr><input type=checkbox class="hidden toggle" id=menu-control>
-<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><div class=book-menu-content><nav><h2 class=book-brand><a class="flex align-center" href=/zh/><span>CHCNAV DEV</span></a></h2><div class="book-search hidden"><input type=text id=book-search-input placeholder=搜索 aria-label=搜索 maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><script>document.querySelector(".book-search").classList.remove("hidden")</script><ul class=book-languages><li><input type=checkbox id=languages class=toggle>
-<label for=languages class="flex justify-between"><a role=button class="flex align-center"><img src=/svg/translate.svg class=book-icon alt=Languages>
-Chinese</a></label><ul><li><a href=/docs/gnssserver/07_%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/>English</a></li></ul></li></ul><ul><li class=book-section-flat><input type=checkbox id=section-e5ecee4c7d3b31e85f9a9a56df882b94 class=toggle checked>
-<label for=section-e5ecee4c7d3b31e85f9a9a56df882b94 class="flex justify-between"><a href=/zh/docs/gnssserver/>GnssServer开发文档</a></label><ul><li><a href=/zh/docs/gnssserver/01_%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/>快速开始</a></li><li><a href=/zh/docs/gnssserver/02_%E8%BF%9E%E6%8E%A5/>连接</a></li><li><a href=/zh/docs/gnssserver/03_%E6%8E%A5%E6%94%B6%E6%9C%BA%E9%80%9A%E4%BF%A1/>接收机通信</a></li><li><a href=/zh/docs/gnssserver/04_%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2/>坐标转换</a></li><li><a href=/zh/docs/gnssserver/05_imu/>IMU</a></li><li><a href=/zh/docs/gnssserver/06_ar%E6%94%BE%E6%A0%B7/>AR放样</a></li><li><a href=/zh/docs/gnssserver/07_%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/ class=active>常用数据类型</a></li></ul></li><li class=book-section-flat><input type=checkbox id=section-546412403a510171ebc0a5bba25dab59 class=toggle>
-<label for=section-546412403a510171ebc0a5bba25dab59 class="flex justify-between"><a href=/zh/docs/landstar/>测地通二次开发</a></label><ul><li><a href=/zh/docs/landstar/1_%E5%9F%BA%E4%BA%8E%E5%B9%BF%E6%92%AD%E6%B6%88%E6%81%AF%E5%BC%80%E5%8F%91/>基于广播消息开发</a></li><li><a href=/zh/docs/landstar/2_%E5%9F%BA%E4%BA%8Etxt%E6%96%87%E4%BB%B6%E5%BC%80%E5%8F%91/>基于txt文件开发</a></li></ul></li></ul><ul><li><a href=https://www.chcnav.com/ target=_blank rel=noopener>CHCNAV</a></li></ul></nav><script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></div></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu></label><h3>常用数据类型</h3><label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#常用数据类型>常用数据类型</a><ul><li><a href=#satelliteposition>SatellitePosition</a></li><li><a href=#enumsolvestatus>EnumSolveStatus</a></li><li><a href=#satelliteprecision>SatellitePrecision</a></li><li><a href=#ntripprotocolcode>NtripProtocolCode</a></li><li><a href=#empdaworkmodestatus>EmPdaWorkModeStatus</a></li><li><a href=#nonemagnetictiltinfo>NoneMagneticTiltInfo</a></li><li><a href=#coorkernal>CoorKernal</a></li><li><a href=#surveypointpositioninfo>SurveyPointPositionInfo</a></li><li><a href=#rtkcamera>RTKCamera</a></li><li><a href=#basewarning>BaseWarning</a></li><li><a href=#enumbasewarning>EnumBaseWarning</a></li></ul></li></ul></nav></aside></header><article class="markdown book-article"><h1 id=常用数据类型>常用数据类型
-<a class=anchor href=#%e5%b8%b8%e7%94%a8%e6%95%b0%e6%8d%ae%e7%b1%bb%e5%9e%8b>#</a></h1><h2 id=satelliteposition>SatellitePosition
-<a class=anchor href=#satelliteposition>#</a></h2><table><thead><tr><th style=text-align:left>类型</th><th style=text-align:left>名称</th><th style=text-align:left>描述</th></tr></thead><tbody><tr><td style=text-align:left>Position</td><td style=text-align:left>mPosition</td><td style=text-align:left>包含位置信息 x、y、z（double 类型弧度，对应 BLH）</td></tr><tr><td style=text-align:left>EnumSolveStatus</td><td style=text-align:left>mEnumSolveStatus</td><td style=text-align:left>包含解状态信息</td></tr></tbody></table><h2 id=enumsolvestatus>EnumSolveStatus
-<a class=anchor href=#enumsolvestatus>#</a></h2><table><thead><tr><th style=text-align:left>名称</th><th style=text-align:left>描述</th></tr></thead><tbody><tr><td style=text-align:left>SOLVE_STATUS_FIX</td><td style=text-align:left>固定</td></tr><tr><td style=text-align:left>SOLVE_STATUS_FLOAT</td><td style=text-align:left>浮动</td></tr><tr><td style=text-align:left>SOLVE_STATUS_WIDE</td><td style=text-align:left>浮动</td></tr><tr><td style=text-align:left>SOLVE_STATUS_COS</td><td style=text-align:left>浮动</td></tr><tr><td style=text-align:left>SOLVE_STATUS_RTD</td><td style=text-align:left>浮动</td></tr><tr><td style=text-align:left>SOLVE_STATUS_DIFF</td><td style=text-align:left>浮动</td></tr><tr><td style=text-align:left>SOLVE_STATUS_NONE</td><td style=text-align:left>未知</td></tr><tr><td style=text-align:left>SOLVE_STATUS_BASE_WRONG</td><td style=text-align:left>未知</td></tr><tr><td style=text-align:left>SOLVE_STATUS_SEARCH_SAT</td><td style=text-align:left>未知</td></tr><tr><td style=text-align:left>SOLVE_STATUS_STAR_TIMEOUT</td><td style=text-align:left>异常</td></tr><tr><td style=text-align:left>SOLVE_STATUS_STAR_OUTAREA</td><td style=text-align:left>异常</td></tr><tr><td style=text-align:left>SOLVE_STATUS_STAR_SERVER_ERR</td><td style=text-align:left>异常</td></tr></tbody></table><p>除上表所述外，其余所有状态，您可以定义为单点。</p><h2 id=satelliteprecision>SatellitePrecision
-<a class=anchor href=#satelliteprecision>#</a></h2><table><thead><tr><th style=text-align:left>类型</th><th style=text-align:left>名称</th><th style=text-align:left>描述</th></tr></thead><tbody><tr><td style=text-align:left>double</td><td style=text-align:left>mHpre</td><td style=text-align:left>水平方向精度</td></tr><tr><td style=text-align:left>double</td><td style=text-align:left>mVpre</td><td style=text-align:left>垂直方向精度</td></tr><tr><td style=text-align:left>double</td><td style=text-align:left>mXpre</td><td style=text-align:left>大地纬度精度</td></tr><tr><td style=text-align:left>double</td><td style=text-align:left>mYpre</td><td style=text-align:left>大地经度精度</td></tr><tr><td style=text-align:left>double</td><td style=text-align:left>mRms</td><td style=text-align:left>空间精度</td></tr></tbody></table><h2 id=ntripprotocolcode>NtripProtocolCode
-<a class=anchor href=#ntripprotocolcode>#</a></h2><table><thead><tr><th style=text-align:left>类型</th><th style=text-align:left>名称</th><th style=text-align:left>描述</th></tr></thead><tbody><tr><td style=text-align:left>NtripProtocolCode</td><td style=text-align:left>NC_ICY_200_OK</td><td style=text-align:left>登录成功</td></tr><tr><td style=text-align:left>NtripProtocolCode</td><td style=text-align:left>ERROR_401_UNAUTHORIZED</td><td style=text-align:left>登录失败</td></tr></tbody></table><h2 id=empdaworkmodestatus>EmPdaWorkModeStatus
-<a class=anchor href=#empdaworkmodestatus>#</a></h2><table><thead><tr><th style=text-align:left>类型</th><th style=text-align:left>名称</th><th style=text-align:left>描述</th></tr></thead><tbody><tr><td style=text-align:left>EmPdaWorkModeStatus</td><td style=text-align:left>LOGINING</td><td style=text-align:left>正在登录</td></tr><tr><td style=text-align:left>EmPdaWorkModeStatus</td><td style=text-align:left>LOGOUT</td><td style=text-align:left>注销</td></tr><tr><td style=text-align:left>EmPdaWorkModeStatus</td><td style=text-align:left>LOGINED</td><td style=text-align:left>已登录/登录成功</td></tr></tbody></table><h2 id=nonemagnetictiltinfo>NoneMagneticTiltInfo
-<a class=anchor href=#nonemagnetictiltinfo>#</a></h2><table><thead><tr><th style=text-align:left>类型</th><th style=text-align:left>名称</th><th style=text-align:left>描述</th></tr></thead><tbody><tr><td style=text-align:left>double</td><td style=text-align:left>mVarE</td><td style=text-align:left>补偿点经度标准差</td></tr><tr><td style=text-align:left>double</td><td style=text-align:left>mVarN</td><td style=text-align:left>补偿点纬度标准差</td></tr><tr><td style=text-align:left>double</td><td style=text-align:left>mVarU</td><td style=text-align:left>补偿点高程标准差</td></tr><tr><td style=text-align:left>double</td><td style=text-align:left>mVarTilt</td><td style=text-align:left>竖直倾角标准差</td></tr><tr><td style=text-align:left>double</td><td style=text-align:left>mVarDirect</td><td style=text-align:left>倾斜方向角标准差</td></tr><tr><td style=text-align:left>double</td><td style=text-align:left>mLatitude</td><td style=text-align:left>补偿点纬度</td></tr><tr><td style=text-align:left>double</td><td style=text-align:left>mLontitude</td><td style=text-align:left>补偿点经度</td></tr><tr><td style=text-align:left>double</td><td style=text-align:left>mHeight</td><td style=text-align:left>补偿点高程</td></tr><tr><td style=text-align:left>double</td><td style=text-align:left>mHeightOffset</td><td style=text-align:left>高程偏移</td></tr><tr><td style=text-align:left>double</td><td style=text-align:left>mDiffAge</td><td style=text-align:left>差分龄期</td></tr><tr><td style=text-align:left>double</td><td style=text-align:left>mPitch</td><td style=text-align:left>俯仰角</td></tr><tr><td style=text-align:left>double</td><td style=text-align:left>mRoll</td><td style=text-align:left>横滚角</td></tr><tr><td style=text-align:left>double</td><td style=text-align:left>mHeading</td><td style=text-align:left>航向角</td></tr></tbody></table><h2 id=coorkernal>CoorKernal
-<a class=anchor href=#coorkernal>#</a></h2><table><thead><tr><th style=text-align:left>类型</th><th style=text-align:left>名称</th><th style=text-align:left>描述</th></tr></thead><tbody><tr><td style=text-align:left>Position</td><td style=text-align:left>rawBlh</td><td style=text-align:left>接收机原始输出</td></tr><tr><td style=text-align:left>Position</td><td style=text-align:left>wgsBlh</td><td style=text-align:left>经纬度</td></tr><tr><td style=text-align:left>Position</td><td style=text-align:left>wgsXyz</td><td style=text-align:left>空间坐标</td></tr><tr><td style=text-align:left>Position</td><td style=text-align:left>localBlh</td><td style=text-align:left>本地经纬度</td></tr><tr><td style=text-align:left>Position</td><td style=text-align:left>localXyz</td><td style=text-align:left>本地XYZ</td></tr><tr><td style=text-align:left>Position</td><td style=text-align:left>localNeh</td><td style=text-align:left>本地平面坐标</td></tr></tbody></table><h2 id=surveypointpositioninfo>SurveyPointPositionInfo
-<a class=anchor href=#surveypointpositioninfo>#</a></h2><table><thead><tr><th style=text-align:left>类型</th><th style=text-align:left>名称</th><th style=text-align:left>描述</th></tr></thead><tbody><tr><td style=text-align:left>CoorKernal</td><td style=text-align:left>mCoorKernal</td><td style=text-align:left>点坐标集合</td></tr><tr><td style=text-align:left>GpsTime</td><td style=text-align:left>mGpsTime</td><td style=text-align:left>卫星时</td></tr><tr><td style=text-align:left>Time</td><td style=text-align:left>mTime</td><td style=text-align:left>时间</td></tr><tr><td style=text-align:left>SatellitePrecision</td><td style=text-align:left>mSatellitePrecision</td><td style=text-align:left>精度信息</td></tr><tr><td style=text-align:left>double</td><td style=text-align:left>diffAge</td><td style=text-align:left>差分龄期</td></tr></tbody></table><h2 id=rtkcamera>RTKCamera
-<a class=anchor href=#rtkcamera>#</a></h2><table><thead><tr><th style=text-align:left>类型</th><th style=text-align:left>名称</th><th style=text-align:left>描述</th></tr></thead><tbody><tr><td style=text-align:left>CoorKernal</td><td style=text-align:left>mCoorKernal</td><td style=text-align:left>点坐标集合</td></tr><tr><td style=text-align:left>GpsTime</td><td style=text-align:left>mGpsTime</td><td style=text-align:left>卫星时</td></tr><tr><td style=text-align:left>Time</td><td style=text-align:left>mTime</td><td style=text-align:left>时间</td></tr><tr><td style=text-align:left>SatellitePrecision</td><td style=text-align:left>mSatellitePrecision</td><td style=text-align:left>精度信息</td></tr><tr><td style=text-align:left>double</td><td style=text-align:left>diffAge</td><td style=text-align:left>差分龄期</td></tr></tbody></table><h2 id=basewarning>BaseWarning
-<a class=anchor href=#basewarning>#</a></h2><table><thead><tr><th style=text-align:left>类型</th><th style=text-align:left>名称</th><th style=text-align:left>描述</th></tr></thead><tbody><tr><td style=text-align:left>EnumBaseWarning</td><td style=text-align:left>mEnumBaseWarning</td><td style=text-align:left>偏移状态</td></tr></tbody></table><h2 id=enumbasewarning>EnumBaseWarning
-<a class=anchor href=#enumbasewarning>#</a></h2><table><thead><tr><th style=text-align:left>类型</th><th style=text-align:left>名称</th><th style=text-align:left>描述</th></tr></thead><tbody><tr><td style=text-align:left>BASE_WARNING_NONE</td><td style=text-align:left>BASE_WARNING_NONE</td><td style=text-align:left>未偏移</td></tr><tr><td style=text-align:left>BASE_WARNING_BASE_MOVE</td><td style=text-align:left>BASE_WARNING_BASE_MOVE</td><td style=text-align:left>位置发生偏移</td></tr></tbody></table></article><footer class=book-footer><div class="flex flex-wrap justify-between"></div><script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents><ul><li><a href=#常用数据类型>常用数据类型</a><ul><li><a href=#satelliteposition>SatellitePosition</a></li><li><a href=#enumsolvestatus>EnumSolveStatus</a></li><li><a href=#satelliteprecision>SatellitePrecision</a></li><li><a href=#ntripprotocolcode>NtripProtocolCode</a></li><li><a href=#empdaworkmodestatus>EmPdaWorkModeStatus</a></li><li><a href=#nonemagnetictiltinfo>NoneMagneticTiltInfo</a></li><li><a href=#coorkernal>CoorKernal</a></li><li><a href=#surveypointpositioninfo>SurveyPointPositionInfo</a></li><li><a href=#rtkcamera>RTKCamera</a></li><li><a href=#basewarning>BaseWarning</a></li><li><a href=#enumbasewarning>EnumBaseWarning</a></li></ul></li></ul></nav></div></aside></main></body></html>
+">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/zh/docs/gnssserver/07_%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
+  <meta property="og:site_name" content="CHCNAV DEV">
+  <meta property="og:title" content="常用数据类型">
+  <meta property="og:description" content=" 常用数据类型 # SatellitePosition # 类型 名称 描述 Position mPosition 包含位置信息 x、y、z（double 类型弧度，对应 BLH） EnumSolveStatus mEnumSolveStatus 包含解状态信息 EnumSolveStatus # 名称 描述 SOLVE_STATUS_FIX 固定 SOLVE_STATUS_FLOAT 浮动 SOLVE_STATUS_WIDE 浮动 SOLVE_STATUS_COS 浮动 SOLVE_STATUS_RTD 浮动 SOLVE_STATUS_DIFF 浮动 SOLVE_STATUS_NONE 未知 SOLVE_STATUS_BASE_WRONG 未知 SOLVE_STATUS_SEARCH_SAT 未知 SOLVE_STATUS_STAR_TIMEOUT 异常 SOLVE_STATUS_STAR_OUTAREA 异常 SOLVE_STATUS_STAR_SERVER_ERR 异常 除上表所述外，其余所有状态，您可以定义为单点。
+SatellitePrecision # 类型 名称 描述 double mHpre 水平方向精度 double mVpre 垂直方向精度 double mXpre 大地纬度精度 double mYpre 大地经度精度 double mRms 空间精度 NtripProtocolCode # 类型 名称 描述 NtripProtocolCode NC_ICY_200_OK 登录成功 NtripProtocolCode ERROR_401_UNAUTHORIZED 登录失败 EmPdaWorkModeStatus # 类型 名称 描述 EmPdaWorkModeStatus LOGINING 正在登录 EmPdaWorkModeStatus LOGOUT 注销 EmPdaWorkModeStatus LOGINED 已登录/登录成功 NoneMagneticTiltInfo # 类型 名称 描述 double mVarE 补偿点经度标准差 double mVarN 补偿点纬度标准差 double mVarU 补偿点高程标准差 double mVarTilt 竖直倾角标准差 double mVarDirect 倾斜方向角标准差 double mLatitude 补偿点纬度 double mLontitude 补偿点经度 double mHeight 补偿点高程 double mHeightOffset 高程偏移 double mDiffAge 差分龄期 double mPitch 俯仰角 double mRoll 横滚角 double mHeading 航向角 CoorKernal # 类型 名称 描述 Position rawBlh 接收机原始输出 Position wgsBlh 经纬度 Position wgsXyz 空间坐标 Position localBlh 本地经纬度 Position localXyz 本地XYZ Position localNeh 本地平面坐标 SurveyPointPositionInfo # 类型 名称 描述 CoorKernal mCoorKernal 点坐标集合 GpsTime mGpsTime 卫星时 Time mTime 时间 SatellitePrecision mSatellitePrecision 精度信息 double diffAge 差分龄期 RTKCamera # 类型 名称 描述 CoorKernal mCoorKernal 点坐标集合 GpsTime mGpsTime 卫星时 Time mTime 时间 SatellitePrecision mSatellitePrecision 精度信息 double diffAge 差分龄期 BaseWarning # 类型 名称 描述 EnumBaseWarning mEnumBaseWarning 偏移状态 EnumBaseWarning # 类型 名称 描述 BASE_WARNING_NONE BASE_WARNING_NONE 未偏移 BASE_WARNING_BASE_MOVE BASE_WARNING_BASE_MOVE 位置发生偏移 ">
+  <meta property="og:locale" content="zh">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="docs">
+<title>常用数据类型 | CHCNAV DEV</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://localhost:1313/zh/docs/gnssserver/07_%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
+  <link rel="alternate" hreflang="en" href="http://localhost:1313/docs/gnssserver/07_%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="Common data types">
+<link rel="stylesheet" href="/book.min.a7616cf2799b58bddffce9438e31fdbfc6393687cfc0950a4a17cd1cce7e35f6.css" integrity="sha256-p2Fs8nmbWL3f/OlDjjH9v8Y5NofPwJUKShfNHM5&#43;NfY=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/zh.search.min.ebe753d9e29aee2a3dc96cb36c7e7a22821900f09af1ff2159ee943ad0081b06.js" integrity="sha256-6&#43;dT2eKa7io9yWyzbH56IoIZAPCa8f8hWe6UOtAIGwY=" crossorigin="anonymous"></script>
+
+  <script defer src="/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js" integrity="sha256-b2&#43;Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC&#43;NdcPIvZhzk=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/zh/"><span>CHCNAV DEV</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="搜索" aria-label="搜索" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+  
+
+
+
+  
+    
+  
+
+
+  
+
+
+<ul class="book-languages">
+  <li>
+    <input type="checkbox" id="languages" class="toggle" />
+    <label for="languages" class="flex justify-between">
+      <a role="button" class="flex align-center">
+        <img src="/svg/translate.svg" class="book-icon" alt="Languages" />
+        Chinese
+      </a>
+    </label>
+
+    <ul>
+      
+      <li>
+        <a href="/docs/gnssserver/07_%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
+          English
+        </a>
+      </li>
+      
+    </ul>
+  </li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-e5ecee4c7d3b31e85f9a9a56df882b94" class="toggle" checked />
+    <label for="section-e5ecee4c7d3b31e85f9a9a56df882b94" class="flex justify-between">
+      <a href="/zh/docs/gnssserver/" class="">GnssServer开发文档</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/zh/docs/gnssserver/01_%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/" class="">快速开始</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/zh/docs/gnssserver/02_%E8%BF%9E%E6%8E%A5/" class="">连接</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/zh/docs/gnssserver/03_%E6%8E%A5%E6%94%B6%E6%9C%BA%E9%80%9A%E4%BF%A1/" class="">接收机通信</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/zh/docs/gnssserver/04_%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2/" class="">坐标转换</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/zh/docs/gnssserver/05_imu/" class="">IMU</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/zh/docs/gnssserver/06_ar%E6%94%BE%E6%A0%B7/" class="">AR放样</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/zh/docs/gnssserver/07_%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="active">常用数据类型</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-546412403a510171ebc0a5bba25dab59" class="toggle"  />
+    <label for="section-546412403a510171ebc0a5bba25dab59" class="flex justify-between">
+      <a href="/zh/docs/landstar/" class="">测地通二次开发</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/zh/docs/landstar/1_%E5%9F%BA%E4%BA%8E%E5%B9%BF%E6%92%AD%E6%B6%88%E6%81%AF%E5%BC%80%E5%8F%91/" class="">基于广播消息开发</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/zh/docs/landstar/2_%E5%9F%BA%E4%BA%8Etxt%E6%96%87%E4%BB%B6%E5%BC%80%E5%8F%91/" class="">基于txt文件开发</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="https://www.chcnav.com/"  target="_blank" rel="noopener">
+        CHCNAV
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>常用数据类型</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#常用数据类型">常用数据类型</a>
+      <ul>
+        <li><a href="#satelliteposition">SatellitePosition</a></li>
+        <li><a href="#enumsolvestatus">EnumSolveStatus</a></li>
+        <li><a href="#satelliteprecision">SatellitePrecision</a></li>
+        <li><a href="#ntripprotocolcode">NtripProtocolCode</a></li>
+        <li><a href="#empdaworkmodestatus">EmPdaWorkModeStatus</a></li>
+        <li><a href="#nonemagnetictiltinfo">NoneMagneticTiltInfo</a></li>
+        <li><a href="#coorkernal">CoorKernal</a></li>
+        <li><a href="#surveypointpositioninfo">SurveyPointPositionInfo</a></li>
+        <li><a href="#rtkcamera">RTKCamera</a></li>
+        <li><a href="#basewarning">BaseWarning</a></li>
+        <li><a href="#enumbasewarning">EnumBaseWarning</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h1 id="常用数据类型">
+  常用数据类型
+  <a class="anchor" href="#%e5%b8%b8%e7%94%a8%e6%95%b0%e6%8d%ae%e7%b1%bb%e5%9e%8b">#</a>
+</h1>
+<h2 id="satelliteposition">
+  SatellitePosition
+  <a class="anchor" href="#satelliteposition">#</a>
+</h2>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">类型</th>
+          <th style="text-align: left">名称</th>
+          <th style="text-align: left">描述</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">Position</td>
+          <td style="text-align: left">mPosition</td>
+          <td style="text-align: left">包含位置信息 x、y、z（double 类型弧度，对应 BLH）</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">EnumSolveStatus</td>
+          <td style="text-align: left">mEnumSolveStatus</td>
+          <td style="text-align: left">包含解状态信息</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="enumsolvestatus">
+  EnumSolveStatus
+  <a class="anchor" href="#enumsolvestatus">#</a>
+</h2>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">名称</th>
+          <th style="text-align: left">描述</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">SOLVE_STATUS_FIX</td>
+          <td style="text-align: left">固定</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">SOLVE_STATUS_FLOAT</td>
+          <td style="text-align: left">浮动</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">SOLVE_STATUS_WIDE</td>
+          <td style="text-align: left">浮动</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">SOLVE_STATUS_COS</td>
+          <td style="text-align: left">浮动</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">SOLVE_STATUS_RTD</td>
+          <td style="text-align: left">浮动</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">SOLVE_STATUS_DIFF</td>
+          <td style="text-align: left">浮动</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">SOLVE_STATUS_NONE</td>
+          <td style="text-align: left">未知</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">SOLVE_STATUS_BASE_WRONG</td>
+          <td style="text-align: left">未知</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">SOLVE_STATUS_SEARCH_SAT</td>
+          <td style="text-align: left">未知</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">SOLVE_STATUS_STAR_TIMEOUT</td>
+          <td style="text-align: left">异常</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">SOLVE_STATUS_STAR_OUTAREA</td>
+          <td style="text-align: left">异常</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">SOLVE_STATUS_STAR_SERVER_ERR</td>
+          <td style="text-align: left">异常</td>
+      </tr>
+  </tbody>
+</table>
+<p>除上表所述外，其余所有状态，您可以定义为单点。</p>
+<h2 id="satelliteprecision">
+  SatellitePrecision
+  <a class="anchor" href="#satelliteprecision">#</a>
+</h2>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">类型</th>
+          <th style="text-align: left">名称</th>
+          <th style="text-align: left">描述</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">double</td>
+          <td style="text-align: left">mHpre</td>
+          <td style="text-align: left">水平方向精度</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">double</td>
+          <td style="text-align: left">mVpre</td>
+          <td style="text-align: left">垂直方向精度</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">double</td>
+          <td style="text-align: left">mXpre</td>
+          <td style="text-align: left">大地纬度精度</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">double</td>
+          <td style="text-align: left">mYpre</td>
+          <td style="text-align: left">大地经度精度</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">double</td>
+          <td style="text-align: left">mRms</td>
+          <td style="text-align: left">空间精度</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="ntripprotocolcode">
+  NtripProtocolCode
+  <a class="anchor" href="#ntripprotocolcode">#</a>
+</h2>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">类型</th>
+          <th style="text-align: left">名称</th>
+          <th style="text-align: left">描述</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">NtripProtocolCode</td>
+          <td style="text-align: left">NC_ICY_200_OK</td>
+          <td style="text-align: left">登录成功</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">NtripProtocolCode</td>
+          <td style="text-align: left">ERROR_401_UNAUTHORIZED</td>
+          <td style="text-align: left">登录失败</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="empdaworkmodestatus">
+  EmPdaWorkModeStatus
+  <a class="anchor" href="#empdaworkmodestatus">#</a>
+</h2>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">类型</th>
+          <th style="text-align: left">名称</th>
+          <th style="text-align: left">描述</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">EmPdaWorkModeStatus</td>
+          <td style="text-align: left">LOGINING</td>
+          <td style="text-align: left">正在登录</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">EmPdaWorkModeStatus</td>
+          <td style="text-align: left">LOGOUT</td>
+          <td style="text-align: left">注销</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">EmPdaWorkModeStatus</td>
+          <td style="text-align: left">LOGINED</td>
+          <td style="text-align: left">已登录/登录成功</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="nonemagnetictiltinfo">
+  NoneMagneticTiltInfo
+  <a class="anchor" href="#nonemagnetictiltinfo">#</a>
+</h2>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">类型</th>
+          <th style="text-align: left">名称</th>
+          <th style="text-align: left">描述</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">double</td>
+          <td style="text-align: left">mVarE</td>
+          <td style="text-align: left">补偿点经度标准差</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">double</td>
+          <td style="text-align: left">mVarN</td>
+          <td style="text-align: left">补偿点纬度标准差</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">double</td>
+          <td style="text-align: left">mVarU</td>
+          <td style="text-align: left">补偿点高程标准差</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">double</td>
+          <td style="text-align: left">mVarTilt</td>
+          <td style="text-align: left">竖直倾角标准差</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">double</td>
+          <td style="text-align: left">mVarDirect</td>
+          <td style="text-align: left">倾斜方向角标准差</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">double</td>
+          <td style="text-align: left">mLatitude</td>
+          <td style="text-align: left">补偿点纬度</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">double</td>
+          <td style="text-align: left">mLontitude</td>
+          <td style="text-align: left">补偿点经度</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">double</td>
+          <td style="text-align: left">mHeight</td>
+          <td style="text-align: left">补偿点高程</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">double</td>
+          <td style="text-align: left">mHeightOffset</td>
+          <td style="text-align: left">高程偏移</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">double</td>
+          <td style="text-align: left">mDiffAge</td>
+          <td style="text-align: left">差分龄期</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">double</td>
+          <td style="text-align: left">mPitch</td>
+          <td style="text-align: left">俯仰角</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">double</td>
+          <td style="text-align: left">mRoll</td>
+          <td style="text-align: left">横滚角</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">double</td>
+          <td style="text-align: left">mHeading</td>
+          <td style="text-align: left">航向角</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="coorkernal">
+  CoorKernal
+  <a class="anchor" href="#coorkernal">#</a>
+</h2>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">类型</th>
+          <th style="text-align: left">名称</th>
+          <th style="text-align: left">描述</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">Position</td>
+          <td style="text-align: left">rawBlh</td>
+          <td style="text-align: left">接收机原始输出</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Position</td>
+          <td style="text-align: left">wgsBlh</td>
+          <td style="text-align: left">经纬度</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Position</td>
+          <td style="text-align: left">wgsXyz</td>
+          <td style="text-align: left">空间坐标</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Position</td>
+          <td style="text-align: left">localBlh</td>
+          <td style="text-align: left">本地经纬度</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Position</td>
+          <td style="text-align: left">localXyz</td>
+          <td style="text-align: left">本地XYZ</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Position</td>
+          <td style="text-align: left">localNeh</td>
+          <td style="text-align: left">本地平面坐标</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="surveypointpositioninfo">
+  SurveyPointPositionInfo
+  <a class="anchor" href="#surveypointpositioninfo">#</a>
+</h2>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">类型</th>
+          <th style="text-align: left">名称</th>
+          <th style="text-align: left">描述</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">CoorKernal</td>
+          <td style="text-align: left">mCoorKernal</td>
+          <td style="text-align: left">点坐标集合</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">GpsTime</td>
+          <td style="text-align: left">mGpsTime</td>
+          <td style="text-align: left">卫星时</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Time</td>
+          <td style="text-align: left">mTime</td>
+          <td style="text-align: left">时间</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">SatellitePrecision</td>
+          <td style="text-align: left">mSatellitePrecision</td>
+          <td style="text-align: left">精度信息</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">double</td>
+          <td style="text-align: left">diffAge</td>
+          <td style="text-align: left">差分龄期</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="rtkcamera">
+  RTKCamera
+  <a class="anchor" href="#rtkcamera">#</a>
+</h2>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">类型</th>
+          <th style="text-align: left">名称</th>
+          <th style="text-align: left">描述</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">CoorKernal</td>
+          <td style="text-align: left">mCoorKernal</td>
+          <td style="text-align: left">点坐标集合</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">GpsTime</td>
+          <td style="text-align: left">mGpsTime</td>
+          <td style="text-align: left">卫星时</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Time</td>
+          <td style="text-align: left">mTime</td>
+          <td style="text-align: left">时间</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">SatellitePrecision</td>
+          <td style="text-align: left">mSatellitePrecision</td>
+          <td style="text-align: left">精度信息</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">double</td>
+          <td style="text-align: left">diffAge</td>
+          <td style="text-align: left">差分龄期</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="basewarning">
+  BaseWarning
+  <a class="anchor" href="#basewarning">#</a>
+</h2>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">类型</th>
+          <th style="text-align: left">名称</th>
+          <th style="text-align: left">描述</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">EnumBaseWarning</td>
+          <td style="text-align: left">mEnumBaseWarning</td>
+          <td style="text-align: left">偏移状态</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="enumbasewarning">
+  EnumBaseWarning
+  <a class="anchor" href="#enumbasewarning">#</a>
+</h2>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">类型</th>
+          <th style="text-align: left">名称</th>
+          <th style="text-align: left">描述</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">BASE_WARNING_NONE</td>
+          <td style="text-align: left">BASE_WARNING_NONE</td>
+          <td style="text-align: left">未偏移</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">BASE_WARNING_BASE_MOVE</td>
+          <td style="text-align: left">BASE_WARNING_BASE_MOVE</td>
+          <td style="text-align: left">位置发生偏移</td>
+      </tr>
+  </tbody>
+</table>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#常用数据类型">常用数据类型</a>
+      <ul>
+        <li><a href="#satelliteposition">SatellitePosition</a></li>
+        <li><a href="#enumsolvestatus">EnumSolveStatus</a></li>
+        <li><a href="#satelliteprecision">SatellitePrecision</a></li>
+        <li><a href="#ntripprotocolcode">NtripProtocolCode</a></li>
+        <li><a href="#empdaworkmodestatus">EmPdaWorkModeStatus</a></li>
+        <li><a href="#nonemagnetictiltinfo">NoneMagneticTiltInfo</a></li>
+        <li><a href="#coorkernal">CoorKernal</a></li>
+        <li><a href="#surveypointpositioninfo">SurveyPointPositionInfo</a></li>
+        <li><a href="#rtkcamera">RTKCamera</a></li>
+        <li><a href="#basewarning">BaseWarning</a></li>
+        <li><a href="#enumbasewarning">EnumBaseWarning</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
