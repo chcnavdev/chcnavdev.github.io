@@ -2,52 +2,52 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on CHCNAV DEV</title>
-    <link>http://localhost:1313/zh/tags/</link>
+    <link>https://example.com/zh/tags/</link>
     <description>Recent content in Tags on CHCNAV DEV</description>
     <generator>Hugo</generator>
     <language>zh</language>
     <lastBuildDate>Wed, 02 Apr 2014 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/zh/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://example.com/zh/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Development</title>
-      <link>http://localhost:1313/zh/tags/development/</link>
+      <link>https://example.com/zh/tags/development/</link>
       <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/zh/tags/development/</guid>
+      <guid>https://example.com/zh/tags/development/</guid>
       <description></description>
     </item>
     <item>
       <title>Go</title>
-      <link>http://localhost:1313/zh/tags/go/</link>
+      <link>https://example.com/zh/tags/go/</link>
       <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/zh/tags/go/</guid>
+      <guid>https://example.com/zh/tags/go/</guid>
       <description></description>
     </item>
     <item>
       <title>Golang</title>
-      <link>http://localhost:1313/zh/tags/golang/</link>
+      <link>https://example.com/zh/tags/golang/</link>
       <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/zh/tags/golang/</guid>
+      <guid>https://example.com/zh/tags/golang/</guid>
       <description></description>
     </item>
     <item>
       <title>Hugo</title>
-      <link>http://localhost:1313/zh/tags/hugo/</link>
+      <link>https://example.com/zh/tags/hugo/</link>
       <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/zh/tags/hugo/</guid>
+      <guid>https://example.com/zh/tags/hugo/</guid>
       <description></description>
     </item>
     <item>
       <title>Templates</title>
-      <link>http://localhost:1313/zh/tags/templates/</link>
+      <link>https://example.com/zh/tags/templates/</link>
       <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/zh/tags/templates/</guid>
+      <guid>https://example.com/zh/tags/templates/</guid>
       <description></description>
     </item>
     <item>
       <title>Themes</title>
-      <link>http://localhost:1313/zh/tags/themes/</link>
+      <link>https://example.com/zh/tags/themes/</link>
       <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/zh/tags/themes/</guid>
+      <guid>https://example.com/zh/tags/themes/</guid>
       <description></description>
     </item>
   </channel>
