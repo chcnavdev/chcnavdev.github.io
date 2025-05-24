@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh" dir="ltr">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="
@@ -287,7 +287,7 @@ ReceiverListener mIReceiverListener = new IReceiverListener.Stub() {
 您可以通过 ReceiverCmdManager 类来给接收机发送命令，这个类是个单例，直接调用即可， 每个接口的含义见接口注释。">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/zh/docs/gnssserver/03_%E6%8E%A5%E6%94%B6%E6%9C%BA%E9%80%9A%E4%BF%A1/">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://example.com/zh/docs/gnssserver/03_%E6%8E%A5%E6%94%B6%E6%9C%BA%E9%80%9A%E4%BF%A1/">
   <meta property="og:site_name" content="CHCNAV DEV">
   <meta property="og:title" content="接收机通信">
   <meta property="og:description" content=" 接收机通信 # 从接收机获取数据 # 您拿到 service 后 (参考1.2)，可以通过 service 的 requestReceiverListener 方法来实现对接收机 数据的监听，requestReceiverListener 要求您传入 IReceiverListener.Stub 对象，您可以继承该对象， 实现相关接口，通过对接口的实现来获得需要的数据。其中有的回调接口是会按一定的频率回调 (比如位置信息和卫星信息)，有的接口是需要给接收机发命令 (参考3.2) 才会回调。章节1.5中已给 出相关获取坐标信息的示例，这里不再赘述，只对相关需要实现的接口给出代码和注释，具体如 下:
@@ -298,8 +298,8 @@ ReceiverListener mIReceiverListener = new IReceiverListener.Stub() { ​ /*** Ha
 <title>接收机通信 | CHCNAV DEV</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
-<link rel="canonical" href="http://localhost:1313/zh/docs/gnssserver/03_%E6%8E%A5%E6%94%B6%E6%9C%BA%E9%80%9A%E4%BF%A1/">
-  <link rel="alternate" hreflang="en" href="http://localhost:1313/docs/gnssserver/03_%E6%8E%A5%E6%94%B6%E6%9C%BA%E9%80%9A%E4%BF%A1/" title="Receiver communication">
+<link rel="canonical" href="https://example.com/zh/docs/gnssserver/03_%E6%8E%A5%E6%94%B6%E6%9C%BA%E9%80%9A%E4%BF%A1/">
+  <link rel="alternate" hreflang="en" href="https://example.com/docs/gnssserver/03_%E6%8E%A5%E6%94%B6%E6%9C%BA%E9%80%9A%E4%BF%A1/" title="Receiver communication">
 <link rel="stylesheet" href="/book.min.a7616cf2799b58bddffce9438e31fdbfc6393687cfc0950a4a17cd1cce7e35f6.css" integrity="sha256-p2Fs8nmbWL3f/OlDjjH9v8Y5NofPwJUKShfNHM5&#43;NfY=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
   <script defer src="/zh.search.min.c486dc75057c25394c4709bf16601ed6302ff79684ea2888b346ccc426d5c79e.js" integrity="sha256-xIbcdQV8JTlMRwm/FmAe1jAv95aE6iiIs0bMxCbVx54=" crossorigin="anonymous"></script>
