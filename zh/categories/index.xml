@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on CHCNAV DEV</title>
-    <link>https://example.com/zh/categories/</link>
+    <link>http://localhost:1313/zh/categories/</link>
     <description>Recent content in Categories on CHCNAV DEV</description>
     <generator>Hugo</generator>
     <language>zh</language>
     <lastBuildDate>Wed, 02 Apr 2014 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://example.com/zh/categories/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/zh/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Development</title>
-      <link>https://example.com/zh/categories/development/</link>
+      <link>http://localhost:1313/zh/categories/development/</link>
       <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
-      <guid>https://example.com/zh/categories/development/</guid>
+      <guid>http://localhost:1313/zh/categories/development/</guid>
       <description></description>
     </item>
     <item>
       <title>Golang</title>
-      <link>https://example.com/zh/categories/golang/</link>
+      <link>http://localhost:1313/zh/categories/golang/</link>
       <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
-      <guid>https://example.com/zh/categories/golang/</guid>
+      <guid>http://localhost:1313/zh/categories/golang/</guid>
       <description></description>
     </item>
   </channel>

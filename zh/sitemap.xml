@@ -2,343 +2,343 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://example.com/zh/docs/gnssserver/</loc>
+    <loc>http://localhost:1313/zh/docs/gnssserver/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://example.com/docs/gnssserver/"
+                href="http://localhost:1313/docs/gnssserver/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://example.com/zh/docs/gnssserver/"
+                href="http://localhost:1313/zh/docs/gnssserver/"
                 />
   </url><url>
-    <loc>https://example.com/zh/docs/landstar/1_%E5%9F%BA%E4%BA%8E%E5%B9%BF%E6%92%AD%E6%B6%88%E6%81%AF%E5%BC%80%E5%8F%91/</loc>
+    <loc>http://localhost:1313/zh/docs/landstar/1_%E5%9F%BA%E4%BA%8E%E5%B9%BF%E6%92%AD%E6%B6%88%E6%81%AF%E5%BC%80%E5%8F%91/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://example.com/docs/landstar/1_%E5%9F%BA%E4%BA%8E%E5%B9%BF%E6%92%AD%E6%B6%88%E6%81%AF%E5%BC%80%E5%8F%91/"
+                href="http://localhost:1313/docs/landstar/1_%E5%9F%BA%E4%BA%8E%E5%B9%BF%E6%92%AD%E6%B6%88%E6%81%AF%E5%BC%80%E5%8F%91/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://example.com/zh/docs/landstar/1_%E5%9F%BA%E4%BA%8E%E5%B9%BF%E6%92%AD%E6%B6%88%E6%81%AF%E5%BC%80%E5%8F%91/"
+                href="http://localhost:1313/zh/docs/landstar/1_%E5%9F%BA%E4%BA%8E%E5%B9%BF%E6%92%AD%E6%B6%88%E6%81%AF%E5%BC%80%E5%8F%91/"
                 />
   </url><url>
-    <loc>https://example.com/zh/docs/gnssserver/01_%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/</loc>
+    <loc>http://localhost:1313/zh/docs/gnssserver/01_%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://example.com/docs/gnssserver/01_%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/"
+                href="http://localhost:1313/docs/gnssserver/01_%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://example.com/zh/docs/gnssserver/01_%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/"
+                href="http://localhost:1313/zh/docs/gnssserver/01_%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/"
                 />
   </url><url>
-    <loc>https://example.com/zh/docs/landstar/</loc>
+    <loc>http://localhost:1313/zh/docs/landstar/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://example.com/docs/landstar/"
+                href="http://localhost:1313/docs/landstar/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://example.com/zh/docs/landstar/"
+                href="http://localhost:1313/zh/docs/landstar/"
                 />
   </url><url>
-    <loc>https://example.com/zh/docs/landstar/2_%E5%9F%BA%E4%BA%8Etxt%E6%96%87%E4%BB%B6%E5%BC%80%E5%8F%91/</loc>
+    <loc>http://localhost:1313/zh/docs/landstar/2_%E5%9F%BA%E4%BA%8Etxt%E6%96%87%E4%BB%B6%E5%BC%80%E5%8F%91/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://example.com/docs/landstar/2_%E5%9F%BA%E4%BA%8Etxt%E6%96%87%E4%BB%B6%E5%BC%80%E5%8F%91/"
+                href="http://localhost:1313/docs/landstar/2_%E5%9F%BA%E4%BA%8Etxt%E6%96%87%E4%BB%B6%E5%BC%80%E5%8F%91/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://example.com/zh/docs/landstar/2_%E5%9F%BA%E4%BA%8Etxt%E6%96%87%E4%BB%B6%E5%BC%80%E5%8F%91/"
+                href="http://localhost:1313/zh/docs/landstar/2_%E5%9F%BA%E4%BA%8Etxt%E6%96%87%E4%BB%B6%E5%BC%80%E5%8F%91/"
                 />
   </url><url>
-    <loc>https://example.com/zh/docs/gnssserver/02_%E8%BF%9E%E6%8E%A5/</loc>
+    <loc>http://localhost:1313/zh/docs/gnssserver/02_%E8%BF%9E%E6%8E%A5/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://example.com/docs/gnssserver/02_%E8%BF%9E%E6%8E%A5/"
+                href="http://localhost:1313/docs/gnssserver/02_%E8%BF%9E%E6%8E%A5/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://example.com/zh/docs/gnssserver/02_%E8%BF%9E%E6%8E%A5/"
+                href="http://localhost:1313/zh/docs/gnssserver/02_%E8%BF%9E%E6%8E%A5/"
                 />
   </url><url>
-    <loc>https://example.com/zh/docs/gnssserver/03_%E6%8E%A5%E6%94%B6%E6%9C%BA%E9%80%9A%E4%BF%A1/</loc>
+    <loc>http://localhost:1313/zh/docs/gnssserver/03_%E6%8E%A5%E6%94%B6%E6%9C%BA%E9%80%9A%E4%BF%A1/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://example.com/docs/gnssserver/03_%E6%8E%A5%E6%94%B6%E6%9C%BA%E9%80%9A%E4%BF%A1/"
+                href="http://localhost:1313/docs/gnssserver/03_%E6%8E%A5%E6%94%B6%E6%9C%BA%E9%80%9A%E4%BF%A1/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://example.com/zh/docs/gnssserver/03_%E6%8E%A5%E6%94%B6%E6%9C%BA%E9%80%9A%E4%BF%A1/"
+                href="http://localhost:1313/zh/docs/gnssserver/03_%E6%8E%A5%E6%94%B6%E6%9C%BA%E9%80%9A%E4%BF%A1/"
                 />
   </url><url>
-    <loc>https://example.com/zh/docs/gnssserver/04_%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2/</loc>
+    <loc>http://localhost:1313/zh/docs/gnssserver/04_%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://example.com/docs/gnssserver/04_%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2/"
+                href="http://localhost:1313/docs/gnssserver/04_%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://example.com/zh/docs/gnssserver/04_%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2/"
+                href="http://localhost:1313/zh/docs/gnssserver/04_%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2/"
                 />
   </url><url>
-    <loc>https://example.com/zh/docs/gnssserver/05_imu/</loc>
+    <loc>http://localhost:1313/zh/docs/gnssserver/05_imu/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://example.com/docs/gnssserver/05_imu/"
+                href="http://localhost:1313/docs/gnssserver/05_imu/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://example.com/zh/docs/gnssserver/05_imu/"
+                href="http://localhost:1313/zh/docs/gnssserver/05_imu/"
                 />
   </url><url>
-    <loc>https://example.com/zh/docs/gnssserver/06_ar%E6%94%BE%E6%A0%B7/</loc>
+    <loc>http://localhost:1313/zh/docs/gnssserver/06_ar%E6%94%BE%E6%A0%B7/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://example.com/docs/gnssserver/06_ar%E6%94%BE%E6%A0%B7/"
+                href="http://localhost:1313/docs/gnssserver/06_ar%E6%94%BE%E6%A0%B7/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://example.com/zh/docs/gnssserver/06_ar%E6%94%BE%E6%A0%B7/"
+                href="http://localhost:1313/zh/docs/gnssserver/06_ar%E6%94%BE%E6%A0%B7/"
                 />
   </url><url>
-    <loc>https://example.com/zh/docs/gnssserver/07_%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</loc>
+    <loc>http://localhost:1313/zh/docs/gnssserver/07_%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://example.com/docs/gnssserver/07_%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/"
+                href="http://localhost:1313/docs/gnssserver/07_%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://example.com/zh/docs/gnssserver/07_%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/"
+                href="http://localhost:1313/zh/docs/gnssserver/07_%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/"
                 />
   </url><url>
-    <loc>https://example.com/zh/posts/creating-a-new-theme/</loc>
+    <loc>http://localhost:1313/zh/posts/creating-a-new-theme/</loc>
     <lastmod>2014-09-28T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://example.com/posts/creating-a-new-theme/"
+                href="http://localhost:1313/posts/creating-a-new-theme/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://example.com/zh/posts/creating-a-new-theme/"
+                href="http://localhost:1313/zh/posts/creating-a-new-theme/"
                 />
   </url><url>
-    <loc>https://example.com/zh/posts/migrate-from-jekyll/</loc>
+    <loc>http://localhost:1313/zh/posts/migrate-from-jekyll/</loc>
     <lastmod>2014-03-10T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://example.com/posts/migrate-from-jekyll/"
+                href="http://localhost:1313/posts/migrate-from-jekyll/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://example.com/zh/posts/migrate-from-jekyll/"
+                href="http://localhost:1313/zh/posts/migrate-from-jekyll/"
                 />
   </url><url>
-    <loc>https://example.com/zh/</loc>
+    <loc>http://localhost:1313/zh/</loc>
     <lastmod>2014-09-28T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://example.com/"
+                href="http://localhost:1313/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://example.com/zh/"
+                href="http://localhost:1313/zh/"
                 />
   </url><url>
-    <loc>https://example.com/zh/posts/goisforlovers/</loc>
+    <loc>http://localhost:1313/zh/posts/goisforlovers/</loc>
     <lastmod>2014-04-02T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://example.com/posts/goisforlovers/"
+                href="http://localhost:1313/posts/goisforlovers/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://example.com/zh/posts/goisforlovers/"
+                href="http://localhost:1313/zh/posts/goisforlovers/"
                 />
   </url><url>
-    <loc>https://example.com/zh/categories/</loc>
+    <loc>http://localhost:1313/zh/categories/</loc>
     <lastmod>2014-04-02T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://example.com/categories/"
+                href="http://localhost:1313/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://example.com/zh/categories/"
+                href="http://localhost:1313/zh/categories/"
                 />
   </url><url>
-    <loc>https://example.com/zh/tags/development/</loc>
+    <loc>http://localhost:1313/zh/tags/development/</loc>
     <lastmod>2014-04-02T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://example.com/tags/development/"
+                href="http://localhost:1313/tags/development/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://example.com/zh/tags/development/"
+                href="http://localhost:1313/zh/tags/development/"
                 />
   </url><url>
-    <loc>https://example.com/zh/categories/development/</loc>
+    <loc>http://localhost:1313/zh/categories/development/</loc>
     <lastmod>2014-04-02T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://example.com/categories/development/"
+                href="http://localhost:1313/categories/development/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://example.com/zh/categories/development/"
+                href="http://localhost:1313/zh/categories/development/"
                 />
   </url><url>
-    <loc>https://example.com/zh/posts/hugoisforlovers/</loc>
+    <loc>http://localhost:1313/zh/posts/hugoisforlovers/</loc>
     <lastmod>2014-04-02T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://example.com/posts/hugoisforlovers/"
+                href="http://localhost:1313/posts/hugoisforlovers/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://example.com/zh/posts/hugoisforlovers/"
+                href="http://localhost:1313/zh/posts/hugoisforlovers/"
                 />
   </url><url>
-    <loc>https://example.com/zh/tags/go/</loc>
+    <loc>http://localhost:1313/zh/tags/go/</loc>
     <lastmod>2014-04-02T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://example.com/tags/go/"
+                href="http://localhost:1313/tags/go/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://example.com/zh/tags/go/"
+                href="http://localhost:1313/zh/tags/go/"
                 />
   </url><url>
-    <loc>https://example.com/zh/tags/golang/</loc>
+    <loc>http://localhost:1313/zh/tags/golang/</loc>
     <lastmod>2014-04-02T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://example.com/tags/golang/"
+                href="http://localhost:1313/tags/golang/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://example.com/zh/tags/golang/"
+                href="http://localhost:1313/zh/tags/golang/"
                 />
   </url><url>
-    <loc>https://example.com/zh/categories/golang/</loc>
+    <loc>http://localhost:1313/zh/categories/golang/</loc>
     <lastmod>2014-04-02T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://example.com/categories/golang/"
+                href="http://localhost:1313/categories/golang/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://example.com/zh/categories/golang/"
+                href="http://localhost:1313/zh/categories/golang/"
                 />
   </url><url>
-    <loc>https://example.com/zh/tags/hugo/</loc>
+    <loc>http://localhost:1313/zh/tags/hugo/</loc>
     <lastmod>2014-04-02T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://example.com/tags/hugo/"
+                href="http://localhost:1313/tags/hugo/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://example.com/zh/tags/hugo/"
+                href="http://localhost:1313/zh/tags/hugo/"
                 />
   </url><url>
-    <loc>https://example.com/zh/tags/</loc>
+    <loc>http://localhost:1313/zh/tags/</loc>
     <lastmod>2014-04-02T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://example.com/tags/"
+                href="http://localhost:1313/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://example.com/zh/tags/"
+                href="http://localhost:1313/zh/tags/"
                 />
   </url><url>
-    <loc>https://example.com/zh/tags/templates/</loc>
+    <loc>http://localhost:1313/zh/tags/templates/</loc>
     <lastmod>2014-04-02T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://example.com/tags/templates/"
+                href="http://localhost:1313/tags/templates/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://example.com/zh/tags/templates/"
+                href="http://localhost:1313/zh/tags/templates/"
                 />
   </url><url>
-    <loc>https://example.com/zh/tags/themes/</loc>
+    <loc>http://localhost:1313/zh/tags/themes/</loc>
     <lastmod>2014-04-02T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://example.com/tags/themes/"
+                href="http://localhost:1313/tags/themes/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://example.com/zh/tags/themes/"
+                href="http://localhost:1313/zh/tags/themes/"
                 />
   </url><url>
-    <loc>https://example.com/zh/docs/</loc>
+    <loc>http://localhost:1313/zh/docs/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://example.com/docs/"
+                href="http://localhost:1313/docs/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://example.com/zh/docs/"
+                href="http://localhost:1313/zh/docs/"
                 />
   </url>
 </urlset>

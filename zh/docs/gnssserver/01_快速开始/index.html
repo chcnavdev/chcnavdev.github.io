@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh" dir="ltr">
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="
@@ -63,7 +63,7 @@ new Thread(new Runnable() {
 其中App.getInstance().getApplicationContext()为应用级别的Context，SdcardUtils.getAppFolder()可以是任何有读写权限的路径。mService.requestReceiverListener(mReceiverListener)主要用于设置数据回调，如坐标数据等，mReceiverListener对象所属类的具体实现在获取数据中会介绍。">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://example.com/zh/docs/gnssserver/01_%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/zh/docs/gnssserver/01_%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/">
   <meta property="og:site_name" content="CHCNAV DEV">
   <meta property="og:title" content="快速开始">
   <meta property="og:description" content=" 快速开始 # 准备工作 # 本节旨在帮助您快速上手使用SDK，重点介绍如何通过蓝牙连接接收机并获取坐标信息。 权限 在使用SDK之前，请确保应用具有必要的权限。这些权限包括蓝牙（本节中仅使用蓝牙连接，不涉及WIFI）、读取和写入外部存储的权限，因为SDK需要外部存储来读写配置文件和日志文件。请在AndroidManifest.xml中添加权限。 &lt;!-- Permission to use Bluetooth features --&gt; &lt;uses-permission android:name=&#34;android.permission.BLUETOOTH&#34;/&gt; &lt;!-- Permission to administer Bluetooth settings --&gt; &lt;uses-permission android:name=&#34;android.permission.BLUETOOTH_ADMIN&#34;/&gt; &lt;!-- Permission to read from external storage --&gt; &lt;uses-permission android:name=&#34;android.permission.READ_EXTERNAL_STORAGE&#34;/&gt; &lt;!-- Permission to write to external storage --&gt; &lt;uses-permission android:name=&#34;android.permission.WRITE_EXTERNAL_STORAGE&#34;/&gt; 需要注意的是在Android10、Android11及更高版本中，外部存储的权限申请方式会有些许差异。 Android 10引入了Scoped Storage（分区存储），可以在 AndroidManifest.xml 中添加以下代码：
@@ -77,8 +77,8 @@ new Thread(new Runnable() { @Override public void run() { try { // Initialize th
 <title>快速开始 | CHCNAV DEV</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
-<link rel="canonical" href="https://example.com/zh/docs/gnssserver/01_%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/">
-  <link rel="alternate" hreflang="en" href="https://example.com/docs/gnssserver/01_%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/" title="Quick Start">
+<link rel="canonical" href="http://localhost:1313/zh/docs/gnssserver/01_%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/">
+  <link rel="alternate" hreflang="en" href="http://localhost:1313/docs/gnssserver/01_%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/" title="Quick Start">
 <link rel="stylesheet" href="/book.min.a7616cf2799b58bddffce9438e31fdbfc6393687cfc0950a4a17cd1cce7e35f6.css" integrity="sha256-p2Fs8nmbWL3f/OlDjjH9v8Y5NofPwJUKShfNHM5&#43;NfY=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
   <script defer src="/zh.search.min.c486dc75057c25394c4709bf16601ed6302ff79684ea2888b346ccc426d5c79e.js" integrity="sha256-xIbcdQV8JTlMRwm/FmAe1jAv95aE6iiIs0bMxCbVx54=" crossorigin="anonymous"></script>
