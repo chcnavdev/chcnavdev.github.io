@@ -14,28 +14,28 @@
                 href="https://example.com/zh/docs/gnssserver/"
                 />
   </url><url>
-    <loc>https://example.com/zh/docs/landstar/1_%E5%9F%BA%E4%BA%8E%E5%B9%BF%E6%92%AD%E6%B6%88%E6%81%AF%E5%BC%80%E5%8F%91/</loc>
+    <loc>https://example.com/zh/docs/landstar/1.%E5%9F%BA%E4%BA%8E%E5%B9%BF%E6%92%AD%E6%B6%88%E6%81%AF%E5%BC%80%E5%8F%91/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://example.com/docs/landstar/1_%E5%9F%BA%E4%BA%8E%E5%B9%BF%E6%92%AD%E6%B6%88%E6%81%AF%E5%BC%80%E5%8F%91/"
+                href="https://example.com/docs/landstar/1.%E5%9F%BA%E4%BA%8E%E5%B9%BF%E6%92%AD%E6%B6%88%E6%81%AF%E5%BC%80%E5%8F%91/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://example.com/zh/docs/landstar/1_%E5%9F%BA%E4%BA%8E%E5%B9%BF%E6%92%AD%E6%B6%88%E6%81%AF%E5%BC%80%E5%8F%91/"
+                href="https://example.com/zh/docs/landstar/1.%E5%9F%BA%E4%BA%8E%E5%B9%BF%E6%92%AD%E6%B6%88%E6%81%AF%E5%BC%80%E5%8F%91/"
                 />
   </url><url>
-    <loc>https://example.com/zh/docs/gnssserver/01_%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/</loc>
+    <loc>https://example.com/zh/docs/gnssserver/01.%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://example.com/docs/gnssserver/01_%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/"
+                href="https://example.com/docs/gnssserver/01.%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://example.com/zh/docs/gnssserver/01_%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/"
+                href="https://example.com/zh/docs/gnssserver/01.%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/"
                 />
   </url><url>
     <loc>https://example.com/zh/docs/landstar/</loc>
@@ -50,78 +50,88 @@
                 href="https://example.com/zh/docs/landstar/"
                 />
   </url><url>
-    <loc>https://example.com/zh/docs/landstar/2_%E5%9F%BA%E4%BA%8Etxt%E6%96%87%E4%BB%B6%E5%BC%80%E5%8F%91/</loc>
+    <loc>https://example.com/zh/docs/landstar/2.%E5%9F%BA%E4%BA%8Etxt%E6%96%87%E4%BB%B6%E5%BC%80%E5%8F%91/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://example.com/docs/landstar/2_%E5%9F%BA%E4%BA%8Etxt%E6%96%87%E4%BB%B6%E5%BC%80%E5%8F%91/"
+                href="https://example.com/docs/landstar/2.%E5%9F%BA%E4%BA%8Etxt%E6%96%87%E4%BB%B6%E5%BC%80%E5%8F%91/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://example.com/zh/docs/landstar/2_%E5%9F%BA%E4%BA%8Etxt%E6%96%87%E4%BB%B6%E5%BC%80%E5%8F%91/"
+                href="https://example.com/zh/docs/landstar/2.%E5%9F%BA%E4%BA%8Etxt%E6%96%87%E4%BB%B6%E5%BC%80%E5%8F%91/"
                 />
   </url><url>
-    <loc>https://example.com/zh/docs/gnssserver/02_%E8%BF%9E%E6%8E%A5/</loc>
+    <loc>https://example.com/zh/docs/gnssserver/02.%E8%BF%9E%E6%8E%A5/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://example.com/docs/gnssserver/02_%E8%BF%9E%E6%8E%A5/"
+                href="https://example.com/docs/gnssserver/02.%E8%BF%9E%E6%8E%A5/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://example.com/zh/docs/gnssserver/02_%E8%BF%9E%E6%8E%A5/"
+                href="https://example.com/zh/docs/gnssserver/02.%E8%BF%9E%E6%8E%A5/"
                 />
   </url><url>
-    <loc>https://example.com/zh/docs/gnssserver/03_%E6%8E%A5%E6%94%B6%E6%9C%BA%E9%80%9A%E4%BF%A1/</loc>
+    <loc>https://example.com/zh/docs/gnssserver/03.%E6%8E%A5%E6%94%B6%E6%9C%BA%E9%80%9A%E4%BF%A1/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://example.com/docs/gnssserver/03_%E6%8E%A5%E6%94%B6%E6%9C%BA%E9%80%9A%E4%BF%A1/"
+                href="https://example.com/docs/gnssserver/03.%E6%8E%A5%E6%94%B6%E6%9C%BA%E9%80%9A%E4%BF%A1/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://example.com/zh/docs/gnssserver/03_%E6%8E%A5%E6%94%B6%E6%9C%BA%E9%80%9A%E4%BF%A1/"
+                href="https://example.com/zh/docs/gnssserver/03.%E6%8E%A5%E6%94%B6%E6%9C%BA%E9%80%9A%E4%BF%A1/"
                 />
   </url><url>
-    <loc>https://example.com/zh/docs/gnssserver/04_%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2/</loc>
+    <loc>https://example.com/zh/docs/gnssserver/04.%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://example.com/docs/gnssserver/04_%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2/"
+                href="https://example.com/docs/gnssserver/04.%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://example.com/zh/docs/gnssserver/04_%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2/"
+                href="https://example.com/zh/docs/gnssserver/04.%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2/"
                 />
   </url><url>
-    <loc>https://example.com/zh/docs/gnssserver/05_imu/</loc>
-  </url><url>
-    <loc>https://example.com/zh/docs/gnssserver/06_ar%E6%94%BE%E6%A0%B7/</loc>
+    <loc>https://example.com/zh/docs/gnssserver/05.imu/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://example.com/docs/gnssserver/06_ar%E6%94%BE%E6%A0%B7/"
+                href="https://example.com/docs/gnssserver/05.imu/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://example.com/zh/docs/gnssserver/06_ar%E6%94%BE%E6%A0%B7/"
+                href="https://example.com/zh/docs/gnssserver/05.imu/"
                 />
   </url><url>
-    <loc>https://example.com/zh/docs/gnssserver/07_%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</loc>
+    <loc>https://example.com/zh/docs/gnssserver/06.ar%E6%94%BE%E6%A0%B7/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://example.com/docs/gnssserver/07_%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/"
+                href="https://example.com/docs/gnssserver/06.ar%E6%94%BE%E6%A0%B7/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://example.com/zh/docs/gnssserver/07_%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/"
+                href="https://example.com/zh/docs/gnssserver/06.ar%E6%94%BE%E6%A0%B7/"
+                />
+  </url><url>
+    <loc>https://example.com/zh/docs/gnssserver/07.%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://example.com/docs/gnssserver/07.%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://example.com/zh/docs/gnssserver/07.%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/"
                 />
   </url><url>
     <loc>https://example.com/zh/posts/creating-a-new-theme/</loc>

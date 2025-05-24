@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="zh" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="
+  连接
+  #
+
+
+  连接方式
+  #
+
+
+  蓝牙连接
+  #
+
+蓝牙连接主要步骤和代码如下:
+
+通过 ReceiverConnectionOption 配置连接参数;
+通过 1.2 中得到的 service 来获取 IReceiverConnectManager 对象
+将“1”中得到的 ReceiverConnectionOption 对象作为参数传入 IReceiverConnectManager 对 象的 connect 方法中
+
+    // Connection event
+    mBTConnect.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            // Connect directly through the SDK
+            ReceiverConnectionOption option = new ReceiverConnectionOption()
+                    .setConnectionType(ConnectionType.CONNECTION_BLUETOOTH)
+                    .setProductName(&#34;SMART-RTK&#34;)
+                    .setBluetoothName(&#34;GNSS-9999848&#34;);
+           
+            try {
+                // Get receiverConnectManager through mService and then connect using receiverConnectManager
+                IReceiverConnectManager receiverConnectManager = IReceiverConnectManager
+                        .Stub.asInterface(mService.getReceiverConnectManager());
+                // Connect using receiverConnectManager
+                if (!receiverConnectManager.connect(option)) {
+                    // Connection failure
+                }
+            } catch (RemoteException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    });
+
+  蓝牙注入连接（可选）
+  #
+
+推荐使用“2.1.1 蓝牙连接”中蓝牙连接方式，这里蓝牙注入的连接方式仅为有特殊需求的开发 者提供选择。">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://example.com/zh/docs/gnssserver/02.%E8%BF%9E%E6%8E%A5/">
+  <meta property="og:site_name" content="CHCNAV DEV">
+  <meta property="og:title" content="连接">
+  <meta property="og:description" content=" 连接 # 连接方式 # 蓝牙连接 # 蓝牙连接主要步骤和代码如下:
+通过 ReceiverConnectionOption 配置连接参数; 通过 1.2 中得到的 service 来获取 IReceiverConnectManager 对象 将“1”中得到的 ReceiverConnectionOption 对象作为参数传入 IReceiverConnectManager 对 象的 connect 方法中 // Connection event mBTConnect.setOnClickListener(new View.OnClickListener() { @Override public void onClick(View view) { // Connect directly through the SDK ReceiverConnectionOption option = new ReceiverConnectionOption() .setConnectionType(ConnectionType.CONNECTION_BLUETOOTH) .setProductName(&#34;SMART-RTK&#34;) .setBluetoothName(&#34;GNSS-9999848&#34;); try { // Get receiverConnectManager through mService and then connect using receiverConnectManager IReceiverConnectManager receiverConnectManager = IReceiverConnectManager .Stub.asInterface(mService.getReceiverConnectManager()); // Connect using receiverConnectManager if (!receiverConnectManager.connect(option)) { // Connection failure } } catch (RemoteException e) { throw new RuntimeException(e); } } }); 蓝牙注入连接（可选） # 推荐使用“2.1.1 蓝牙连接”中蓝牙连接方式，这里蓝牙注入的连接方式仅为有特殊需求的开发 者提供选择。">
+  <meta property="og:locale" content="zh">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="docs">
+<title>连接 | CHCNAV DEV</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="https://example.com/zh/docs/gnssserver/02.%E8%BF%9E%E6%8E%A5/">
+  <link rel="alternate" hreflang="en" href="https://example.com/docs/gnssserver/02.%E8%BF%9E%E6%8E%A5/" title="Connection">
+<link rel="stylesheet" href="/book.min.a7616cf2799b58bddffce9438e31fdbfc6393687cfc0950a4a17cd1cce7e35f6.css" integrity="sha256-p2Fs8nmbWL3f/OlDjjH9v8Y5NofPwJUKShfNHM5&#43;NfY=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/zh.search.min.bf45599d2d0a7748c184908dc46e9116e7c62b4b572ba8bf53d6e7816385783c.js" integrity="sha256-v0VZnS0Kd0jBhJCNxG6RFufGK0tXK6i/U9bngWOFeDw=" crossorigin="anonymous"></script>
+
+  <script defer src="/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js" integrity="sha256-b2&#43;Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC&#43;NdcPIvZhzk=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/zh/"><span>CHCNAV DEV</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="搜索" aria-label="搜索" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+  
+
+
+
+  
+    
+  
+
+
+  
+
+
+<ul class="book-languages">
+  <li>
+    <input type="checkbox" id="languages" class="toggle" />
+    <label for="languages" class="flex justify-between">
+      <a role="button" class="flex align-center">
+        <img src="/svg/translate.svg" class="book-icon" alt="Languages" />
+        Chinese
+      </a>
+    </label>
+
+    <ul>
+      
+      <li>
+        <a href="/docs/gnssserver/02.%E8%BF%9E%E6%8E%A5/">
+          English
+        </a>
+      </li>
+      
+    </ul>
+  </li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-e5ecee4c7d3b31e85f9a9a56df882b94" class="toggle" checked />
+    <label for="section-e5ecee4c7d3b31e85f9a9a56df882b94" class="flex justify-between">
+      <a href="/zh/docs/gnssserver/" class="">GnssServer开发文档</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/zh/docs/gnssserver/01.%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/" class="">快速开始</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/zh/docs/gnssserver/02.%E8%BF%9E%E6%8E%A5/" class="active">连接</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/zh/docs/gnssserver/03.%E6%8E%A5%E6%94%B6%E6%9C%BA%E9%80%9A%E4%BF%A1/" class="">接收机通信</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/zh/docs/gnssserver/04.%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2/" class="">坐标转换</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/zh/docs/gnssserver/05.imu/" class="">IMU</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/zh/docs/gnssserver/06.ar%E6%94%BE%E6%A0%B7/" class="">AR放样</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/zh/docs/gnssserver/07.%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="">常用数据类型</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-546412403a510171ebc0a5bba25dab59" class="toggle"  />
+    <label for="section-546412403a510171ebc0a5bba25dab59" class="flex justify-between">
+      <a href="/zh/docs/landstar/" class="">测地通二次开发</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/zh/docs/landstar/1.%E5%9F%BA%E4%BA%8E%E5%B9%BF%E6%92%AD%E6%B6%88%E6%81%AF%E5%BC%80%E5%8F%91/" class="">基于广播消息开发</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/zh/docs/landstar/2.%E5%9F%BA%E4%BA%8Etxt%E6%96%87%E4%BB%B6%E5%BC%80%E5%8F%91/" class="">基于txt文件开发</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="https://www.chcnav.com/"  target="_blank" rel="noopener">
+        CHCNAV
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>连接</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#连接">连接</a>
+      <ul>
+        <li><a href="#连接方式">连接方式</a>
+          <ul>
+            <li><a href="#蓝牙连接">蓝牙连接</a></li>
+            <li><a href="#蓝牙注入连接可选">蓝牙注入连接（可选）</a></li>
+            <li><a href="#223-wifi连接">2.2.3 WIFI连接</a></li>
+            <li><a href="#214">2.1.4</a></li>
+          </ul>
+        </li>
+        <li><a href="#连接设备">连接设备</a>
+          <ul>
+            <li><a href="#lt800h连接">LT800H连接</a></li>
+            <li><a href="#cors连接">CORS连接</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h1 id="连接">
+  连接
+  <a class="anchor" href="#%e8%bf%9e%e6%8e%a5">#</a>
+</h1>
+<h2 id="连接方式">
+  连接方式
+  <a class="anchor" href="#%e8%bf%9e%e6%8e%a5%e6%96%b9%e5%bc%8f">#</a>
+</h2>
+<h3 id="蓝牙连接">
+  蓝牙连接
+  <a class="anchor" href="#%e8%93%9d%e7%89%99%e8%bf%9e%e6%8e%a5">#</a>
+</h3>
+<p>蓝牙连接主要步骤和代码如下:</p>
+<ol>
+<li>通过 ReceiverConnectionOption 配置连接参数;</li>
+<li>通过 1.2 中得到的 service 来获取 IReceiverConnectManager 对象</li>
+<li>将“1”中得到的 ReceiverConnectionOption 对象作为参数传入 IReceiverConnectManager 对 象的 connect 方法中</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>    <span style="color:#75715e">// Connection event</span>
+</span></span><span style="display:flex;"><span>    mBTConnect.<span style="color:#a6e22e">setOnClickListener</span>(<span style="color:#66d9ef">new</span> View.<span style="color:#a6e22e">OnClickListener</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onClick</span>(View view) {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Connect directly through the SDK</span>
+</span></span><span style="display:flex;"><span>            ReceiverConnectionOption option <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ReceiverConnectionOption()
+</span></span><span style="display:flex;"><span>                    .<span style="color:#a6e22e">setConnectionType</span>(ConnectionType.<span style="color:#a6e22e">CONNECTION_BLUETOOTH</span>)
+</span></span><span style="display:flex;"><span>                    .<span style="color:#a6e22e">setProductName</span>(<span style="color:#e6db74">&#34;SMART-RTK&#34;</span>)
+</span></span><span style="display:flex;"><span>                    .<span style="color:#a6e22e">setBluetoothName</span>(<span style="color:#e6db74">&#34;GNSS-9999848&#34;</span>);
+</span></span><span style="display:flex;"><span>           
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// Get receiverConnectManager through mService and then connect using receiverConnectManager</span>
+</span></span><span style="display:flex;"><span>                IReceiverConnectManager receiverConnectManager <span style="color:#f92672">=</span> IReceiverConnectManager
+</span></span><span style="display:flex;"><span>                        .<span style="color:#a6e22e">Stub</span>.<span style="color:#a6e22e">asInterface</span>(mService.<span style="color:#a6e22e">getReceiverConnectManager</span>());
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// Connect using receiverConnectManager</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>receiverConnectManager.<span style="color:#a6e22e">connect</span>(option)) {
+</span></span><span style="display:flex;"><span>                    <span style="color:#75715e">// Connection failure</span>
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">catch</span> (RemoteException e) {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> RuntimeException(e);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    });
+</span></span></code></pre></div><h3 id="蓝牙注入连接可选">
+  蓝牙注入连接（可选）
+  <a class="anchor" href="#%e8%93%9d%e7%89%99%e6%b3%a8%e5%85%a5%e8%bf%9e%e6%8e%a5%e5%8f%af%e9%80%89">#</a>
+</h3>
+<p>推荐使用“2.1.1 蓝牙连接”中蓝牙连接方式，这里蓝牙注入的连接方式仅为有特殊需求的开发 者提供选择。</p>
+<ul>
+<li>** 步骤一:蓝牙连接的实现 **</li>
+</ul>
+<p>通过这种方式，开发者需要继承 ‘BaseReceiverConnectionInjector‘类，自行实现蓝牙连接部分， 并将其注入到 ‘ReceiverConnectionInjectManager‘中。这里继承 BaseReceiverConnectionInjector 需 要实现的主要有四个方法，具体步骤和代码如下:</p>
+<ol>
+<li>实现 connnect 方法，这部分您需要自行实现蓝牙连接的 socket; 2. 实现 disConnect 方法;</li>
+<li>实现 receiver 方法，这里直接调用父类方法即可;</li>
+<li>实现 writeDataToDevice 方法。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * BluetoothConnectionInjector handles the establishment, maintenance, and termination
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * of a Bluetooth connection. It extends BaseReceiverConnectionInjector to inherit 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * common connection functionalities.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BluetoothConnectionInjector</span> <span style="color:#66d9ef">extends</span> BaseReceiverConnectionInjector {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * Log tag for debugging.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> String TAG <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;BluetoothReceiverConn&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * UUID for the Bluetooth service.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> UUID MY_UUID <span style="color:#f92672">=</span> 
+</span></span><span style="display:flex;"><span>      UUID.<span style="color:#a6e22e">fromString</span>(<span style="color:#e6db74">&#34;00001101-0000-1000-8000-00805F9B34FB&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * Bluetooth device to connect to.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> BluetoothDevice mBluetoothDevice;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * Bluetooth socket for the connection.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> BluetoothSocket mBluetoothSocket;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * Input stream for reading data from the Bluetooth connection.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> InputStream mInputStream;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * Output stream for writing data to the Bluetooth connection.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> OutputStream mOutputStream;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * Constructor initializes the Bluetooth device by its name.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     *
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * @param btName Name of the Bluetooth device to connect to.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">BluetoothConnectionInjector</span>(<span style="color:#a6e22e">@NonNull</span> String btName) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">mBluetoothDevice</span> <span style="color:#f92672">=</span> getBluetoothDeviceByName(btName);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * Establishes the Bluetooth connection.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     *
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * @param context Application context.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * @return true if connection is successful, false otherwise.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">connect</span>(<span style="color:#a6e22e">@NonNull</span> Context context) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>            initializeSocket();
+</span></span><span style="display:flex;"><span>            startDataReceiverThread();
+</span></span><span style="display:flex;"><span>            onStateChanged(EnumConnectionStatus.<span style="color:#a6e22e">CONNECT_SUCCESED</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">catch</span> (IOException e) {
+</span></span><span style="display:flex;"><span>            handleConnectionError(e);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * Initializes the Bluetooth socket and streams.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     *
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * @throws IOException if an I/O error occurs.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">initializeSocket</span>() <span style="color:#66d9ef">throws</span> IOException {
+</span></span><span style="display:flex;"><span>        mBluetoothSocket <span style="color:#f92672">=</span> mBluetoothDevice.<span style="color:#a6e22e">createRfcommSocketToServiceRecord</span>(MY_UUID);
+</span></span><span style="display:flex;"><span>        mBluetoothSocket.<span style="color:#a6e22e">connect</span>();
+</span></span><span style="display:flex;"><span>        mInputStream <span style="color:#f92672">=</span> mBluetoothSocket.<span style="color:#a6e22e">getInputStream</span>();
+</span></span><span style="display:flex;"><span>        mOutputStream <span style="color:#f92672">=</span> mBluetoothSocket.<span style="color:#a6e22e">getOutputStream</span>();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * Starts a thread to receive data from the Bluetooth connection.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">startDataReceiverThread</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">new</span> Thread(<span style="color:#66d9ef">new</span> Runnable() {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">run</span>() {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> buffer <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">byte</span><span style="color:#f92672">[</span>1024<span style="color:#f92672">]</span>;
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">int</span> bytesRead;
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">while</span> ((bytesRead <span style="color:#f92672">=</span> mInputStream.<span style="color:#a6e22e">read</span>(buffer)) <span style="color:#f92672">&gt;</span> 0) {
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> data <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">byte</span><span style="color:#f92672">[</span>bytesRead<span style="color:#f92672">]</span>;
+</span></span><span style="display:flex;"><span>                        System.<span style="color:#a6e22e">arraycopy</span>(buffer, 0, data, 0, bytesRead);
+</span></span><span style="display:flex;"><span>                        receiver(data);
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                } <span style="color:#66d9ef">catch</span> (IOException e) {
+</span></span><span style="display:flex;"><span>                    handleDataReceiverError(e);
+</span></span><span style="display:flex;"><span>                } <span style="color:#66d9ef">finally</span> {
+</span></span><span style="display:flex;"><span>                    disConnect();
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }).<span style="color:#a6e22e">start</span>();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * Handles connection errors by logging and disconnecting.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     *
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * @param e IOException that occurred.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">handleConnectionError</span>(IOException e) {
+</span></span><span style="display:flex;"><span>        Log.<span style="color:#a6e22e">e</span>(TAG, <span style="color:#e6db74">&#34;Connection error: &#34;</span>, e);
+</span></span><span style="display:flex;"><span>        disConnect();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * Handles data receiver errors by logging.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     *
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * @param e IOException that occurred.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">handleDataReceiverError</span>(IOException e) {
+</span></span><span style="display:flex;"><span>        Log.<span style="color:#a6e22e">e</span>(TAG, <span style="color:#e6db74">&#34;Data receiver error: &#34;</span>, e);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * Disconnects the Bluetooth connection and closes all streams.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">disConnect</span>() {
+</span></span><span style="display:flex;"><span>        closeStream(mInputStream);
+</span></span><span style="display:flex;"><span>        closeStream(mOutputStream);
+</span></span><span style="display:flex;"><span>        closeSocket(mBluetoothSocket);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * Closes a given stream.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     *
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * @param stream Stream to close.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">closeStream</span>(<span style="color:#a6e22e">@Nullable</span> Closeable stream) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (stream <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>                stream.<span style="color:#a6e22e">close</span>();
+</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">catch</span> (IOException e) {
+</span></span><span style="display:flex;"><span>                Log.<span style="color:#a6e22e">e</span>(TAG, <span style="color:#e6db74">&#34;Error closing stream: &#34;</span>, e);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * Closes the Bluetooth socket.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     *
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * @param socket Bluetooth socket to close.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">closeSocket</span>(<span style="color:#a6e22e">@Nullable</span> BluetoothSocket socket) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (socket <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>                socket.<span style="color:#a6e22e">close</span>();
+</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">catch</span> (IOException e) {
+</span></span><span style="display:flex;"><span>                Log.<span style="color:#a6e22e">e</span>(TAG, <span style="color:#e6db74">&#34;Error closing socket: &#34;</span>, e);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * Writes data to the Bluetooth device.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     *
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * @param cmd Command containing the data to write.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * @return true if data is successfully written, false otherwise.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">writeDataToDevice</span>(<span style="color:#a6e22e">@NonNull</span> CMD cmd) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (mOutputStream <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span>) <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>            mOutputStream.<span style="color:#a6e22e">write</span>(cmd.<span style="color:#a6e22e">cmd</span>);
+</span></span><span style="display:flex;"><span>            mOutputStream.<span style="color:#a6e22e">flush</span>();
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">catch</span> (IOException e) {
+</span></span><span style="display:flex;"><span>            Log.<span style="color:#a6e22e">e</span>(TAG, <span style="color:#e6db74">&#34;Error writing data: &#34;</span>, e);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * Receives data and passes it to the superclass method.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     *
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * @param data Data received from the Bluetooth connection.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">receiver</span>(<span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> data) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">super</span>.<span style="color:#a6e22e">receiver</span>(data);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * Gets a Bluetooth device by its name.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     *
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * @param btName Name of the Bluetooth device.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * @return BluetoothDevice if found, null otherwise.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> BluetoothDevice <span style="color:#a6e22e">getBluetoothDeviceByName</span>(<span style="color:#a6e22e">@NonNull</span> String btName) {
+</span></span><span style="display:flex;"><span>        BluetoothAdapter bluetoothAdapter <span style="color:#f92672">=</span> BluetoothAdapter.<span style="color:#a6e22e">getDefaultAdapter</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (bluetoothAdapter <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (BluetoothDevice device : bluetoothAdapter.<span style="color:#a6e22e">getBondedDevices</span>()) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (btName.<span style="color:#a6e22e">equalsIgnoreCase</span>(device.<span style="color:#a6e22e">getName</span>())) {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> device;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>** 步骤二：蓝牙注入 **
+对上面自行实现的蓝牙连接器，您需要将它的实例化对象注入到 ReceiverConnectionInjectManager 中，然后需要构建 ReceiverConnectionOption 对象作为参数传入 IReceiverConnectManager 对 象的 connect 方法中。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// Establish connection using Bluetooth injection method</span>
+</span></span><span style="display:flex;"><span>BluetoothConnectionInjector injector <span style="color:#f92672">=</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">new</span> BluetoothConnectionInjector(<span style="color:#e6db74">&#34;GNSS-9999848&#34;</span>);
+</span></span><span style="display:flex;"><span>ReceiverConnectionInjectManager.<span style="color:#a6e22e">getInstance</span>().<span style="color:#a6e22e">inject</span>(injector);
+</span></span><span style="display:flex;"><span>ReceiverConnectionOption option <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ReceiverConnectionOption()
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">setConnectionType</span>(ConnectionType.<span style="color:#a6e22e">CONNECTION_BLUETOOTH</span>)
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">setProductName</span>(<span style="color:#e6db74">&#34;SMART-RTK&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Get receiverConnectManager through mService and then connect using receiverConnectManager</span>
+</span></span><span style="display:flex;"><span>    IReceiverConnectManager receiverConnectManager <span style="color:#f92672">=</span> IReceiverConnectManager
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">Stub</span>.<span style="color:#a6e22e">asInterface</span>(mService.<span style="color:#a6e22e">getReceiverConnectManager</span>());
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Connect using receiverConnectManager</span>
+</span></span><span style="display:flex;"><span>    receiverConnectManager.<span style="color:#a6e22e">connect</span>(option);
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">catch</span> (RemoteException e) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> RuntimeException(e);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="223-wifi连接">
+  2.2.3 WIFI连接
+  <a class="anchor" href="#223-wifi%e8%bf%9e%e6%8e%a5">#</a>
+</h3>
+<p>WIFI 连接主要步骤和代码如下:</p>
+<ol>
+<li>通过 ReceiverConnectionOption 配置连接参数;</li>
+<li>通过 1.2 中得到的 service 来获取 IReceiverConnectManager 对象</li>
+<li>将“1”中得到的 ReceiverConnectionOption 对象作为参数传入 IReceiverConnectManager 对象的 connect 方法中</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>    <span style="color:#75715e">// Connection event</span>
+</span></span><span style="display:flex;"><span>    mBTConnect.<span style="color:#a6e22e">setOnClickListener</span>(<span style="color:#66d9ef">new</span> View.<span style="color:#a6e22e">OnClickListener</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onClick</span>(View view) {
+</span></span><span style="display:flex;"><span>            ReceiverConnectionOption option <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ReceiverConnectionOption()
+</span></span><span style="display:flex;"><span>                    .<span style="color:#a6e22e">setConnectionType</span>(ConnectionType.<span style="color:#a6e22e">CONNECTION_WIFI</span>)
+</span></span><span style="display:flex;"><span>                    .<span style="color:#a6e22e">setProductName</span>(<span style="color:#e6db74">&#34;SMART-RTK&#34;</span>);
+</span></span><span style="display:flex;"><span>           
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// Get receiverConnectManager through mService and then connect using receiverConnectManager</span>
+</span></span><span style="display:flex;"><span>                IReceiverConnectManager receiverConnectManager <span style="color:#f92672">=</span> IReceiverConnectManager
+</span></span><span style="display:flex;"><span>                        .<span style="color:#a6e22e">Stub</span>.<span style="color:#a6e22e">asInterface</span>(mService.<span style="color:#a6e22e">getReceiverConnectManager</span>());
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// Connect using receiverConnectManager</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>receiverConnectManager.<span style="color:#a6e22e">connect</span>(option)) {
+</span></span><span style="display:flex;"><span>                    <span style="color:#75715e">// Connection failure</span>
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">catch</span> (RemoteException e) {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> RuntimeException(e);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>    <span style="color:#960050;background-color:#1e0010">​</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Disconnection event</span>
+</span></span><span style="display:flex;"><span>    mBTDisConnect.<span style="color:#a6e22e">setOnClickListener</span>(<span style="color:#66d9ef">new</span> View.<span style="color:#a6e22e">OnClickListener</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onClick</span>(View view) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>                IReceiverConnectManager receiverConnectManager <span style="color:#f92672">=</span> IReceiverConnectManager
+</span></span><span style="display:flex;"><span>                        .<span style="color:#a6e22e">Stub</span>.<span style="color:#a6e22e">asInterface</span>(mService.<span style="color:#a6e22e">getReceiverConnectManager</span>());
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (receiverConnectManager <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>) {
+</span></span><span style="display:flex;"><span>                    receiverConnectManager.<span style="color:#a6e22e">disConnect</span>();
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">catch</span> (RemoteException e) {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> RuntimeException(e);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    });
+</span></span></code></pre></div><h3 id="214">
+  2.1.4
+  <a class="anchor" href="#214">#</a>
+</h3>
+<p>目前大多数 Android 设备都具备接收卫星信号来实现定位的功能，基于此，您可以在不通过蓝牙、WIFI 连接 RTK 的情况下做一些功能测试，也可以仅通过本地连接来开发您需要的功能。本章节主要介绍如何通过 SDK 实现本地连接，连接步骤同蓝牙连接类似，这里不再赘述，仅给出相 关代码。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>    <span style="color:#75715e">// Connection event</span>
+</span></span><span style="display:flex;"><span>    mLocalConnect.<span style="color:#a6e22e">setOnClickListener</span>(<span style="color:#66d9ef">new</span> View.<span style="color:#a6e22e">OnClickListener</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onClick</span>(View view) {
+</span></span><span style="display:flex;"><span>            ReceiverConnectionOption option <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ReceiverConnectionOption()
+</span></span><span style="display:flex;"><span>                    .<span style="color:#a6e22e">setConnectionType</span>(ConnectionType.<span style="color:#a6e22e">CONNECTION_ANDROID</span>)
+</span></span><span style="display:flex;"><span>                    .<span style="color:#a6e22e">setProductName</span>(<span style="color:#e6db74">&#34;LT40&#34;</span>);
+</span></span><span style="display:flex;"><span>           
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// Get receiverConnectManager through mService and then connect using receiverConnectManager</span>
+</span></span><span style="display:flex;"><span>                IReceiverConnectManager receiverConnectManager <span style="color:#f92672">=</span> IReceiverConnectManager
+</span></span><span style="display:flex;"><span>                        .<span style="color:#a6e22e">Stub</span>.<span style="color:#a6e22e">asInterface</span>(mService.<span style="color:#a6e22e">getReceiverConnectManager</span>());
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// Connect using receiverConnectManager</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>receiverConnectManager.<span style="color:#a6e22e">connect</span>(option)) {
+</span></span><span style="display:flex;"><span>                    <span style="color:#75715e">// Connection failure</span>
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">catch</span> (RemoteException e) {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> RuntimeException(e);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>    <span style="color:#960050;background-color:#1e0010">​</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Disconnection event</span>
+</span></span><span style="display:flex;"><span>    mLocalDisConnect.<span style="color:#a6e22e">setOnClickListener</span>(<span style="color:#66d9ef">new</span> View.<span style="color:#a6e22e">OnClickListener</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onClick</span>(View view) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>                IReceiverConnectManager receiverConnectManager <span style="color:#f92672">=</span> IReceiverConnectManager
+</span></span><span style="display:flex;"><span>                        .<span style="color:#a6e22e">Stub</span>.<span style="color:#a6e22e">asInterface</span>(mService.<span style="color:#a6e22e">getReceiverConnectManager</span>());
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (receiverConnectManager <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>) {
+</span></span><span style="display:flex;"><span>                    receiverConnectManager.<span style="color:#a6e22e">disConnect</span>();
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">catch</span> (RemoteException e) {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> RuntimeException(e);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    });
+</span></span></code></pre></div><h2 id="连接设备">
+  连接设备
+  <a class="anchor" href="#%e8%bf%9e%e6%8e%a5%e8%ae%be%e5%a4%87">#</a>
+</h2>
+<h3 id="lt800h连接">
+  LT800H连接
+  <a class="anchor" href="#lt800h%e8%bf%9e%e6%8e%a5">#</a>
+</h3>
+<p>参考1.3，您只需要修改连接部分的代码即可，具体代码如下:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>mBTConnect.<span style="color:#a6e22e">setOnClickListener</span>(<span style="color:#66d9ef">new</span> View.<span style="color:#a6e22e">OnClickListener</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onClick</span>(View view) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Areas that need to be revised</span>
+</span></span><span style="display:flex;"><span>        ReceiverConnectionOption option <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ReceiverConnectionOption()
+</span></span><span style="display:flex;"><span>                .<span style="color:#a6e22e">setConnectionType</span>(ConnectionType.<span style="color:#a6e22e">CONNECTION_ANDROID</span>)
+</span></span><span style="display:flex;"><span>                .<span style="color:#a6e22e">setProductName</span>(<span style="color:#e6db74">&#34;LT800H&#34;</span>);
+</span></span><span style="display:flex;"><span>       <span style="color:#75715e">// ......</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre></div><h3 id="cors连接">
+  CORS连接
+  <a class="anchor" href="#cors%e8%bf%9e%e6%8e%a5">#</a>
+</h3>
+<p>CORS 连接之前，您需要准备用于 CORS 连接的账号、密码、源以及对应的 IP 地址和端口号， 具体的连接代码如下:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>mCorsConnect.<span style="color:#a6e22e">setOnClickListener</span>(<span style="color:#66d9ef">new</span> View.<span style="color:#a6e22e">OnClickListener</span>() {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onClick</span>(View view) {
+</span></span><span style="display:flex;"><span>                DiffDataInfo diffDataInfo <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> DiffDataInfo();
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// ip, port</span>
+</span></span><span style="display:flex;"><span>                AddressInfo addressInfo <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> AddressInfo(<span style="color:#e6db74">&#34;*.*.*.*&#34;</span>, <span style="color:#f92672">*</span>);    
+</span></span><span style="display:flex;"><span>                diffDataInfo.<span style="color:#a6e22e">setAddressInfo</span>(addressInfo);
+</span></span><span style="display:flex;"><span>                diffDataInfo.<span style="color:#a6e22e">setDiffType</span>(<span style="color:#e6db74">&#34;diffType&#34;</span>);
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// source</span>
+</span></span><span style="display:flex;"><span>                diffDataInfo.<span style="color:#a6e22e">setSourcePoint</span>(<span style="color:#e6db74">&#34;***&#34;</span>);
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">//account</span>
+</span></span><span style="display:flex;"><span>                diffDataInfo.<span style="color:#a6e22e">setUserName</span>(<span style="color:#e6db74">&#34;****&#34;</span>); 
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// password    </span>
+</span></span><span style="display:flex;"><span>                diffDataInfo.<span style="color:#a6e22e">setPassWord</span>(<span style="color:#e6db74">&#34;****&#34;</span>);     
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// setting listener</span>
+</span></span><span style="display:flex;"><span>                DiffConnectManager.<span style="color:#a6e22e">getInstance</span>().<span style="color:#a6e22e">addListener</span>(<span style="color:#66d9ef">new</span> IDiffListener() {
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onConnectStatusChanged</span>(<span style="color:#66d9ef">boolean</span> b, <span style="color:#a6e22e">@NonNull</span> NtripProtocolCode ntripProtocolCode) {
+</span></span><span style="display:flex;"><span>                       .......
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onPdaWorkModeStatusChanged</span>(<span style="color:#a6e22e">@NonNull</span> EmPdaWorkModeStatus emPdaWorkModeStatus) {
+</span></span><span style="display:flex;"><span>                        .......
+</span></span><span style="display:flex;"><span>                    }<span style="color:#960050;background-color:#1e0010">​</span>
+</span></span><span style="display:flex;"><span>                });
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>
+</span></span><span style="display:flex;"><span>                DiffConnectManager.<span style="color:#a6e22e">getInstance</span>().<span style="color:#a6e22e">connect</span>(diffDataInfo);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        });
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>
+</span></span><span style="display:flex;"><span>        mCorsDisConnect.<span style="color:#a6e22e">setOnClickListener</span>(<span style="color:#66d9ef">new</span> View.<span style="color:#a6e22e">OnClickListener</span>() {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onClick</span>(View view) {
+</span></span><span style="display:flex;"><span>                DiffConnectManager.<span style="color:#a6e22e">getInstance</span>().<span style="color:#a6e22e">disConnect</span>();
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        });
+</span></span></code></pre></div></article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#连接">连接</a>
+      <ul>
+        <li><a href="#连接方式">连接方式</a>
+          <ul>
+            <li><a href="#蓝牙连接">蓝牙连接</a></li>
+            <li><a href="#蓝牙注入连接可选">蓝牙注入连接（可选）</a></li>
+            <li><a href="#223-wifi连接">2.2.3 WIFI连接</a></li>
+            <li><a href="#214">2.1.4</a></li>
+          </ul>
+        </li>
+        <li><a href="#连接设备">连接设备</a>
+          <ul>
+            <li><a href="#lt800h连接">LT800H连接</a></li>
+            <li><a href="#cors连接">CORS连接</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

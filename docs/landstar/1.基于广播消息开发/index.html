@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Pre-preparation for receiving coordinates: Connect RTK satellite receiver, press power button to turn on satellite receiver, open LandStar software, confirm software is used under legal and registered premise, note that no project needs to be created or open existing project.
+
+  Connecting RTK
+  #
+
+The LandStar software connects to the data generation source through (Bluetooth/Wifi mode) or through a local connection. Switch to the configuration page, click the Connection menu or directly click the top to connect to the device navigation bar, and enter the Connected Instrument interface as shown below. Open the Bluetooth search target device, select it, and click the Connect button.">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://example.com/docs/landstar/1.%E5%9F%BA%E4%BA%8E%E5%B9%BF%E6%92%AD%E6%B6%88%E6%81%AF%E5%BC%80%E5%8F%91/">
+  <meta property="og:site_name" content="CHCNAV DEV">
+  <meta property="og:title" content="Development based on broadcast messages">
+  <meta property="og:description" content="Pre-preparation for receiving coordinates: Connect RTK satellite receiver, press power button to turn on satellite receiver, open LandStar software, confirm software is used under legal and registered premise, note that no project needs to be created or open existing project.
+Connecting RTK # The LandStar software connects to the data generation source through (Bluetooth/Wifi mode) or through a local connection. Switch to the configuration page, click the Connection menu or directly click the top to connect to the device navigation bar, and enter the Connected Instrument interface as shown below. Open the Bluetooth search target device, select it, and click the Connect button.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="docs">
+<title>Development based on broadcast messages | CHCNAV DEV</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="https://example.com/docs/landstar/1.%E5%9F%BA%E4%BA%8E%E5%B9%BF%E6%92%AD%E6%B6%88%E6%81%AF%E5%BC%80%E5%8F%91/">
+  <link rel="alternate" hreflang="zh" href="https://example.com/zh/docs/landstar/1.%E5%9F%BA%E4%BA%8E%E5%B9%BF%E6%92%AD%E6%B6%88%E6%81%AF%E5%BC%80%E5%8F%91/" title="基于广播消息开发">
+<link rel="stylesheet" href="/book.min.a7616cf2799b58bddffce9438e31fdbfc6393687cfc0950a4a17cd1cce7e35f6.css" integrity="sha256-p2Fs8nmbWL3f/OlDjjH9v8Y5NofPwJUKShfNHM5&#43;NfY=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.f8dd90d01b0338e8fca6dc3c40d5f79bd0ef65d3d7fa30cfc00d2123ff8de317.js" integrity="sha256-&#43;N2Q0BsDOOj8ptw8QNX3m9DvZdPX&#43;jDPwA0hI/&#43;N4xc=" crossorigin="anonymous"></script>
+
+  <script defer src="/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js" integrity="sha256-b2&#43;Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC&#43;NdcPIvZhzk=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>CHCNAV DEV</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+  
+
+
+
+  
+    
+  
+
+
+  
+
+
+<ul class="book-languages">
+  <li>
+    <input type="checkbox" id="languages" class="toggle" />
+    <label for="languages" class="flex justify-between">
+      <a role="button" class="flex align-center">
+        <img src="/svg/translate.svg" class="book-icon" alt="Languages" />
+        English
+      </a>
+    </label>
+
+    <ul>
+      
+      <li>
+        <a href="/zh/docs/landstar/1.%E5%9F%BA%E4%BA%8E%E5%B9%BF%E6%92%AD%E6%B6%88%E6%81%AF%E5%BC%80%E5%8F%91/">
+          Chinese
+        </a>
+      </li>
+      
+    </ul>
+  </li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-e5ecee4c7d3b31e85f9a9a56df882b94" class="toggle"  />
+    <label for="section-e5ecee4c7d3b31e85f9a9a56df882b94" class="flex justify-between">
+      <a href="/docs/gnssserver/" class="">GnssServer Dev Docs</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/gnssserver/01.%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/" class="">Quick Start</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/gnssserver/02.%E8%BF%9E%E6%8E%A5/" class="">Connection</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/gnssserver/03.%E6%8E%A5%E6%94%B6%E6%9C%BA%E9%80%9A%E4%BF%A1/" class="">Receiver communication</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/gnssserver/04.%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2/" class="">Coordinate conversion</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/gnssserver/05.imu/" class="">IMU</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/gnssserver/06.ar%E6%94%BE%E6%A0%B7/" class="">AR Stakeout</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/gnssserver/07.%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="">Common data types</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-546412403a510171ebc0a5bba25dab59" class="toggle" checked />
+    <label for="section-546412403a510171ebc0a5bba25dab59" class="flex justify-between">
+      <a href="/docs/landstar/" class="">Secondary Dev of LandStar</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/landstar/1.%E5%9F%BA%E4%BA%8E%E5%B9%BF%E6%92%AD%E6%B6%88%E6%81%AF%E5%BC%80%E5%8F%91/" class="active">Development based on broadcast messages</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/landstar/2.%E5%9F%BA%E4%BA%8Etxt%E6%96%87%E4%BB%B6%E5%BC%80%E5%8F%91/" class="">Development based on txt file</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="https://www.chcnav.com/"  target="_blank" rel="noopener">
+        CHCNAV
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>Development based on broadcast messages</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#connecting-rtk">Connecting RTK</a></li>
+        <li><a href="#configure-cors">Configure CORS</a></li>
+        <li><a href="#configuration-broadcast-message">Configuration broadcast message</a></li>
+        <li><a href="#receive-broadcast-messages">Receive broadcast messages</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><p>Pre-preparation for receiving coordinates: Connect RTK satellite receiver, press power button to turn on satellite receiver, open LandStar software, confirm software is used under legal and registered premise, note that no project needs to be created or open existing project.</p>
+<h2 id="connecting-rtk">
+  Connecting RTK
+  <a class="anchor" href="#connecting-rtk">#</a>
+</h2>
+<p>The LandStar software connects to the data generation source through (Bluetooth/Wifi mode) or through a local connection. Switch to the configuration page, click the Connection menu or directly click the top to connect to the device navigation bar, and enter the Connected Instrument interface as shown below. Open the Bluetooth search target device, select it, and click the Connect button.</p>
+<p>
+  <img src="https://blog-1256273063.cos.ap-nanjing.myqcloud.com/image-20250427140236181.png" alt="image-20250427140236181" /></p>
+<h2 id="configure-cors">
+  Configure CORS
+  <a class="anchor" href="#configure-cors">#</a>
+</h2>
+<p>On the LandStar software configuration page, find the mobile station setting input Cors account to provide differential data for the positioning module, and make it fixed after application.</p>
+<p>
+  <img src="https://blog-1256273063.cos.ap-nanjing.myqcloud.com/image-20250427140213393.png" alt="image-20250427140213393" /></p>
+<h2 id="configuration-broadcast-message">
+  Configuration broadcast message
+  <a class="anchor" href="#configuration-broadcast-message">#</a>
+</h2>
+<p>Click the user&rsquo;s avatar or swipe right to enter the sideslip menu, select the software setting function, click the secondary development button on the software setting interface to open the secondary development interface, and open the switch to transmit real-time coordinates through Android broadcast messages in the secondary development interface. At this point, the Geodesy Communication software is set up, and the Geodesy Communication software starts to broadcast real-time high-precision position coordinates through Android broadcast.</p>
+<p>
+  <img src="https://blog-1256273063.cos.ap-nanjing.myqcloud.com/image-20250427140310423.png" alt="image-20250427140310423" /></p>
+<h2 id="receive-broadcast-messages">
+  Receive broadcast messages
+  <a class="anchor" href="#receive-broadcast-messages">#</a>
+</h2>
+<p>Implementation method for Android third-party software to receive coordinates: Register the location broadcast sent by LandStar Software and receive the transmitted location data. For specific codes, please refer to the following</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ReceiveLocationBroadcastReceiver</span> <span style="color:#66d9ef">extends</span> BroadcastReceiver {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> String LOCATION_INFO_INTENT <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;com.huace.landstar.api.action&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> String KEY_LOCATION_FIFO <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;location&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> StringBuffer mStringBuffer;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">ReceiveLocationBroadcastReceiver</span>() {
+</span></span><span style="display:flex;"><span>        mStringBuffer <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> StringBuffer();
+</span></span><span style="display:flex;"><span>    }  
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onReceive</span>(Context context, Intent intent) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (intent <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">&amp;&amp;</span> intent.<span style="color:#a6e22e">getAction</span>().<span style="color:#a6e22e">equals</span>(LOCATION_INFO_INTENT)) {
+</span></span><span style="display:flex;"><span>            Location location <span style="color:#f92672">=</span> intent.<span style="color:#a6e22e">getParcelableExtra</span>(KEY_LOCATION_FIFO);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (location <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>) {
+</span></span><span style="display:flex;"><span>                mStringBuffer.<span style="color:#a6e22e">delete</span>(0, mStringBuffer.<span style="color:#a6e22e">length</span>());
+</span></span><span style="display:flex;"><span>                mStringBuffer.<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;Location[&#34;</span>).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;&lt;br&gt;&#34;</span>);
+</span></span><span style="display:flex;"><span>                mStringBuffer.<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;Provider = &#34;</span>).<span style="color:#a6e22e">append</span>(location.<span style="color:#a6e22e">getProvider</span>()).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;,&#34;</span>).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;&lt;br&gt;&#34;</span>);
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">double</span> latitude <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">toDegrees</span>(location.<span style="color:#a6e22e">getLatitude</span>());
+</span></span><span style="display:flex;"><span>                mStringBuffer.<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;B = &#34;</span>).<span style="color:#a6e22e">append</span>(latitude).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;,&#34;</span>).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;&lt;br&gt;&#34;</span>);
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">double</span> longitude <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">toDegrees</span>(location.<span style="color:#a6e22e">getLongitude</span>());
+</span></span><span style="display:flex;"><span>                mStringBuffer.<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;L = &#34;</span>).<span style="color:#a6e22e">append</span>(longitude).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;,&#34;</span>).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;&lt;br&gt;&#34;</span>);
+</span></span><span style="display:flex;"><span>                mStringBuffer.<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;H = &#34;</span>).<span style="color:#a6e22e">append</span>(location.<span style="color:#a6e22e">getAltitude</span>()).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;,&#34;</span>).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;&lt;br&gt;&#34;</span>);
+</span></span><span style="display:flex;"><span>                mStringBuffer.<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;HPre = &#34;</span>).<span style="color:#a6e22e">append</span>(location.<span style="color:#a6e22e">getAccuracy</span>()).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;,&#34;</span>).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;&lt;br&gt;&#34;</span>);
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">//板卡解算状态-1:搜星中 0:单点  1:SBAS 2:浮动 3:固定 4: 伪距差分</span>
+</span></span><span style="display:flex;"><span>                mStringBuffer.<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;solve_status= &#34;</span>).<span style="color:#a6e22e">append</span>(location.<span style="color:#a6e22e">getExtras</span>().<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#34;solve_status&#34;</span>)).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;,&#34;</span>).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;&lt;br&gt;&#34;</span>);
+</span></span><span style="display:flex;"><span>                mStringBuffer.<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;x_precision= &#34;</span>).<span style="color:#a6e22e">append</span>(location.<span style="color:#a6e22e">getExtras</span>().<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#34;x_precision&#34;</span>)).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;,&#34;</span>).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;&lt;br&gt;&#34;</span>);
+</span></span><span style="display:flex;"><span>                mStringBuffer.<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;y_precision= &#34;</span>).<span style="color:#a6e22e">append</span>(location.<span style="color:#a6e22e">getExtras</span>().<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#34;y_precision&#34;</span>)).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;,&#34;</span>).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;&lt;br&gt;&#34;</span>);
+</span></span><span style="display:flex;"><span>                mStringBuffer.<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;h_precision= &#34;</span>).<span style="color:#a6e22e">append</span>(location.<span style="color:#a6e22e">getExtras</span>().<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#34;h_precision&#34;</span>)).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;,&#34;</span>).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;&lt;br&gt;&#34;</span>);
+</span></span><span style="display:flex;"><span>                mStringBuffer.<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;key_neh_n= &#34;</span>).<span style="color:#a6e22e">append</span>(location.<span style="color:#a6e22e">getExtras</span>().<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#34;key_neh_n&#34;</span>)).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;,&#34;</span>).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;&lt;br&gt;&#34;</span>);
+</span></span><span style="display:flex;"><span>                mStringBuffer.<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;key_neh_e= &#34;</span>).<span style="color:#a6e22e">append</span>(location.<span style="color:#a6e22e">getExtras</span>().<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#34;key_neh_e&#34;</span>)).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;,&#34;</span>).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;&lt;br&gt;&#34;</span>);
+</span></span><span style="display:flex;"><span>                mStringBuffer.<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;key_neh_h= &#34;</span>).<span style="color:#a6e22e">append</span>(location.<span style="color:#a6e22e">getExtras</span>().<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#34;key_neh_h&#34;</span>)).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;,&#34;</span>).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;&lt;br&gt;&#34;</span>);
+</span></span><span style="display:flex;"><span>                Log.<span style="color:#a6e22e">d</span>(<span style="color:#e6db74">&#34;TAG&#34;</span>,<span style="color:#e6db74">&#34;LocationInfo: &#34;</span><span style="color:#f92672">+</span>mStringBuffer.<span style="color:#a6e22e">toString</span>());
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#connecting-rtk">Connecting RTK</a></li>
+        <li><a href="#configure-cors">Configure CORS</a></li>
+        <li><a href="#configuration-broadcast-message">Configuration broadcast message</a></li>
+        <li><a href="#receive-broadcast-messages">Receive broadcast messages</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="zh" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="接收坐标的先期准备： 连接RTK卫星接收机，按电源键将卫星接收机开机，打开测地通软件，确认软件在合法并注册的前提下使用，注意，没有工程需要创建工程或打开已有工程。
+
+  连接RTK
+  #
+
+测地通软件通过（蓝牙/Wifi方式）方式或通过本地连接，连接到数据发生源。切换到配置页面，点击连接菜单或直接点击顶部连接到设备导航栏，进入连接仪器界面如下图。打开蓝牙搜索目标设备，选择后并点击连接按钮。
+
+  
+
+  配置CORS
+  #
+
+在测地通软件配置页面，找到移动站设置输入Cors账号为定位模块提供差分数据，应用后使之固定。
+
+  
+
+  配置广播消息
+  #
+
+点击用户头像或右滑进入侧滑菜单，选择软件设置功能，在软件设置界面点击二次开发按钮，打开二次开发界面，在二次开发界面打开通过Android广播消息传递实时坐标的开关，至此测地通软件设置完毕，测地通软件开始通过Android广播向外播发实时高精度位置坐标。
+
+  
+
+  接收广播消息
+  #
+
+Android第三方软件接收坐标的实现方法：注册测地通软件发送的位置广播并接收传递出来的位置数据，具体代码可参考下面
+public class ReceiveLocationBroadcastReceiver extends BroadcastReceiver {
+    public static final String LOCATION_INFO_INTENT = &#34;com.huace.landstar.api.action&#34;;
+    public static final String KEY_LOCATION_FIFO = &#34;location&#34;;
+    private final StringBuffer mStringBuffer;
+    public ReceiveLocationBroadcastReceiver() {
+        mStringBuffer = new StringBuffer();
+    }  
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        if (intent != null &amp;&amp; intent.getAction().equals(LOCATION_INFO_INTENT)) {
+            Location location = intent.getParcelableExtra(KEY_LOCATION_FIFO);
+            if (location != null) {
+                mStringBuffer.delete(0, mStringBuffer.length());
+                mStringBuffer.append(&#34;Location[&#34;).append(&#34;&lt;br&gt;&#34;);
+                mStringBuffer.append(&#34;Provider = &#34;).append(location.getProvider()).append(&#34;,&#34;).append(&#34;&lt;br&gt;&#34;);
+                double latitude = Math.toDegrees(location.getLatitude());
+                mStringBuffer.append(&#34;B = &#34;).append(latitude).append(&#34;,&#34;).append(&#34;&lt;br&gt;&#34;);
+                double longitude = Math.toDegrees(location.getLongitude());
+                mStringBuffer.append(&#34;L = &#34;).append(longitude).append(&#34;,&#34;).append(&#34;&lt;br&gt;&#34;);
+                mStringBuffer.append(&#34;H = &#34;).append(location.getAltitude()).append(&#34;,&#34;).append(&#34;&lt;br&gt;&#34;);
+                mStringBuffer.append(&#34;HPre = &#34;).append(location.getAccuracy()).append(&#34;,&#34;).append(&#34;&lt;br&gt;&#34;);
+                //板卡解算状态-1:搜星中 0:单点  1:SBAS 2:浮动 3:固定 4: 伪距差分
+                mStringBuffer.append(&#34;solve_status= &#34;).append(location.getExtras().get(&#34;solve_status&#34;)).append(&#34;,&#34;).append(&#34;&lt;br&gt;&#34;);
+                mStringBuffer.append(&#34;x_precision= &#34;).append(location.getExtras().get(&#34;x_precision&#34;)).append(&#34;,&#34;).append(&#34;&lt;br&gt;&#34;);
+                mStringBuffer.append(&#34;y_precision= &#34;).append(location.getExtras().get(&#34;y_precision&#34;)).append(&#34;,&#34;).append(&#34;&lt;br&gt;&#34;);
+                mStringBuffer.append(&#34;h_precision= &#34;).append(location.getExtras().get(&#34;h_precision&#34;)).append(&#34;,&#34;).append(&#34;&lt;br&gt;&#34;);
+                // 垂直精度
+                mStringBuffer.append(&#34;v_precision= &#34;).append(location.getExtras().get(&#34;v_precision&#34;)).append(&#34;,&#34;).append(&#34;&lt;br&gt;&#34;);
+                mStringBuffer.append(&#34;key_neh_n= &#34;).append(location.getExtras().get(&#34;key_neh_n&#34;)).append(&#34;,&#34;).append(&#34;&lt;br&gt;&#34;);
+                mStringBuffer.append(&#34;key_neh_e= &#34;).append(location.getExtras().get(&#34;key_neh_e&#34;)).append(&#34;,&#34;).append(&#34;&lt;br&gt;&#34;);
+                mStringBuffer.append(&#34;key_neh_h= &#34;).append(location.getExtras().get(&#34;key_neh_h&#34;)).append(&#34;,&#34;).append(&#34;&lt;br&gt;&#34;);
+              	// 观测卫星数
+                mStringBuffer.append(&#34;sat_visible_count= &#34;).append(location.getExtras().get(&#34;key_sat_visible_count&#34;)).append(&#34;,&#34;).append(&#34;&lt;br&gt;&#34;);
+              	// 使用卫星数
+                mStringBuffer.append(&#34;sat_use_count= &#34;).append(location.getExtras().get(&#34;key_sat_use_count&#34;)).append(&#34;,&#34;).append(&#34;&lt;br&gt;&#34;);
+                Log.d(&#34;TAG&#34;,&#34;LocationInfo: &#34;&#43;mStringBuffer.toString());
+            }
+        }
+    }
+}
+">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://example.com/zh/docs/landstar/1.%E5%9F%BA%E4%BA%8E%E5%B9%BF%E6%92%AD%E6%B6%88%E6%81%AF%E5%BC%80%E5%8F%91/">
+  <meta property="og:site_name" content="CHCNAV DEV">
+  <meta property="og:title" content="基于广播消息开发">
+  <meta property="og:description" content="接收坐标的先期准备： 连接RTK卫星接收机，按电源键将卫星接收机开机，打开测地通软件，确认软件在合法并注册的前提下使用，注意，没有工程需要创建工程或打开已有工程。
+连接RTK # 测地通软件通过（蓝牙/Wifi方式）方式或通过本地连接，连接到数据发生源。切换到配置页面，点击连接菜单或直接点击顶部连接到设备导航栏，进入连接仪器界面如下图。打开蓝牙搜索目标设备，选择后并点击连接按钮。
+配置CORS # 在测地通软件配置页面，找到移动站设置输入Cors账号为定位模块提供差分数据，应用后使之固定。
+配置广播消息 # 点击用户头像或右滑进入侧滑菜单，选择软件设置功能，在软件设置界面点击二次开发按钮，打开二次开发界面，在二次开发界面打开通过Android广播消息传递实时坐标的开关，至此测地通软件设置完毕，测地通软件开始通过Android广播向外播发实时高精度位置坐标。
+接收广播消息 # Android第三方软件接收坐标的实现方法：注册测地通软件发送的位置广播并接收传递出来的位置数据，具体代码可参考下面
+public class ReceiveLocationBroadcastReceiver extends BroadcastReceiver { public static final String LOCATION_INFO_INTENT = &#34;com.huace.landstar.api.action&#34;; public static final String KEY_LOCATION_FIFO = &#34;location&#34;; private final StringBuffer mStringBuffer; public ReceiveLocationBroadcastReceiver() { mStringBuffer = new StringBuffer(); } @Override public void onReceive(Context context, Intent intent) { if (intent != null &amp;&amp; intent.getAction().equals(LOCATION_INFO_INTENT)) { Location location = intent.getParcelableExtra(KEY_LOCATION_FIFO); if (location != null) { mStringBuffer.delete(0, mStringBuffer.length()); mStringBuffer.append(&#34;Location[&#34;).append(&#34;&lt;br&gt;&#34;); mStringBuffer.append(&#34;Provider = &#34;).append(location.getProvider()).append(&#34;,&#34;).append(&#34;&lt;br&gt;&#34;); double latitude = Math.toDegrees(location.getLatitude()); mStringBuffer.append(&#34;B = &#34;).append(latitude).append(&#34;,&#34;).append(&#34;&lt;br&gt;&#34;); double longitude = Math.toDegrees(location.getLongitude()); mStringBuffer.append(&#34;L = &#34;).append(longitude).append(&#34;,&#34;).append(&#34;&lt;br&gt;&#34;); mStringBuffer.append(&#34;H = &#34;).append(location.getAltitude()).append(&#34;,&#34;).append(&#34;&lt;br&gt;&#34;); mStringBuffer.append(&#34;HPre = &#34;).append(location.getAccuracy()).append(&#34;,&#34;).append(&#34;&lt;br&gt;&#34;); //板卡解算状态-1:搜星中 0:单点 1:SBAS 2:浮动 3:固定 4: 伪距差分 mStringBuffer.append(&#34;solve_status= &#34;).append(location.getExtras().get(&#34;solve_status&#34;)).append(&#34;,&#34;).append(&#34;&lt;br&gt;&#34;); mStringBuffer.append(&#34;x_precision= &#34;).append(location.getExtras().get(&#34;x_precision&#34;)).append(&#34;,&#34;).append(&#34;&lt;br&gt;&#34;); mStringBuffer.append(&#34;y_precision= &#34;).append(location.getExtras().get(&#34;y_precision&#34;)).append(&#34;,&#34;).append(&#34;&lt;br&gt;&#34;); mStringBuffer.append(&#34;h_precision= &#34;).append(location.getExtras().get(&#34;h_precision&#34;)).append(&#34;,&#34;).append(&#34;&lt;br&gt;&#34;); // 垂直精度 mStringBuffer.append(&#34;v_precision= &#34;).append(location.getExtras().get(&#34;v_precision&#34;)).append(&#34;,&#34;).append(&#34;&lt;br&gt;&#34;); mStringBuffer.append(&#34;key_neh_n= &#34;).append(location.getExtras().get(&#34;key_neh_n&#34;)).append(&#34;,&#34;).append(&#34;&lt;br&gt;&#34;); mStringBuffer.append(&#34;key_neh_e= &#34;).append(location.getExtras().get(&#34;key_neh_e&#34;)).append(&#34;,&#34;).append(&#34;&lt;br&gt;&#34;); mStringBuffer.append(&#34;key_neh_h= &#34;).append(location.getExtras().get(&#34;key_neh_h&#34;)).append(&#34;,&#34;).append(&#34;&lt;br&gt;&#34;); // 观测卫星数 mStringBuffer.append(&#34;sat_visible_count= &#34;).append(location.getExtras().get(&#34;key_sat_visible_count&#34;)).append(&#34;,&#34;).append(&#34;&lt;br&gt;&#34;); // 使用卫星数 mStringBuffer.append(&#34;sat_use_count= &#34;).append(location.getExtras().get(&#34;key_sat_use_count&#34;)).append(&#34;,&#34;).append(&#34;&lt;br&gt;&#34;); Log.d(&#34;TAG&#34;,&#34;LocationInfo: &#34;&#43;mStringBuffer.toString()); } } } } ">
+  <meta property="og:locale" content="zh">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="docs">
+<title>基于广播消息开发 | CHCNAV DEV</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="https://example.com/zh/docs/landstar/1.%E5%9F%BA%E4%BA%8E%E5%B9%BF%E6%92%AD%E6%B6%88%E6%81%AF%E5%BC%80%E5%8F%91/">
+  <link rel="alternate" hreflang="en" href="https://example.com/docs/landstar/1.%E5%9F%BA%E4%BA%8E%E5%B9%BF%E6%92%AD%E6%B6%88%E6%81%AF%E5%BC%80%E5%8F%91/" title="Development based on broadcast messages">
+<link rel="stylesheet" href="/book.min.a7616cf2799b58bddffce9438e31fdbfc6393687cfc0950a4a17cd1cce7e35f6.css" integrity="sha256-p2Fs8nmbWL3f/OlDjjH9v8Y5NofPwJUKShfNHM5&#43;NfY=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/zh.search.min.bf45599d2d0a7748c184908dc46e9116e7c62b4b572ba8bf53d6e7816385783c.js" integrity="sha256-v0VZnS0Kd0jBhJCNxG6RFufGK0tXK6i/U9bngWOFeDw=" crossorigin="anonymous"></script>
+
+  <script defer src="/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js" integrity="sha256-b2&#43;Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC&#43;NdcPIvZhzk=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/zh/"><span>CHCNAV DEV</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="搜索" aria-label="搜索" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+  
+
+
+
+  
+    
+  
+
+
+  
+
+
+<ul class="book-languages">
+  <li>
+    <input type="checkbox" id="languages" class="toggle" />
+    <label for="languages" class="flex justify-between">
+      <a role="button" class="flex align-center">
+        <img src="/svg/translate.svg" class="book-icon" alt="Languages" />
+        Chinese
+      </a>
+    </label>
+
+    <ul>
+      
+      <li>
+        <a href="/docs/landstar/1.%E5%9F%BA%E4%BA%8E%E5%B9%BF%E6%92%AD%E6%B6%88%E6%81%AF%E5%BC%80%E5%8F%91/">
+          English
+        </a>
+      </li>
+      
+    </ul>
+  </li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-e5ecee4c7d3b31e85f9a9a56df882b94" class="toggle"  />
+    <label for="section-e5ecee4c7d3b31e85f9a9a56df882b94" class="flex justify-between">
+      <a href="/zh/docs/gnssserver/" class="">GnssServer开发文档</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/zh/docs/gnssserver/01.%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/" class="">快速开始</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/zh/docs/gnssserver/02.%E8%BF%9E%E6%8E%A5/" class="">连接</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/zh/docs/gnssserver/03.%E6%8E%A5%E6%94%B6%E6%9C%BA%E9%80%9A%E4%BF%A1/" class="">接收机通信</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/zh/docs/gnssserver/04.%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2/" class="">坐标转换</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/zh/docs/gnssserver/05.imu/" class="">IMU</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/zh/docs/gnssserver/06.ar%E6%94%BE%E6%A0%B7/" class="">AR放样</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/zh/docs/gnssserver/07.%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="">常用数据类型</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-546412403a510171ebc0a5bba25dab59" class="toggle" checked />
+    <label for="section-546412403a510171ebc0a5bba25dab59" class="flex justify-between">
+      <a href="/zh/docs/landstar/" class="">测地通二次开发</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/zh/docs/landstar/1.%E5%9F%BA%E4%BA%8E%E5%B9%BF%E6%92%AD%E6%B6%88%E6%81%AF%E5%BC%80%E5%8F%91/" class="active">基于广播消息开发</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/zh/docs/landstar/2.%E5%9F%BA%E4%BA%8Etxt%E6%96%87%E4%BB%B6%E5%BC%80%E5%8F%91/" class="">基于txt文件开发</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="https://www.chcnav.com/"  target="_blank" rel="noopener">
+        CHCNAV
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>基于广播消息开发</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#连接rtk">连接RTK</a></li>
+        <li><a href="#配置cors">配置CORS</a></li>
+        <li><a href="#配置广播消息">配置广播消息</a></li>
+        <li><a href="#接收广播消息">接收广播消息</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><p>接收坐标的先期准备： 连接RTK卫星接收机，按电源键将卫星接收机开机，打开测地通软件，确认软件在合法并注册的前提下使用，注意，没有工程需要创建工程或打开已有工程。</p>
+<h2 id="连接rtk">
+  连接RTK
+  <a class="anchor" href="#%e8%bf%9e%e6%8e%a5rtk">#</a>
+</h2>
+<p>测地通软件通过（蓝牙/Wifi方式）方式或通过本地连接，连接到数据发生源。切换到配置页面，点击连接菜单或直接点击顶部连接到设备导航栏，进入连接仪器界面如下图。打开蓝牙搜索目标设备，选择后并点击连接按钮。</p>
+<p>
+  <img src="https://blog-1256273063.cos.ap-nanjing.myqcloud.com/image-20250427140236181.png" alt="image-20250427140236181" /></p>
+<h2 id="配置cors">
+  配置CORS
+  <a class="anchor" href="#%e9%85%8d%e7%bd%aecors">#</a>
+</h2>
+<p>在测地通软件配置页面，找到移动站设置输入Cors账号为定位模块提供差分数据，应用后使之固定。</p>
+<p>
+  <img src="https://blog-1256273063.cos.ap-nanjing.myqcloud.com/image-20250427140213393.png" alt="image-20250427140213393" /></p>
+<h2 id="配置广播消息">
+  配置广播消息
+  <a class="anchor" href="#%e9%85%8d%e7%bd%ae%e5%b9%bf%e6%92%ad%e6%b6%88%e6%81%af">#</a>
+</h2>
+<p>点击用户头像或右滑进入侧滑菜单，选择软件设置功能，在软件设置界面点击二次开发按钮，打开二次开发界面，在二次开发界面打开通过Android广播消息传递实时坐标的开关，至此测地通软件设置完毕，测地通软件开始通过Android广播向外播发实时高精度位置坐标。</p>
+<p>
+  <img src="https://blog-1256273063.cos.ap-nanjing.myqcloud.com/image-20250427140310423.png" alt="image-20250427140310423" /></p>
+<h2 id="接收广播消息">
+  接收广播消息
+  <a class="anchor" href="#%e6%8e%a5%e6%94%b6%e5%b9%bf%e6%92%ad%e6%b6%88%e6%81%af">#</a>
+</h2>
+<p>Android第三方软件接收坐标的实现方法：注册测地通软件发送的位置广播并接收传递出来的位置数据，具体代码可参考下面</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ReceiveLocationBroadcastReceiver</span> <span style="color:#66d9ef">extends</span> BroadcastReceiver {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> String LOCATION_INFO_INTENT <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;com.huace.landstar.api.action&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> String KEY_LOCATION_FIFO <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;location&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> StringBuffer mStringBuffer;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">ReceiveLocationBroadcastReceiver</span>() {
+</span></span><span style="display:flex;"><span>        mStringBuffer <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> StringBuffer();
+</span></span><span style="display:flex;"><span>    }  
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onReceive</span>(Context context, Intent intent) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (intent <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">&amp;&amp;</span> intent.<span style="color:#a6e22e">getAction</span>().<span style="color:#a6e22e">equals</span>(LOCATION_INFO_INTENT)) {
+</span></span><span style="display:flex;"><span>            Location location <span style="color:#f92672">=</span> intent.<span style="color:#a6e22e">getParcelableExtra</span>(KEY_LOCATION_FIFO);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (location <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>) {
+</span></span><span style="display:flex;"><span>                mStringBuffer.<span style="color:#a6e22e">delete</span>(0, mStringBuffer.<span style="color:#a6e22e">length</span>());
+</span></span><span style="display:flex;"><span>                mStringBuffer.<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;Location[&#34;</span>).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;&lt;br&gt;&#34;</span>);
+</span></span><span style="display:flex;"><span>                mStringBuffer.<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;Provider = &#34;</span>).<span style="color:#a6e22e">append</span>(location.<span style="color:#a6e22e">getProvider</span>()).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;,&#34;</span>).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;&lt;br&gt;&#34;</span>);
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">double</span> latitude <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">toDegrees</span>(location.<span style="color:#a6e22e">getLatitude</span>());
+</span></span><span style="display:flex;"><span>                mStringBuffer.<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;B = &#34;</span>).<span style="color:#a6e22e">append</span>(latitude).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;,&#34;</span>).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;&lt;br&gt;&#34;</span>);
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">double</span> longitude <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">toDegrees</span>(location.<span style="color:#a6e22e">getLongitude</span>());
+</span></span><span style="display:flex;"><span>                mStringBuffer.<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;L = &#34;</span>).<span style="color:#a6e22e">append</span>(longitude).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;,&#34;</span>).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;&lt;br&gt;&#34;</span>);
+</span></span><span style="display:flex;"><span>                mStringBuffer.<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;H = &#34;</span>).<span style="color:#a6e22e">append</span>(location.<span style="color:#a6e22e">getAltitude</span>()).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;,&#34;</span>).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;&lt;br&gt;&#34;</span>);
+</span></span><span style="display:flex;"><span>                mStringBuffer.<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;HPre = &#34;</span>).<span style="color:#a6e22e">append</span>(location.<span style="color:#a6e22e">getAccuracy</span>()).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;,&#34;</span>).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;&lt;br&gt;&#34;</span>);
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">//板卡解算状态-1:搜星中 0:单点  1:SBAS 2:浮动 3:固定 4: 伪距差分</span>
+</span></span><span style="display:flex;"><span>                mStringBuffer.<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;solve_status= &#34;</span>).<span style="color:#a6e22e">append</span>(location.<span style="color:#a6e22e">getExtras</span>().<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#34;solve_status&#34;</span>)).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;,&#34;</span>).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;&lt;br&gt;&#34;</span>);
+</span></span><span style="display:flex;"><span>                mStringBuffer.<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;x_precision= &#34;</span>).<span style="color:#a6e22e">append</span>(location.<span style="color:#a6e22e">getExtras</span>().<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#34;x_precision&#34;</span>)).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;,&#34;</span>).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;&lt;br&gt;&#34;</span>);
+</span></span><span style="display:flex;"><span>                mStringBuffer.<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;y_precision= &#34;</span>).<span style="color:#a6e22e">append</span>(location.<span style="color:#a6e22e">getExtras</span>().<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#34;y_precision&#34;</span>)).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;,&#34;</span>).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;&lt;br&gt;&#34;</span>);
+</span></span><span style="display:flex;"><span>                mStringBuffer.<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;h_precision= &#34;</span>).<span style="color:#a6e22e">append</span>(location.<span style="color:#a6e22e">getExtras</span>().<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#34;h_precision&#34;</span>)).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;,&#34;</span>).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;&lt;br&gt;&#34;</span>);
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// 垂直精度</span>
+</span></span><span style="display:flex;"><span>                mStringBuffer.<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;v_precision= &#34;</span>).<span style="color:#a6e22e">append</span>(location.<span style="color:#a6e22e">getExtras</span>().<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#34;v_precision&#34;</span>)).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;,&#34;</span>).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;&lt;br&gt;&#34;</span>);
+</span></span><span style="display:flex;"><span>                mStringBuffer.<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;key_neh_n= &#34;</span>).<span style="color:#a6e22e">append</span>(location.<span style="color:#a6e22e">getExtras</span>().<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#34;key_neh_n&#34;</span>)).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;,&#34;</span>).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;&lt;br&gt;&#34;</span>);
+</span></span><span style="display:flex;"><span>                mStringBuffer.<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;key_neh_e= &#34;</span>).<span style="color:#a6e22e">append</span>(location.<span style="color:#a6e22e">getExtras</span>().<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#34;key_neh_e&#34;</span>)).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;,&#34;</span>).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;&lt;br&gt;&#34;</span>);
+</span></span><span style="display:flex;"><span>                mStringBuffer.<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;key_neh_h= &#34;</span>).<span style="color:#a6e22e">append</span>(location.<span style="color:#a6e22e">getExtras</span>().<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#34;key_neh_h&#34;</span>)).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;,&#34;</span>).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;&lt;br&gt;&#34;</span>);
+</span></span><span style="display:flex;"><span>              	<span style="color:#75715e">// 观测卫星数</span>
+</span></span><span style="display:flex;"><span>                mStringBuffer.<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;sat_visible_count= &#34;</span>).<span style="color:#a6e22e">append</span>(location.<span style="color:#a6e22e">getExtras</span>().<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#34;key_sat_visible_count&#34;</span>)).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;,&#34;</span>).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;&lt;br&gt;&#34;</span>);
+</span></span><span style="display:flex;"><span>              	<span style="color:#75715e">// 使用卫星数</span>
+</span></span><span style="display:flex;"><span>                mStringBuffer.<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;sat_use_count= &#34;</span>).<span style="color:#a6e22e">append</span>(location.<span style="color:#a6e22e">getExtras</span>().<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#34;key_sat_use_count&#34;</span>)).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;,&#34;</span>).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;&lt;br&gt;&#34;</span>);
+</span></span><span style="display:flex;"><span>                Log.<span style="color:#a6e22e">d</span>(<span style="color:#e6db74">&#34;TAG&#34;</span>,<span style="color:#e6db74">&#34;LocationInfo: &#34;</span><span style="color:#f92672">+</span>mStringBuffer.<span style="color:#a6e22e">toString</span>());
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#连接rtk">连接RTK</a></li>
+        <li><a href="#配置cors">配置CORS</a></li>
+        <li><a href="#配置广播消息">配置广播消息</a></li>
+        <li><a href="#接收广播消息">接收广播消息</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
