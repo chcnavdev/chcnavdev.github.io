@@ -99,16 +99,6 @@
                 />
   </url><url>
     <loc>https://example.com/zh/docs/gnssserver/05_imu/</loc>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://example.com/docs/gnssserver/05_imu/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://example.com/zh/docs/gnssserver/05_imu/"
-                />
   </url><url>
     <loc>https://example.com/zh/docs/gnssserver/06_ar%E6%94%BE%E6%A0%B7/</loc>
     <xhtml:link

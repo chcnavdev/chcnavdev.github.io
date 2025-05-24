@@ -52,9 +52,9 @@
     </item>
     <item>
       <title>IMU</title>
-      <link>https://example.com/docs/gnssserver/05_imu/</link>
+      <link>https://example.com/docs/gnssserver/05.imu/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://example.com/docs/gnssserver/05_imu/</guid>
+      <guid>https://example.com/docs/gnssserver/05.imu/</guid>
       <description>&lt;h1 id=&#34;imu&#34;&gt;&#xA;  IMU&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#imu&#34;&gt;#&lt;/a&gt;&#xA;&lt;/h1&gt;&#xA;&lt;h2 id=&#34;coordinate-information&#34;&gt;&#xA;  Coordinate information&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#coordinate-information&#34;&gt;#&lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&lt;p&gt;If youneed to use the inertial navigation function, you can get the coordinate information in the inertial state by getting an instance of the PositionSource class and adding a listener. Using this way, you don&amp;rsquo;t need to care about the switching of data source, that is, you don&amp;rsquo;t need to manually switch the data source according to the inertial guidance state. The specific steps are as follows:&lt;/p&gt;</description>
     </item>
     <item>

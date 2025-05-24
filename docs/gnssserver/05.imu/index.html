@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh" dir="ltr">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,90 +8,26 @@
   #
 
 
-  坐标信息
+  Coordinate information
   #
 
-如果您需要使用惯性导航功能，可以通过获取 PositionSource 类的实例并添加监听器，以获取惯导状态下的坐标信息。使用这种方式，您无需关心数据源的切换，即无需根据惯导状态手动切换数据源。具体步骤如下：
-// 监听坐标信息
-PositionSource.getInstance().addListener(new IPositionListener.Stub() {
-    @Override
-    public void onCoordinatePosition(SurveyPointPositionInfo positionInfo) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                updatePositionInfoUi(positionInfo);
-            }
-        });
-    }
-});
-
-// 将坐标信息渲染到页面
-private void updatePositionInfoUi(@NonNull SurveyPointPositionInfo surveyPointPositionInfo) {
-    Position position = surveyPointPositionInfo.getCoorKernal().getWgsBlh();
-    mTVB.setText(String.valueOf(position.getX()));
-    mTVL.setText(String.valueOf(position.getY()));
-    mTVH.setText(String.valueOf(position.getZ()));
-}
-关于SurveyPointPositionInfo类的更多信息，您可以参考相关章节。
-
-  开启或关闭IMU
-  #
-
-如在获取接收机数据相关章节中所述，您可以通过 ReceiverCmdManager 类向接收机发送命令。因此，IMU 的开启或关闭操作也是通过该类进行的。具体的操作代码如下：
-private void setIMUListener() {
-    mOpenIMU.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            NoneMagneticTiltStartInfo startInfo = new NoneMagneticTiltStartInfo();
-            // 设置天线高度和频率
-            startInfo.setAntennaHeight(0);
-            startInfo.setFrequency(EnumDataFrequency.DATA_FREQUENCY_5HZ);
-            isOpenIMU(true, startInfo);
-        }
-    });
-
-    mCloseIMU.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            isOpenIMU(false, null);
-        }
-    });
-}
-
-private void isOpenIMU(boolean isOpen, @Nullable NoneMagneticTiltStartInfo startInfo) {
-    
-    if (isOpen &amp;&amp; (startInfo != null)) {
-        // 开启IMU
-        ReceiverCmdManager.getInstance().setCmdStartNoneMagneticTilt(this, startInfo);
-    } else {
-        // 关闭IMU
-        ReceiverCmdManager.getInstance().setCmdStopNoneMagneticTilt(this);
-    }
-}
-
-  其他
-  #
-
-关于IMU的其他数据，您可以参考获取接收机数据相关章节从接收机获取，相关代码如下:">
+If youneed to use the inertial navigation function, you can get the coordinate information in the inertial state by getting an instance of the PositionSource class and adding a listener. Using this way, you don&rsquo;t need to care about the switching of data source, that is, you don&rsquo;t need to manually switch the data source according to the inertial guidance state. The specific steps are as follows:">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://example.com/zh/docs/gnssserver/05_imu/">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://example.com/docs/gnssserver/05.imu/">
   <meta property="og:site_name" content="CHCNAV DEV">
   <meta property="og:title" content="IMU">
-  <meta property="og:description" content=" IMU # 坐标信息 # 如果您需要使用惯性导航功能，可以通过获取 PositionSource 类的实例并添加监听器，以获取惯导状态下的坐标信息。使用这种方式，您无需关心数据源的切换，即无需根据惯导状态手动切换数据源。具体步骤如下：
-// 监听坐标信息 PositionSource.getInstance().addListener(new IPositionListener.Stub() { @Override public void onCoordinatePosition(SurveyPointPositionInfo positionInfo) { runOnUiThread(new Runnable() { @Override public void run() { updatePositionInfoUi(positionInfo); } }); } }); // 将坐标信息渲染到页面 private void updatePositionInfoUi(@NonNull SurveyPointPositionInfo surveyPointPositionInfo) { Position position = surveyPointPositionInfo.getCoorKernal().getWgsBlh(); mTVB.setText(String.valueOf(position.getX())); mTVL.setText(String.valueOf(position.getY())); mTVH.setText(String.valueOf(position.getZ())); } 关于SurveyPointPositionInfo类的更多信息，您可以参考相关章节。
-开启或关闭IMU # 如在获取接收机数据相关章节中所述，您可以通过 ReceiverCmdManager 类向接收机发送命令。因此，IMU 的开启或关闭操作也是通过该类进行的。具体的操作代码如下：
-private void setIMUListener() { mOpenIMU.setOnClickListener(new View.OnClickListener() { @Override public void onClick(View view) { NoneMagneticTiltStartInfo startInfo = new NoneMagneticTiltStartInfo(); // 设置天线高度和频率 startInfo.setAntennaHeight(0); startInfo.setFrequency(EnumDataFrequency.DATA_FREQUENCY_5HZ); isOpenIMU(true, startInfo); } }); mCloseIMU.setOnClickListener(new View.OnClickListener() { @Override public void onClick(View view) { isOpenIMU(false, null); } }); } private void isOpenIMU(boolean isOpen, @Nullable NoneMagneticTiltStartInfo startInfo) { if (isOpen &amp;&amp; (startInfo != null)) { // 开启IMU ReceiverCmdManager.getInstance().setCmdStartNoneMagneticTilt(this, startInfo); } else { // 关闭IMU ReceiverCmdManager.getInstance().setCmdStopNoneMagneticTilt(this); } } 其他 # 关于IMU的其他数据，您可以参考获取接收机数据相关章节从接收机获取，相关代码如下:">
-  <meta property="og:locale" content="zh">
+  <meta property="og:description" content=" IMU # Coordinate information # If youneed to use the inertial navigation function, you can get the coordinate information in the inertial state by getting an instance of the PositionSource class and adding a listener. Using this way, you don’t need to care about the switching of data source, that is, you don’t need to manually switch the data source according to the inertial guidance state. The specific steps are as follows:">
+  <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="docs">
 <title>IMU | CHCNAV DEV</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
-<link rel="canonical" href="https://example.com/zh/docs/gnssserver/05_imu/">
+<link rel="canonical" href="https://example.com/docs/gnssserver/05.imu/">
 <link rel="stylesheet" href="/book.min.a7616cf2799b58bddffce9438e31fdbfc6393687cfc0950a4a17cd1cce7e35f6.css" integrity="sha256-p2Fs8nmbWL3f/OlDjjH9v8Y5NofPwJUKShfNHM5&#43;NfY=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/zh.search.min.c486dc75057c25394c4709bf16601ed6302ff79684ea2888b346ccc426d5c79e.js" integrity="sha256-xIbcdQV8JTlMRwm/FmAe1jAv95aE6iiIs0bMxCbVx54=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.a8fba531801f02b099985ed47900bd21c5d55f13973f19cef77b03386fa52a72.js" integrity="sha256-qPulMYAfArCZmF7UeQC9IcXVXxOXPxnO93sDOG&#43;lKnI=" crossorigin="anonymous"></script>
 
   <script defer src="/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js" integrity="sha256-b2&#43;Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC&#43;NdcPIvZhzk=" crossorigin="anonymous"></script>
 <!--
@@ -109,13 +45,13 @@ https://github.com/alex-shpak/hugo-book
         
   <nav>
 <h2 class="book-brand">
-  <a class="flex align-center" href="/zh/"><span>CHCNAV DEV</span>
+  <a class="flex align-center" href="/"><span>CHCNAV DEV</span>
   </a>
 </h2>
 
 
 <div class="book-search hidden">
-  <input type="text" id="book-search-input" placeholder="搜索" aria-label="搜索" maxlength="64" data-hotkeys="s/" />
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
   <div class="book-search-spinner hidden"></div>
   <ul id="book-search-results"></ul>
 </div>
@@ -139,15 +75,15 @@ https://github.com/alex-shpak/hugo-book
     <label for="languages" class="flex justify-between">
       <a role="button" class="flex align-center">
         <img src="/svg/translate.svg" class="book-icon" alt="Languages" />
-        Chinese
+        English
       </a>
     </label>
 
     <ul>
       
       <li>
-        <a href="/">
-          English
+        <a href="/zh/">
+          Chinese
         </a>
       </li>
       
@@ -180,7 +116,7 @@ https://github.com/alex-shpak/hugo-book
   
     <input type="checkbox" id="section-e5ecee4c7d3b31e85f9a9a56df882b94" class="toggle" checked />
     <label for="section-e5ecee4c7d3b31e85f9a9a56df882b94" class="flex justify-between">
-      <a href="/zh/docs/gnssserver/" class="">GnssServer开发文档</a>
+      <a href="/docs/gnssserver/" class="">GnssServer Dev Docs</a>
     </label>
   
 
@@ -194,7 +130,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/zh/docs/gnssserver/01_%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/" class="">快速开始</a>
+    <a href="/docs/gnssserver/01_%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/" class="">Quick Start</a>
   
 
         </li>
@@ -207,7 +143,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/zh/docs/gnssserver/02_%E8%BF%9E%E6%8E%A5/" class="">连接</a>
+    <a href="/docs/gnssserver/02_%E8%BF%9E%E6%8E%A5/" class="">Connection</a>
   
 
         </li>
@@ -220,7 +156,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/zh/docs/gnssserver/03_%E6%8E%A5%E6%94%B6%E6%9C%BA%E9%80%9A%E4%BF%A1/" class="">接收机通信</a>
+    <a href="/docs/gnssserver/03_%E6%8E%A5%E6%94%B6%E6%9C%BA%E9%80%9A%E4%BF%A1/" class="">Receiver communication</a>
   
 
         </li>
@@ -233,7 +169,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/zh/docs/gnssserver/04_%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2/" class="">坐标转换</a>
+    <a href="/docs/gnssserver/04_%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2/" class="">Coordinate conversionf31ewfs</a>
   
 
         </li>
@@ -246,7 +182,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/zh/docs/gnssserver/05_imu/" class="active">IMU</a>
+    <a href="/docs/gnssserver/05.imu/" class="active">IMU</a>
   
 
         </li>
@@ -259,7 +195,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/zh/docs/gnssserver/06_ar%E6%94%BE%E6%A0%B7/" class="">AR放样</a>
+    <a href="/docs/gnssserver/06_ar%E6%94%BE%E6%A0%B7/" class="">AR Stakeout</a>
   
 
         </li>
@@ -272,7 +208,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/zh/docs/gnssserver/07_%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="">常用数据类型</a>
+    <a href="/docs/gnssserver/07_%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="">Common data types</a>
   
 
         </li>
@@ -292,7 +228,7 @@ https://github.com/alex-shpak/hugo-book
   
     <input type="checkbox" id="section-546412403a510171ebc0a5bba25dab59" class="toggle"  />
     <label for="section-546412403a510171ebc0a5bba25dab59" class="flex justify-between">
-      <a href="/zh/docs/landstar/" class="">测地通二次开发</a>
+      <a href="/docs/landstar/" class="">Secondary Dev of LandStar</a>
     </label>
   
 
@@ -306,7 +242,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/zh/docs/landstar/1_%E5%9F%BA%E4%BA%8E%E5%B9%BF%E6%92%AD%E6%B6%88%E6%81%AF%E5%BC%80%E5%8F%91/" class="">基于广播消息开发</a>
+    <a href="/docs/landstar/1_%E5%9F%BA%E4%BA%8E%E5%B9%BF%E6%92%AD%E6%B6%88%E6%81%AF%E5%BC%80%E5%8F%91/" class="">Development based on broadcast messages</a>
   
 
         </li>
@@ -319,7 +255,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/zh/docs/landstar/2_%E5%9F%BA%E4%BA%8Etxt%E6%96%87%E4%BB%B6%E5%BC%80%E5%8F%91/" class="">基于txt文件开发</a>
+    <a href="/docs/landstar/2_%E5%9F%BA%E4%BA%8Etxt%E6%96%87%E4%BB%B6%E5%BC%80%E5%8F%91/" class="">Development based on txt file</a>
   
 
         </li>
@@ -395,9 +331,9 @@ https://github.com/alex-shpak/hugo-book
   <ul>
     <li><a href="#imu">IMU</a>
       <ul>
-        <li><a href="#坐标信息">坐标信息</a></li>
-        <li><a href="#开启或关闭imu">开启或关闭IMU</a></li>
-        <li><a href="#其他">其他</a></li>
+        <li><a href="#coordinate-information">Coordinate information</a></li>
+        <li><a href="#turning-inertial-navigation-on-or-off">Turning inertial navigation on or off</a></li>
+        <li><a href="#other">Other</a></li>
       </ul>
     </li>
   </ul>
@@ -416,12 +352,12 @@ https://github.com/alex-shpak/hugo-book
   IMU
   <a class="anchor" href="#imu">#</a>
 </h1>
-<h2 id="坐标信息">
-  坐标信息
-  <a class="anchor" href="#%e5%9d%90%e6%a0%87%e4%bf%a1%e6%81%af">#</a>
+<h2 id="coordinate-information">
+  Coordinate information
+  <a class="anchor" href="#coordinate-information">#</a>
 </h2>
-<p>如果您需要使用惯性导航功能，可以通过获取 PositionSource 类的实例并添加监听器，以获取惯导状态下的坐标信息。使用这种方式，您无需关心数据源的切换，即无需根据惯导状态手动切换数据源。具体步骤如下：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// 监听坐标信息</span>
+<p>If youneed to use the inertial navigation function, you can get the coordinate information in the inertial state by getting an instance of the PositionSource class and adding a listener. Using this way, you don&rsquo;t need to care about the switching of data source, that is, you don&rsquo;t need to manually switch the data source according to the inertial guidance state. The specific steps are as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// Listening for coordinate information</span>
 </span></span><span style="display:flex;"><span>PositionSource.<span style="color:#a6e22e">getInstance</span>().<span style="color:#a6e22e">addListener</span>(<span style="color:#66d9ef">new</span> IPositionListener.<span style="color:#a6e22e">Stub</span>() {
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onCoordinatePosition</span>(SurveyPointPositionInfo positionInfo) {
@@ -434,25 +370,25 @@ https://github.com/alex-shpak/hugo-book
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>});
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// 将坐标信息渲染到页面</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Render the coordinate information to the page</span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">updatePositionInfoUi</span>(<span style="color:#a6e22e">@NonNull</span> SurveyPointPositionInfo surveyPointPositionInfo) {
 </span></span><span style="display:flex;"><span>    Position position <span style="color:#f92672">=</span> surveyPointPositionInfo.<span style="color:#a6e22e">getCoorKernal</span>().<span style="color:#a6e22e">getWgsBlh</span>();
 </span></span><span style="display:flex;"><span>    mTVB.<span style="color:#a6e22e">setText</span>(String.<span style="color:#a6e22e">valueOf</span>(position.<span style="color:#a6e22e">getX</span>()));
 </span></span><span style="display:flex;"><span>    mTVL.<span style="color:#a6e22e">setText</span>(String.<span style="color:#a6e22e">valueOf</span>(position.<span style="color:#a6e22e">getY</span>()));
 </span></span><span style="display:flex;"><span>    mTVH.<span style="color:#a6e22e">setText</span>(String.<span style="color:#a6e22e">valueOf</span>(position.<span style="color:#a6e22e">getZ</span>()));
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>关于SurveyPointPositionInfo类的更多信息，您可以参考相关章节。</p>
-<h2 id="开启或关闭imu">
-  开启或关闭IMU
-  <a class="anchor" href="#%e5%bc%80%e5%90%af%e6%88%96%e5%85%b3%e9%97%adimu">#</a>
+</span></span></code></pre></div><p>For more information about the SurveyPointPositionInfo class, you can refer to the SurveyPointPositionInfo section.</p>
+<h2 id="turning-inertial-navigation-on-or-off">
+  Turning inertial navigation on or off
+  <a class="anchor" href="#turning-inertial-navigation-on-or-off">#</a>
 </h2>
-<p>如在获取接收机数据相关章节中所述，您可以通过 ReceiverCmdManager 类向接收机发送命令。因此，IMU 的开启或关闭操作也是通过该类进行的。具体的操作代码如下：</p>
+<p>As described in the &ldquo;Getting Data from Receiver&rdquo; section, you can send commands to the receiver through the ReceiverCmdManager class. Therefore, the IMU on or off operation is also performed through this class. The specific operation code is as follows:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setIMUListener</span>() {
 </span></span><span style="display:flex;"><span>    mOpenIMU.<span style="color:#a6e22e">setOnClickListener</span>(<span style="color:#66d9ef">new</span> View.<span style="color:#a6e22e">OnClickListener</span>() {
 </span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">@Override</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onClick</span>(View view) {
 </span></span><span style="display:flex;"><span>            NoneMagneticTiltStartInfo startInfo <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> NoneMagneticTiltStartInfo();
-</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 设置天线高度和频率</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Setting the antenna height and frequency</span>
 </span></span><span style="display:flex;"><span>            startInfo.<span style="color:#a6e22e">setAntennaHeight</span>(0);
 </span></span><span style="display:flex;"><span>            startInfo.<span style="color:#a6e22e">setFrequency</span>(EnumDataFrequency.<span style="color:#a6e22e">DATA_FREQUENCY_5HZ</span>);
 </span></span><span style="display:flex;"><span>            isOpenIMU(<span style="color:#66d9ef">true</span>, startInfo);
@@ -470,18 +406,18 @@ https://github.com/alex-shpak/hugo-book
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">isOpenIMU</span>(<span style="color:#66d9ef">boolean</span> isOpen, <span style="color:#a6e22e">@Nullable</span> NoneMagneticTiltStartInfo startInfo) {
 </span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (isOpen <span style="color:#f92672">&amp;&amp;</span> (startInfo <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>)) {
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 开启IMU</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Open IMU</span>
 </span></span><span style="display:flex;"><span>        ReceiverCmdManager.<span style="color:#a6e22e">getInstance</span>().<span style="color:#a6e22e">setCmdStartNoneMagneticTilt</span>(<span style="color:#66d9ef">this</span>, startInfo);
 </span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 关闭IMU</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Close IMU</span>
 </span></span><span style="display:flex;"><span>        ReceiverCmdManager.<span style="color:#a6e22e">getInstance</span>().<span style="color:#a6e22e">setCmdStopNoneMagneticTilt</span>(<span style="color:#66d9ef">this</span>);
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h2 id="其他">
-  其他
-  <a class="anchor" href="#%e5%85%b6%e4%bb%96">#</a>
+</span></span></code></pre></div><h2 id="other">
+  Other
+  <a class="anchor" href="#other">#</a>
 </h2>
-<p>关于IMU的其他数据，您可以参考获取接收机数据相关章节从接收机获取，相关代码如下:</p>
+<p>For other data of IMU, you can refer to the &ldquo;Getting Data from Receiver&rdquo; section to get it from the receiver, the related code is as follows.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ReceiverListener</span> <span style="color:#66d9ef">extends</span> IReceiverListener.<span style="color:#a6e22e">Stub</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> String TAG <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ReceiverListener&#34;</span>;
 </span></span><span style="display:flex;"><span>
@@ -489,12 +425,12 @@ https://github.com/alex-shpak/hugo-book
 </span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">getNoneMagneticTiltInfo</span>(NoneMagneticTiltInfo info) <span style="color:#66d9ef">throws</span> RemoteException {
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 获取数据相关代码实现</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Implementation of code related to obtaining data</span>
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ......</span>
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>关于NoneMagneticTiltInfo更细致的信息，您可以参考相关章节。</p>
+</span></span></code></pre></div><p>For more detailed information about NoneMagneticTiltInfo, you can refer to the NoneMagneticTiltInfo section.</p>
 </article>
  
       
@@ -538,9 +474,9 @@ https://github.com/alex-shpak/hugo-book
   <ul>
     <li><a href="#imu">IMU</a>
       <ul>
-        <li><a href="#坐标信息">坐标信息</a></li>
-        <li><a href="#开启或关闭imu">开启或关闭IMU</a></li>
-        <li><a href="#其他">其他</a></li>
+        <li><a href="#coordinate-information">Coordinate information</a></li>
+        <li><a href="#turning-inertial-navigation-on-or-off">Turning inertial navigation on or off</a></li>
+        <li><a href="#other">Other</a></li>
       </ul>
     </li>
   </ul>

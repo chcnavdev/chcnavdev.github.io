@@ -98,17 +98,7 @@
                 href="https://example.com/docs/gnssserver/04_%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2/"
                 />
   </url><url>
-    <loc>https://example.com/docs/gnssserver/05_imu/</loc>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://example.com/zh/docs/gnssserver/05_imu/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://example.com/docs/gnssserver/05_imu/"
-                />
+    <loc>https://example.com/docs/gnssserver/05.imu/</loc>
   </url><url>
     <loc>https://example.com/docs/gnssserver/06_ar%E6%94%BE%E6%A0%B7/</loc>
     <xhtml:link
