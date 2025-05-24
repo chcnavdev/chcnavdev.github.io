@@ -7,28 +7,19 @@
   Quick Start
   #
 
+This section is designed to help you quickly get started with the SDK, focusing on how to connect to the receiver via Bluetooth and get coordinate information. Before you start, you need to correctly introduce the three aar files of CHC GnssServer SDK (gnssserver.aar, gnsstoollib.aar, sdk4a.aar), which can be put into the lib directory, and introduce them in grale.
 
   Permissions
   #
 
-Before using the SDK, make sure that the application has the necessary permissions. These permissions include Bluetooth (only Bluetooth connections are used in this section and WIFI is not involved), and the ability to read and write external storage, as the SDK requires external storage to read and write configuration files and log files. Please add permissions in AndroidManifest.xml.
-&lt;!-- Permission to use Bluetooth features --&gt;
-&lt;uses-permission android:name=&#34;android.permission.BLUETOOTH&#34;/&gt;
-&lt;!-- Permission to administer Bluetooth settings --&gt;
-&lt;uses-permission android:name=&#34;android.permission.BLUETOOTH_ADMIN&#34;/&gt;
-&lt;!-- Permission to read from external storage --&gt;
-&lt;uses-permission android:name=&#34;android.permission.READ_EXTERNAL_STORAGE&#34;/&gt;
-&lt;!-- Permission to write to external storage --&gt;
-&lt;uses-permission android:name=&#34;android.permission.WRITE_EXTERNAL_STORAGE&#34;/&gt;
-It should be noted that in Android10, Android11 and later versions, there will be some differences in the application method for external storage. Android 10 introduces 
-  Scoped Storage, You can add the following code to AndroidManifest.xml:">
+Before using the SDK, make sure that the application has the necessary permissions. These permissions include Bluetooth (only Bluetooth connections are used in this section and WIFI is not involved), and the ability to read and write external storage, as the SDK requires external storage to read and write configuration files and log files. Please add permissions in AndroidManifest.xml.">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
 <meta name="color-scheme" content="light dark"><meta property="og:url" content="https://example.com/docs/gnssserver/01.%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/">
   <meta property="og:site_name" content="CHCNAV DEV">
   <meta property="og:title" content="Quick Start">
-  <meta property="og:description" content=" Quick Start # Permissions # Before using the SDK, make sure that the application has the necessary permissions. These permissions include Bluetooth (only Bluetooth connections are used in this section and WIFI is not involved), and the ability to read and write external storage, as the SDK requires external storage to read and write configuration files and log files. Please add permissions in AndroidManifest.xml.
-&lt;!-- Permission to use Bluetooth features --&gt; &lt;uses-permission android:name=&#34;android.permission.BLUETOOTH&#34;/&gt; &lt;!-- Permission to administer Bluetooth settings --&gt; &lt;uses-permission android:name=&#34;android.permission.BLUETOOTH_ADMIN&#34;/&gt; &lt;!-- Permission to read from external storage --&gt; &lt;uses-permission android:name=&#34;android.permission.READ_EXTERNAL_STORAGE&#34;/&gt; &lt;!-- Permission to write to external storage --&gt; &lt;uses-permission android:name=&#34;android.permission.WRITE_EXTERNAL_STORAGE&#34;/&gt; It should be noted that in Android10, Android11 and later versions, there will be some differences in the application method for external storage. Android 10 introduces Scoped Storage, You can add the following code to AndroidManifest.xml:">
+  <meta property="og:description" content=" Quick Start # This section is designed to help you quickly get started with the SDK, focusing on how to connect to the receiver via Bluetooth and get coordinate information. Before you start, you need to correctly introduce the three aar files of CHC GnssServer SDK (gnssserver.aar, gnsstoollib.aar, sdk4a.aar), which can be put into the lib directory, and introduce them in grale.
+Permissions # Before using the SDK, make sure that the application has the necessary permissions. These permissions include Bluetooth (only Bluetooth connections are used in this section and WIFI is not involved), and the ability to read and write external storage, as the SDK requires external storage to read and write configuration files and log files. Please add permissions in AndroidManifest.xml.">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="docs">
@@ -39,7 +30,7 @@ It should be noted that in Android10, Android11 and later versions, there will b
   <link rel="alternate" hreflang="zh" href="https://example.com/zh/docs/gnssserver/01.%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/" title="快速开始">
 <link rel="stylesheet" href="/book.min.a7616cf2799b58bddffce9438e31fdbfc6393687cfc0950a4a17cd1cce7e35f6.css" integrity="sha256-p2Fs8nmbWL3f/OlDjjH9v8Y5NofPwJUKShfNHM5&#43;NfY=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.f8dd90d01b0338e8fca6dc3c40d5f79bd0ef65d3d7fa30cfc00d2123ff8de317.js" integrity="sha256-&#43;N2Q0BsDOOj8ptw8QNX3m9DvZdPX&#43;jDPwA0hI/&#43;N4xc=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.9f3f582f457b899fa95a530259403bbd340bd40924d7cdc8cd0e6d7d9b611633.js" integrity="sha256-nz9YL0V7iZ&#43;pWlMCWUA7vTQL1Akk183IzQ5tfZthFjM=" crossorigin="anonymous"></script>
 
   <script defer src="/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js" integrity="sha256-b2&#43;Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC&#43;NdcPIvZhzk=" crossorigin="anonymous"></script>
 <!--
@@ -368,6 +359,7 @@ https://github.com/alex-shpak/hugo-book
   Quick Start
   <a class="anchor" href="#quick-start">#</a>
 </h1>
+<p>This section is designed to help you quickly get started with the SDK, focusing on how to connect to the receiver via Bluetooth and get coordinate information. Before you start, you need to correctly introduce the three aar files of CHC GnssServer SDK (gnssserver.aar, gnsstoollib.aar, sdk4a.aar), which can be put into the lib directory, and introduce them in grale.</p>
 <h2 id="permissions">
   Permissions
   <a class="anchor" href="#permissions">#</a>
@@ -381,7 +373,7 @@ https://github.com/alex-shpak/hugo-book
 </span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;uses-permission</span> <span style="color:#a6e22e">android:name=</span><span style="color:#e6db74">&#34;android.permission.READ_EXTERNAL_STORAGE&#34;</span><span style="color:#f92672">/&gt;</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- Permission to write to external storage --&gt;</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;uses-permission</span> <span style="color:#a6e22e">android:name=</span><span style="color:#e6db74">&#34;android.permission.WRITE_EXTERNAL_STORAGE&#34;</span><span style="color:#f92672">/&gt;</span>
-</span></span></code></pre></div><p><strong>It should be noted that in Android10, Android11 and later versions, there will be some differences in the application method for external storage.</strong> Android 10 introduces 
+</span></span></code></pre></div><p>It should be noted that in Android10, Android11 and later versions, there will be some differences in the application method for external storage.Android 10 introduces 
   <a href="https://developer.android.com/about/versions/11/privacy/storage">Scoped Storage</a>, You can add the following code to AndroidManifest.xml:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;application</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">android:requestLegacyExternalStorage=</span><span style="color:#e6db74">&#34;true&#34;</span>
@@ -397,22 +389,21 @@ https://github.com/alex-shpak/hugo-book
 </h2>
 <p>After obtaining permissions, initialize the GNSS service and start monitoring the connection status. The following are the initialization steps:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">new</span> Thread(<span style="color:#66d9ef">new</span> Runnable() {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">run</span>() {
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span> {
-</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Initialize the Service using ApplicationContext and resource file path parameter</span>
-</span></span><span style="display:flex;"><span>            GnssServiceHelper.<span style="color:#a6e22e">getInstance</span>().<span style="color:#a6e22e">start</span>(App.<span style="color:#a6e22e">getInstance</span>().<span style="color:#a6e22e">getApplicationContext</span>(), SdcardUtils.<span style="color:#a6e22e">getAppFolder</span>());
-</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Get the Service instance</span>
-</span></span><span style="display:flex;"><span>            mService <span style="color:#f92672">=</span> GnssServiceHelper.<span style="color:#a6e22e">getInstance</span>().<span style="color:#a6e22e">getGnssService</span>();
-</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Receiver data callback</span>
-</span></span><span style="display:flex;"><span>            mService.<span style="color:#a6e22e">requestReceiverListener</span>(mReceiverListener);
-</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">catch</span> (Exception e) {
-</span></span><span style="display:flex;"><span>            e.<span style="color:#a6e22e">printStackTrace</span>();
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">run</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Initialize the Service using ApplicationContext and resource file path parameter</span>
+</span></span><span style="display:flex;"><span>            GnssServiceHelper.<span style="color:#a6e22e">getInstance</span>().<span style="color:#a6e22e">start</span>(App.<span style="color:#a6e22e">getInstance</span>().<span style="color:#a6e22e">getApplicationContext</span>(), SdcardUtils.<span style="color:#a6e22e">getAppFolder</span>());
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Get the Service instance</span>
+</span></span><span style="display:flex;"><span>            mService <span style="color:#f92672">=</span> GnssServiceHelper.<span style="color:#a6e22e">getInstance</span>().<span style="color:#a6e22e">getGnssService</span>();
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Receiver data callback</span>
+</span></span><span style="display:flex;"><span>            mService.<span style="color:#a6e22e">requestReceiverListener</span>(mReceiverListener);
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">catch</span> (Exception e) {
+</span></span><span style="display:flex;"><span>            e.<span style="color:#a6e22e">printStackTrace</span>();
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}).<span style="color:#a6e22e">start</span>();
-</span></span></code></pre></div><p>App.getInstance().getApplicationContext() is an application-level Context, and SdcardUtils.getAppFolder() can be any path with read and write permissions. mService.requestReceiverListener(mReceiverListener) is mainly used to set data callbacks, such as coordinate data, etc. The specific implementation of the class to which the mReceiverListener object belongs is described in 
-  <a href="/#obtain-data">Obtain data</a>.</p>
+</span></span></code></pre></div><p>App.getInstance().getApplicationContext() is an application-level Context, and SdcardUtils.getAppFolder() can be any path with read and write permissions. mService.requestReceiverListener(mReceiverListener) is mainly used to set data callbacks, such as coordinate data, etc.</p>
 <h2 id="connected-devices">
   Connected devices
   <a class="anchor" href="#connected-devices">#</a>
@@ -420,73 +411,71 @@ https://github.com/alex-shpak/hugo-book
 <p>SDK provides you two ways to connect to the device, respectively, Bluetooth connection and WIFI connection, of which Bluetooth connection provides you two ways: through the interface provided by the SDK connection, as well as through the injection method to realize Bluetooth connection and disconnection, here to let you get started quickly, we only introduces the way to realize Bluetooth connection directly through the SDK, the other ways to connect. For other connection methods, please refer to &ldquo;Chapter 2&rdquo;, the main steps of connection are as follows:</p>
 <ol>
 <li>Configure the connection parameters via ReceiverConnectionOption;</li>
-<li>Get the IReceiverConnectManager object from the service obtained in 
-  <a href="/#sdk-initialization">SDK Initialization</a>;</li>
+<li>Get the IReceiverConnectManager object from the service obtained  in SDK Initialization;</li>
 <li>Pass the ReceiverConnectionOption object obtained in &ldquo;1&rdquo; as a parameter to the connect method of IReceiverConnectManager object.</li>
 </ol>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// Connection event</span>
 </span></span><span style="display:flex;"><span>mBTConnect.<span style="color:#a6e22e">setOnClickListener</span>(<span style="color:#66d9ef">new</span> View.<span style="color:#a6e22e">OnClickListener</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onClick</span>(View view) {
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Connect directly through the SDK</span>
-</span></span><span style="display:flex;"><span>        ReceiverConnectionOption option <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ReceiverConnectionOption()
-</span></span><span style="display:flex;"><span>                .<span style="color:#a6e22e">setConnectionType</span>(ConnectionType.<span style="color:#a6e22e">CONNECTION_BLUETOOTH</span>)
-</span></span><span style="display:flex;"><span>                .<span style="color:#a6e22e">setProductName</span>(<span style="color:#e6db74">&#34;SMART-RTK&#34;</span>)
-</span></span><span style="display:flex;"><span>                .<span style="color:#a6e22e">setBluetoothName</span>(<span style="color:#e6db74">&#34;GNSS-9999848&#34;</span>);
-</span></span><span style="display:flex;"><span>       
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span> {
-</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Get receiverConnectManager through mService and then connect using receiverConnectManager</span>
-</span></span><span style="display:flex;"><span>            IReceiverConnectManager receiverConnectManager <span style="color:#f92672">=</span> IReceiverConnectManager
-</span></span><span style="display:flex;"><span>                    .<span style="color:#a6e22e">Stub</span>.<span style="color:#a6e22e">asInterface</span>(mService.<span style="color:#a6e22e">getReceiverConnectManager</span>());
-</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Connect using receiverConnectManager</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>receiverConnectManager.<span style="color:#a6e22e">connect</span>(option)) {
-</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// Connection failure</span>
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">catch</span> (RemoteException e) {
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> RuntimeException(e);
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onClick</span>(View view) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Connect directly through the SDK</span>
+</span></span><span style="display:flex;"><span>        ReceiverConnectionOption option <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ReceiverConnectionOption()
+</span></span><span style="display:flex;"><span>                .<span style="color:#a6e22e">setConnectionType</span>(ConnectionType.<span style="color:#a6e22e">CONNECTION_BLUETOOTH</span>)
+</span></span><span style="display:flex;"><span>                .<span style="color:#a6e22e">setProductName</span>(<span style="color:#e6db74">&#34;SMART-RTK&#34;</span>)
+</span></span><span style="display:flex;"><span>                .<span style="color:#a6e22e">setBluetoothName</span>(<span style="color:#e6db74">&#34;GNSS-9999848&#34;</span>);
+</span></span><span style="display:flex;"><span>       
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Get receiverConnectManager through mService and then connect using receiverConnectManager</span>
+</span></span><span style="display:flex;"><span>            IReceiverConnectManager receiverConnectManager <span style="color:#f92672">=</span> IReceiverConnectManager
+</span></span><span style="display:flex;"><span>                    .<span style="color:#a6e22e">Stub</span>.<span style="color:#a6e22e">asInterface</span>(mService.<span style="color:#a6e22e">getReceiverConnectManager</span>());
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Connect using receiverConnectManager</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>receiverConnectManager.<span style="color:#a6e22e">connect</span>(option)) {
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// Connection failure</span>
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">catch</span> (RemoteException e) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> RuntimeException(e);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>});
 </span></span></code></pre></div><h2 id="disconnect">
   Disconnect
   <a class="anchor" href="#disconnect">#</a>
 </h2>
-<p>Get the IReceiverConnectManager object through the service obtained in 
-  <a href="/#sdk-initialization">SDK Initialization</a>, and then disconnect the device by calling the disconnect method of the IReceiverConnectManager object. The specific code is as follows:</p>
+<p>Get the IReceiverConnectManager object through the service obtained in SDK Initialization and then disconnect the device by calling the disconnect method of the IReceiverConnectManager object. The specific code is as follows:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// Disconnection event</span>
 </span></span><span style="display:flex;"><span>mBTDisConnect.<span style="color:#a6e22e">setOnClickListener</span>(<span style="color:#66d9ef">new</span> View.<span style="color:#a6e22e">OnClickListener</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onClick</span>(View view) {
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span> {
-</span></span><span style="display:flex;"><span>            IReceiverConnectManager receiverConnectManager <span style="color:#f92672">=</span> IReceiverConnectManager
-</span></span><span style="display:flex;"><span>                    .<span style="color:#a6e22e">Stub</span>.<span style="color:#a6e22e">asInterface</span>(mService.<span style="color:#a6e22e">getReceiverConnectManager</span>());
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (receiverConnectManager <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>) {
-</span></span><span style="display:flex;"><span>                receiverConnectManager.<span style="color:#a6e22e">disConnect</span>();
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">catch</span> (RemoteException e) {
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> RuntimeException(e);
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onClick</span>(View view) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>            IReceiverConnectManager receiverConnectManager <span style="color:#f92672">=</span> IReceiverConnectManager
+</span></span><span style="display:flex;"><span>                    .<span style="color:#a6e22e">Stub</span>.<span style="color:#a6e22e">asInterface</span>(mService.<span style="color:#a6e22e">getReceiverConnectManager</span>());
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (receiverConnectManager <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>) {
+</span></span><span style="display:flex;"><span>                receiverConnectManager.<span style="color:#a6e22e">disConnect</span>();
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">catch</span> (RemoteException e) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> RuntimeException(e);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>});
 </span></span></code></pre></div><h2 id="obtain-data">
   Obtain data
   <a class="anchor" href="#obtain-data">#</a>
 </h2>
-<p>There is this line of code &ldquo;mService.requestReceiverListener(mReceiverListener);&rdquo; in 
-  <a href="/#sdk-initialization">SDK Initialization</a>, but the specific implementation of the class to which the mReceiverListener object belongs is not given. To make it easier for you to get started quickly, we only introduce how to obtain coordinate data through this callback. For more implementations, please refer to Chapter 2.</p>
+<p>There is this line of code &ldquo;mService.requestReceiverListener(mReceiverListener);&rdquo; in SDK Initialization, but the specific implementation of the class to which the mReceiverListener object belongs is not given. To make it easier for you to get started quickly, we only introduce how to obtain coordinate data through this callback.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ReceiverListener</span> <span style="color:#66d9ef">extends</span> IReceiverListener.<span style="color:#a6e22e">Stub</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> String TAG <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ReceiverListener&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> String TAG <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ReceiverListener&#34;</span>;
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ... Omit other codes</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">getPositionEx</span>(PositionInfo positionInfo, Course course) <span style="color:#66d9ef">throws</span> RemoteException {
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">double</span> x <span style="color:#f92672">=</span> positionInfo.<span style="color:#a6e22e">getSatellitePosition</span>().<span style="color:#a6e22e">getPosition</span>().<span style="color:#a6e22e">getX</span>();
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">double</span> y <span style="color:#f92672">=</span> positionInfo.<span style="color:#a6e22e">getSatellitePosition</span>().<span style="color:#a6e22e">getPosition</span>().<span style="color:#a6e22e">getY</span>();
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">double</span> z <span style="color:#f92672">=</span> positionInfo.<span style="color:#a6e22e">getSatellitePosition</span>().<span style="color:#a6e22e">getPosition</span>().<span style="color:#a6e22e">getZ</span>();
-</span></span><span style="display:flex;"><span>        Log.<span style="color:#a6e22e">e</span>(TAG, <span style="color:#e6db74">&#34;getPositionEx: &#34;</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;x: &#34;</span> <span style="color:#f92672">+</span> x <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;, y: &#34;</span> <span style="color:#f92672">+</span> y <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;z: &#34;</span> <span style="color:#f92672">+</span> z );
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// ... Omit other codes</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">getPositionEx</span>(PositionInfo positionInfo, Course course) <span style="color:#66d9ef">throws</span> RemoteException {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">double</span> x <span style="color:#f92672">=</span> positionInfo.<span style="color:#a6e22e">getSatellitePosition</span>().<span style="color:#a6e22e">getPosition</span>().<span style="color:#a6e22e">getX</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">double</span> y <span style="color:#f92672">=</span> positionInfo.<span style="color:#a6e22e">getSatellitePosition</span>().<span style="color:#a6e22e">getPosition</span>().<span style="color:#a6e22e">getY</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">double</span> z <span style="color:#f92672">=</span> positionInfo.<span style="color:#a6e22e">getSatellitePosition</span>().<span style="color:#a6e22e">getPosition</span>().<span style="color:#a6e22e">getZ</span>();
+</span></span><span style="display:flex;"><span>        Log.<span style="color:#a6e22e">e</span>(TAG, <span style="color:#e6db74">&#34;getPositionEx: &#34;</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;x: &#34;</span> <span style="color:#f92672">+</span> x <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;, y: &#34;</span> <span style="color:#f92672">+</span> y <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;z: &#34;</span> <span style="color:#f92672">+</span> z );
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// ... Omit other codes</span>
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></article>
+</span></span></code></pre></div><p>Through the above steps, you can successfully connect to the GNSS receiver via Bluetooth and start receiving location information. For how to obtain other data such as latitude and longitude, precision, and solution status, you can refer to the Common Data Types Chapter, which provides a detailed introduction to the PositionInfo class mentioned in the above code.</p>
+</article>
  
       
 
