@@ -1,0 +1,38 @@
+site_name: CHCNAV SDK Documentation
+site_url: https://yourusername.github.io/chcnav/en/
+theme:
+  name: material
+  features:
+    - search.suggest
+  language: en
+  
+nav:
+  - Home: index.md
+  - Revision History: revision.md
+  - Quick Start: quick-start.md
+  - Connection: connection.md
+  - Receiver Communication: receiver-communication.md
+  - CORS Connection: cors-connection.md
+  - Coordinate Transformation: coordinate-transformation.md
+  - IMU: imu.md
+  - AR Stakeout: ar-stakeout.md
+  - Common Data Types: common-data-types.md
+
+extra:
+  alternate:
+    - name: 中文
+      link: ../zh/
+      lang: zh
+    - name: English
+      link: ../en/
+      lang: en
+
+plugins:
+  - search
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      linenums: true
+      line_spans: __span
+  - pymdownx.superfences

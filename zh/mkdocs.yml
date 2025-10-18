@@ -1,0 +1,38 @@
+site_name: CHCNAV SDK 文档
+site_url: https://yourusername.github.io/chcnav/zh/
+theme:
+  name: material
+  features:
+    - search.suggest
+  language: zh
+  
+nav:
+  - 首页: 前言.md
+  - 修订记录: 修订.md
+  - 快速开始: 快速开始.md
+  - 连接: 连接.md
+  - 接收机通信: 接收机通信.md
+  - CORS连接: CORS连接.md
+  - 坐标转换: 坐标转换.md
+  - IMU: IMU.md
+  - AR放样: AR放样.md
+  - 常用数据类型: 常用数据类型.md
+
+extra:
+  alternate:
+    - name: 中文
+      link: ../zh/
+      lang: zh
+    - name: English
+      link: ../en/
+      lang: en
+
+plugins:
+  - search
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      linenums: true
+      line_spans: __span
+  - pymdownx.superfences
