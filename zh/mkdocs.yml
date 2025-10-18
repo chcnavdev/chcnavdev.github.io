@@ -7,7 +7,7 @@ theme:
   language: zh
   
 nav:
-  - 首页: 前言.md
+  - 首页: index.md
   - 修订记录: 修订.md
   - 快速开始: 快速开始.md
   - 连接: 连接.md
