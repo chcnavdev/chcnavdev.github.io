@@ -1,5 +1,5 @@
 site_name: CHCNAV SDK Documentation
-site_url: https://yourusername.github.io/chcnav/en/
+site_url: https://chcnavdev.github.io/en/
 theme:
   name: material
   features:
