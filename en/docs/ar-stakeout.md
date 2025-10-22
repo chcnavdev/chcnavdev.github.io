@@ -1,10 +1,12 @@
-11本节旨在帮助开发者快速集成并使用AR放样功能。SDK依赖的核心模块是business，通过集成ArViewLayout和ArPointStakeoutController，开发者能够实现与AR相关的放样功能。文档将重点介绍如何配置、初始化以及使用相关API，同时也会涉及到视图的布局和UI组件的配置。
+# AR Stakeout
 
-## 布局
+This section aims to help developers quickly integrate and use AR stakeout functionality. The core module that the SDK depends on is business. By integrating ArViewLayout and ArPointStakeoutController, developers can implement AR-related stakeout functions. This document will focus on how to configure, initialize, and use related APIs, while also covering view layout and UI component configuration.
 
-在布局文件中，ArViewLayout用于承载AR视图。该布局将为AR视图提供一个占据屏幕的区域，后续的AR操作将通过ArViewLayout展示。具体如下：
+## Layout
 
-```java
+In the layout file, ArViewLayout is used to host the AR view. This layout will provide a screen-occupying area for the AR view, and subsequent AR operations will be displayed through ArViewLayout. The specific implementation is as follows:
+
+```xml
 <com.huace.gnssserver.business.api.ar.ArViewLayout
     android:id="@+id/viewAr"
     android:layout_width="match_parent"
@@ -12,13 +14,13 @@
     android:layout_weight="1" />
 ```
 
-## 初始化AR功能
+## Initialize AR Functionality
 
-创建并初始化ArPointStakeoutController的步骤和代码如下：
+The steps and code for creating and initializing ArPointStakeoutController are as follows:
 
-1. 在onCreate方法中，首先初始化ArViewLayout并创建ArPointStakeoutController实例；
-2. ArPointStakeoutController用于控制AR视图的操作，并管理与AR相关的放样功能；
-3. ArPointStakeoutController的构造函数接收两个参数：Context和ArViewLayout，并绑定了IArModeListener，以便监听AR模式的状态变化；
+1. In the onCreate method, first initialize ArViewLayout and create an ArPointStakeoutController instance
+2. ArPointStakeoutController is used to control AR view operations and manage AR-related stakeout functions
+3. The constructor of ArPointStakeoutController receives two parameters: Context and ArViewLayout, and binds IArModeListener to listen for AR mode status changes
 
 ```java
 private void initAr() throws RemoteException {
@@ -41,12 +43,12 @@ private void initAr() throws RemoteException {
 }
 ```
 
-## 设置AR操作
+## Setting AR Operations
 
-关于AR常见的操作和代码如下：
+Common AR operations and code are as follows:
 
-1. 打开/关闭相机：ArPointStakeoutController提供了open()和close()方法，分别用于打开和关闭AR视图中的相机；
-2. 设置目标点：使用setTargetPointOfSrcBlh()方法，可以设置AR视图中的目标点。目标点通过Point3DMutable传递；
+1. Open/Close Camera: ArPointStakeoutController provides open() and close() methods for opening and closing the camera in the AR view respectively
+2. Set Target Point: Using the setTargetPointOfSrcBlh() method, you can set the target point in the AR view. The target point is passed through Point3DMutable
 
 ```java
 // Turn the camera on or off
@@ -54,20 +56,20 @@ findViewById(R.id.openCamera).setOnClickListener(view -> {
     mArPointStakeoutController.open();
 });
 
-// Set target points
+// Close camera
 findViewById(R.id.closeCamera).setOnClickListener(view -> {
     mArPointStakeoutController.close();
 });
 ```
 
-## 相机切换 
+## Camera Switching
 
-ArSettings 类是一个配置类，用于存储和获取与AR模式相关的距离设置，即摄像头切换的自动距离阈值。这个类通过静态变量和静态方法来实现全局配置，可以在项目中的其他地方使用这些配置进行操作，比如自动切换相机模式等，使用场景如下：
+The ArSettings class is a configuration class used to store and retrieve distance settings related to AR mode, namely the automatic distance threshold for camera switching. This class implements global configuration through static variables and static methods, and these configurations can be used for operations in other parts of the project, such as automatic camera mode switching. Usage scenarios are as follows:
 
-1. 自动相机切换：在AR放样过程中，当用户的设备与目标点的距离发生变化时，ArSettings 允许系统自动切换前摄相机和下摄相机，以确保AR显示效果的最佳化。例如，当设备距离目标较远时，系统可以自动切换到前
-2. 调试与优化：在开发过程中，可以通过调整这两个距离阈值来便捷调试相机的切换；
+1. Automatic Camera Switching: During the AR stakeout process, when the distance between the user's device and the target point changes, ArSettings allows the system to automatically switch between the front camera and the ground camera to ensure optimal AR display effects. For example, when the device is far from the target, the system can automatically switch to the front camera
+2. Debugging and Optimization: During development, camera switching can be conveniently debugged by adjusting these two distance thresholds
 
-如下为开发过程中便捷调试的示例代码：
+The following is sample code for convenient debugging during development:
 
 ```java
 // Camera switch
@@ -85,9 +87,9 @@ findViewById(R.id.switchCamera).setOnClickListener(view -> {
 });
 ```
 
-ArSettings类为AR放样应用提供了灵活的自动切换相机的配置。通过设置groundDistOfAutoSwitchToArMode和farDistOfAutoSwitchToArMode，开发者可以控制何时切换到下摄相机或前摄相机，从而提供更好的用户体验。
+The ArSettings class provides flexible automatic camera switching configuration for AR stakeout applications. By setting groundDistOfAutoSwitchToArMode and farDistOfAutoSwitchToArMode, developers can control when to switch to the ground camera or front camera, thereby providing a better user experience.
 
-## 完整代码
+## Complete Code
 
 ```java
 public class ArStakeoutActivity extends AppCompatActivity {

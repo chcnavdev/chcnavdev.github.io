@@ -1,6 +1,8 @@
-## 坐标信息
+# IMU
 
-如果您需要使用惯性导航功能，可以通过获取 SurveyPointPositionInfo 类的实例并添加监听器，以获取惯导状态下的坐标信息。使用这种方式，您无需关心数据源的切换，即无需根据惯导状态手动切换数据源。具体步骤如下：
+## Coordinate Information
+
+If you need to use inertial navigation functionality, you can obtain coordinate information in the inertial navigation state by getting an instance of the SurveyPointPositionInfo class and adding a listener. Using this method, you don't need to worry about data source switching, i.e., you don't need to manually switch data sources based on the inertial navigation state. The specific steps are as follows:
 
 ```java
 // Listening for coordinate information
@@ -23,49 +25,47 @@ private void updatePositionInfoUi(@NonNull SurveyPointPositionInfo surveyPointPo
     mTVL.setText(String.valueOf(position.getY()));
     mTVH.setText(String.valueOf(position.getZ()));
 }
-
 ```
 
-## 开启或关闭IMU
+## Enable or Disable IMU
 
-您可以通过 ReceiverCmdManager 类向接收机发送命令。因此，IMU 的开启或关闭操作也是通过该类进行的。具体的操作代码如下：
+You can send commands to the receiver through the ReceiverCmdManager class. Therefore, the enable or disable operations of IMU are also performed through this class. The specific operation code is as follows:
 
 ```java
-	private void setIMUListener() {
-        mOpenIMU.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NoneMagneticTiltStartInfo startInfo = new NoneMagneticTiltStartInfo();
-                // Setting the antenna height and frequency
-                startInfo.setAntennaHeight(0);
-                startInfo.setFrequency(EnumDataFrequency.DATA_FREQUENCY_5HZ);
-                isOpenIMU(true, startInfo);
-            }
-        });
-
-        mCloseIMU.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                isOpenIMU(false, null);
-            }
-        });
-    }
-
-    private void isOpenIMU(boolean isOpen, @Nullable NoneMagneticTiltStartInfo startInfo) {
-    	
-        if (isOpen && (startInfo != null)) {
-            // Open IMU
-            ReceiverCmdManager.getInstance().setCmdStartNoneMagneticTilt(this, startInfo);
-        } else {
-            // Close IMU
-            ReceiverCmdManager.getInstance().setCmdStopNoneMagneticTilt(this);
+private void setIMUListener() {
+    mOpenIMU.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            NoneMagneticTiltStartInfo startInfo = new NoneMagneticTiltStartInfo();
+            // Setting the antenna height and frequency
+            startInfo.setAntennaHeight(0);
+            startInfo.setFrequency(EnumDataFrequency.DATA_FREQUENCY_5HZ);
+            isOpenIMU(true, startInfo);
         }
+    });
+
+    mCloseIMU.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            isOpenIMU(false, null);
+        }
+    });
+}
+
+private void isOpenIMU(boolean isOpen, @Nullable NoneMagneticTiltStartInfo startInfo) {
+    if (isOpen && (startInfo != null)) {
+        // Open IMU
+        ReceiverCmdManager.getInstance().setCmdStartNoneMagneticTilt(this, startInfo);
+    } else {
+        // Close IMU
+        ReceiverCmdManager.getInstance().setCmdStopNoneMagneticTilt(this);
     }
+}
 ```
 
-## 其他
+## Other Data
 
-关于IMU的其他数据，您可以参考"接收机通信"从接收机获取，相关代码如下:
+For other IMU data, you can refer to "Receiver Communication" to obtain it from the receiver. The related code is as follows:
 
 ```java
 public class ReceiverListener extends IReceiverListener.Stub {

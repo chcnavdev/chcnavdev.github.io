@@ -1,51 +1,51 @@
-## 连接方式
+# Connection Methods
 
-### 蓝牙连接
+## Bluetooth Connection
 
-蓝牙连接主要步骤和代码如下：
+The main steps and code for Bluetooth connection are as follows:
 
-1. 通过 ReceiverConnectionOption 配置连接参数；
-2. 通过初始化SDK中得到的 service 来获取 IReceiverConnectManager 对象
-3. 将“1”中得到的 ReceiverConnectionOption 对象作为参数传入IReceiverConnectManager 对象的 connect 方法中
+1. Configure connection parameters through ReceiverConnectionOption
+2. Get the IReceiverConnectManager object through the service obtained in SDK initialization
+3. Pass the ReceiverConnectionOption object obtained in step 1 as a parameter to the connect method of the IReceiverConnectManager object
 
 ```java
     // Connection event
     mBTConnect.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            // Connect directly through the SDK
-            ReceiverConnectionOption option = new ReceiverConnectionOption()
-                    .setConnectionType(ConnectionType.CONNECTION_BLUETOOTH)
-                    .setProductName("SMART-RTK")
-                    .setBluetoothName("GNSS-9999848");
-           
-            try {
-                // Get receiverConnectManager through mService and then connect using receiverConnectManager
-                IReceiverConnectManager receiverConnectManager = IReceiverConnectManager
-                        .Stub.asInterface(mService.getReceiverConnectManager());
-                // Connect using receiverConnectManager
-                if (!receiverConnectManager.connect(option)) {
-                    // Connection failure
-                }
-            } catch (RemoteException e) {
-                throw new RuntimeException(e);
-            }
-        }
+        @Override
+        public void onClick(View view) {
+            // Connect directly through the SDK
+            ReceiverConnectionOption option = new ReceiverConnectionOption()
+                    .setConnectionType(ConnectionType.CONNECTION_BLUETOOTH)
+                    .setProductName("SMART-RTK")
+                    .setBluetoothName("GNSS-9999848");
+           
+            try {
+                // Get receiverConnectManager through mService and then connect using receiverConnectManager
+                IReceiverConnectManager receiverConnectManager = IReceiverConnectManager
+                        .Stub.asInterface(mService.getReceiverConnectManager());
+                // Connect using receiverConnectManager
+                if (!receiverConnectManager.connect(option)) {
+                    // Connection failure
+                }
+            } catch (RemoteException e) {
+                throw new RuntimeException(e);
+            }
+        }
     });
 ```
 
-### 蓝牙注入连接（可选） 
+## Bluetooth Injection Connection (Optional)
 
-推荐使用普通的蓝牙连接方式，这里蓝牙注入的连接方式仅为有特殊需求的开发者提供选择。
+It is recommended to use the normal Bluetooth connection method. The Bluetooth injection connection method here is only provided as an option for developers with special requirements.
 
-#### 步骤一：蓝牙连接的实现
+### Step 1: Implementation of Bluetooth Connection
 
-通过这种方式，开发者需要继承`BaseReceiverConnectionInjector`类，自行实现蓝牙连接部分，并将其注入到`ReceiverConnectionInjectManager`中。这里继承 BaseReceiverConnectionInjector 需要实现的主要有四个方法，具体步骤和代码如下：
+Through this method, developers need to inherit the `BaseReceiverConnectionInjector` class, implement the Bluetooth connection part themselves, and inject it into the `ReceiverConnectionInjectManager`. Here, inheriting BaseReceiverConnectionInjector mainly requires implementing four methods. The specific steps and code are as follows:
 
-1. 实现 connnect 方法，这部分您需要自行实现蓝牙连接的socket；
-2. 实现 disConnect 方法；
-3. 实现 receiver 方法，这里直接调用父类方法即可；
-4. 实现 writeDataToDevice 方法。
+1. Implement the connect method, where you need to implement the Bluetooth connection socket yourself
+2. Implement the disConnect method
+3. Implement the receiver method, where you can directly call the parent class method
+4. Implement the writeDataToDevice method
 
 ```java
 /**
@@ -254,138 +254,136 @@ public class BluetoothConnectionInjector extends BaseReceiverConnectionInjector 
 
 ```
 
-#### 步骤二：蓝牙注入 
+### Step 2: Bluetooth Injection
 
-对上面自行实现的蓝牙连接器，您需要将它的实例化对象注入到 ReceiverConnectionInjectManager中，然后需要构建ReceiverConnectionOption对象作为参数传入IReceiverConnectManager 对象的 connect 方法中。
+For the Bluetooth connector implemented above, you need to inject its instantiated object into ReceiverConnectionInjectManager, and then build a ReceiverConnectionOption object as a parameter to pass into the connect method of the IReceiverConnectManager object.
 
 ```java
 // Establish connection using Bluetooth injection method
 BluetoothConnectionInjector injector = 
-  new BluetoothConnectionInjector("GNSS-9999848");
+  new BluetoothConnectionInjector("GNSS-9999848");
 ReceiverConnectionInjectManager.getInstance().inject(injector);
 ReceiverConnectionOption option = new ReceiverConnectionOption()
-        .setConnectionType(ConnectionType.CONNECTION_BLUETOOTH)
-        .setProductName("SMART-RTK");
+        .setConnectionType(ConnectionType.CONNECTION_BLUETOOTH)
+        .setProductName("SMART-RTK");
 try {
-    // Get receiverConnectManager through mService and then connect using receiverConnectManager
-    IReceiverConnectManager receiverConnectManager = IReceiverConnectManager
-            .Stub.asInterface(mService.getReceiverConnectManager());
-    // Connect using receiverConnectManager
-    receiverConnectManager.connect(option);
+    // Get receiverConnectManager through mService and then connect using receiverConnectManager
+    IReceiverConnectManager receiverConnectManager = IReceiverConnectManager
+            .Stub.asInterface(mService.getReceiverConnectManager());
+    // Connect using receiverConnectManager
+    receiverConnectManager.connect(option);
 } catch (RemoteException e) {
-    throw new RuntimeException(e);
+    throw new RuntimeException(e);
 }
 ```
 
-### WIFI连接
+## WiFi Connection
 
-WIFI连接主要步骤和代码如下：
+The main steps and code for WiFi connection are as follows:
 
-1. 通过 ReceiverConnectionOption 配置连接参数；
-2. 通过初始化SDK中得到的 service 来获取 IReceiverConnectManager 对象
-3. 将“1”中得到的 ReceiverConnectionOption 对象作为参数传入IReceiverConnectManager 对象的 connect 方法中
+1. Configure connection parameters through ReceiverConnectionOption
+2. Get the IReceiverConnectManager object through the service obtained in SDK initialization
+3. Pass the ReceiverConnectionOption object obtained in step 1 as a parameter to the connect method of the IReceiverConnectManager object
 
 ```java
     // Connection event
-    mBTConnect.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            ReceiverConnectionOption option = new ReceiverConnectionOption()
-                    .setConnectionType(ConnectionType.CONNECTION_WIFI)
-                    .setProductName("SMART-RTK");
-           
-            try {
-                // Get receiverConnectManager through mService and then connect using receiverConnectManager
-                IReceiverConnectManager receiverConnectManager = IReceiverConnectManager
-                        .Stub.asInterface(mService.getReceiverConnectManager());
-                // Connect using receiverConnectManager
-                if (!receiverConnectManager.connect(option)) {
-                    // Connection failure
-                }
-            } catch (RemoteException e) {
-                throw new RuntimeException(e);
-            }
-        }
+    mWiFiConnect.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            ReceiverConnectionOption option = new ReceiverConnectionOption()
+                    .setConnectionType(ConnectionType.CONNECTION_WIFI)
+                    .setProductName("SMART-RTK");
+           
+            try {
+                // Get receiverConnectManager through mService and then connect using receiverConnectManager
+                IReceiverConnectManager receiverConnectManager = IReceiverConnectManager
+                        .Stub.asInterface(mService.getReceiverConnectManager());
+                // Connect using receiverConnectManager
+                if (!receiverConnectManager.connect(option)) {
+                    // Connection failure
+                }
+            } catch (RemoteException e) {
+                throw new RuntimeException(e);
+            }
+        }
     });
     
     // Disconnection event
-    mBTDisConnect.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            try {
-                IReceiverConnectManager receiverConnectManager = IReceiverConnectManager
-                        .Stub.asInterface(mService.getReceiverConnectManager());
-                if (receiverConnectManager != null) {
-                    receiverConnectManager.disConnect();
-                }
-            } catch (RemoteException e) {
-                throw new RuntimeException(e);
-            }
-        }
+    mWiFiDisConnect.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            try {
+                IReceiverConnectManager receiverConnectManager = IReceiverConnectManager
+                        .Stub.asInterface(mService.getReceiverConnectManager());
+                if (receiverConnectManager != null) {
+                    receiverConnectManager.disConnect();
+                }
+            } catch (RemoteException e) {
+                throw new RuntimeException(e);
+            }
+        }
     });
 
 ```
 
-### 本地连接
+## Local Connection
 
-目前大多数Android设备都具备接收卫星信号来实现定位的功能，基于此，您可以在不通过蓝牙、WIFI连接RTK的情况下做一些功能测试，也可以仅通过本地连接来开发您需要的功能。本章节主要介绍如何通过SDK实现本地连接，连接步骤同蓝牙连接类似，这里不再赘述，仅给出相关代码。
+Currently, most Android devices have the capability to receive satellite signals for positioning. Based on this, you can perform some functional testing without connecting to RTK via Bluetooth or WiFi, or you can develop the functions you need using only local connection. This section mainly introduces how to implement local connection through the SDK. The connection steps are similar to Bluetooth connection, so they will not be repeated here. Only the relevant code is provided.
 
 ```java
 // Connection event
     mLocalConnect.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            ReceiverConnectionOption option = new ReceiverConnectionOption()
-                    .setConnectionType(ConnectionType.CONNECTION_ANDROID)
-                    .setProductName("LT40");
-           
-            try {
-                // Get receiverConnectManager through mService and then connect using receiverConnectManager
-                IReceiverConnectManager receiverConnectManager = IReceiverConnectManager
-                        .Stub.asInterface(mService.getReceiverConnectManager());
-                // Connect using receiverConnectManager
-                if (!receiverConnectManager.connect(option)) {
-                    // Connection failure
-                }
-            } catch (RemoteException e) {
-                throw new RuntimeException(e);
-            }
-        }
+        @Override
+        public void onClick(View view) {
+            ReceiverConnectionOption option = new ReceiverConnectionOption()
+                    .setConnectionType(ConnectionType.CONNECTION_ANDROID)
+                    .setProductName("LT40");
+           
+            try {
+                // Get receiverConnectManager through mService and then connect using receiverConnectManager
+                IReceiverConnectManager receiverConnectManager = IReceiverConnectManager
+                        .Stub.asInterface(mService.getReceiverConnectManager());
+                // Connect using receiverConnectManager
+                if (!receiverConnectManager.connect(option)) {
+                    // Connection failure
+                }
+            } catch (RemoteException e) {
+                throw new RuntimeException(e);
+            }
+        }
     });
-    ​
+    
     // Disconnection event
     mLocalDisConnect.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            try {
-                IReceiverConnectManager receiverConnectManager = IReceiverConnectManager
-                        .Stub.asInterface(mService.getReceiverConnectManager());
-                if (receiverConnectManager != null) {
-                    receiverConnectManager.disConnect();
-                }
-            } catch (RemoteException e) {
-                throw new RuntimeException(e);
-            }
-        }
+        @Override
+        public void onClick(View view) {
+            try {
+                IReceiverConnectManager receiverConnectManager = IReceiverConnectManager
+                        .Stub.asInterface(mService.getReceiverConnectManager());
+                if (receiverConnectManager != null) {
+                    receiverConnectManager.disConnect();
+                }
+            } catch (RemoteException e) {
+                throw new RuntimeException(e);
+            }
+        }
     });
 ```
 
+## LT800H Connection
 
-
-### LT800H 连接
-
-参考初始化SDK，您只需要修改连接部分的代码即可，具体代码如下：
+Referring to the SDK initialization, you only need to modify the connection part of the code. The specific code is as follows:
 
 ```java
 mBTConnect.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-        // Areas that need to be revised
-        ReceiverConnectionOption option = new ReceiverConnectionOption()
-                .setConnectionType(ConnectionType.CONNECTION_ANDROID)
-                .setProductName("LT800H");
-       // ......
-    }
+    @Override
+    public void onClick(View view) {
+        // Areas that need to be revised
+        ReceiverConnectionOption option = new ReceiverConnectionOption()
+                .setConnectionType(ConnectionType.CONNECTION_ANDROID)
+                .setProductName("LT800H");
+       // ......
+    }
 });
 ```
 
