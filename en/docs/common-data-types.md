@@ -1,113 +1,114 @@
+# Common Data Types
+
 ## SatellitePosition
 
-|      类型       |       名称       |                       描述                        |
-| :-------------: | :--------------: | :-----------------------------------------------: |
-|    Position     |    mPosition     | 包含位置信息 x、y、z（double 类型弧度，对应 BLH） |
-| EnumSolveStatus | mEnumSolveStatus |                  包含解状态信息                   |
+|      Type       |       Name       |                       Description                        |
+| :-------------: | :--------------: | :------------------------------------------------------: |
+|    Position     |    mPosition     | Contains position information x, y, z (double type radians, corresponding to BLH) |
+| EnumSolveStatus | mEnumSolveStatus |                  Contains solution status information                   |
 
 ## EnumSolveStatus
 
-|           名称            |  描述  |
-| :-----------------------: | :----: |
-|    SOLVE_STATUS_FIX     |  固定  |
-|   SOLVE_STATUS_FLOAT    |  浮动  |
-|    SOLVE_STATUS_WIDE    |  浮动  |
-|    SOLVE_STATUS_COS     |  浮动  |
-|    SOLVE_STATUS_RTD     |  浮动  |
-|    SOLVE_STATUS_DIFF    |  浮动  |
-|    SOLVE_STATUS_NONE    |  未知  |
-| SOLVE_STATUS_BASE_WRONG |  未知  |
-| SOLVE_STATUS_SEARCH_SAT |  未知  |
-| SOLVE_STATUS_STAR_TIMEOUT |  异常  |
-| SOLVE_STATUS_STAR_OUTAREA |  异常  |
-| SOLVE_STATUS_STAR_SERVER_ERR |  异常  |
+|           Name            |  Description  |
+| :-----------------------: | :-----------: |
+|    SOLVE_STATUS_FIX       |     Fixed     |
+|   SOLVE_STATUS_FLOAT      |     Float     |
+|    SOLVE_STATUS_WIDE      |     Float     |
+|    SOLVE_STATUS_COS       |     Float     |
+|    SOLVE_STATUS_RTD       |     Float     |
+|    SOLVE_STATUS_DIFF      |     Float     |
+|    SOLVE_STATUS_NONE      |    Unknown    |
+| SOLVE_STATUS_BASE_WRONG   |    Unknown    |
+| SOLVE_STATUS_SEARCH_SAT   |    Unknown    |
+| SOLVE_STATUS_STAR_TIMEOUT |   Abnormal    |
+| SOLVE_STATUS_STAR_OUTAREA |   Abnormal    |
+| SOLVE_STATUS_STAR_SERVER_ERR |  Abnormal  |
 
-除上表所述外，其余所有状态，您可以定义为单点。
+In addition to the statuses described in the above table, all other statuses can be defined as single point.
 
 ## SatellitePrecision
 
-|  类型  |  名称  |      描述      |
-| :----: | :----: | :------------: |
-| double | mHpre  | 水平方向精度   |
-| double | mVpre  | 垂直方向精度   |
-| double | mXpre  | 大地纬度精度   |
-| double | mYpre  | 大地精读精度   |
-| double |  mRms  |   空间精度     |
+|  Type  |  Name  |      Description      |
+| :----: | :----: | :-------------------: |
+| double | mHpre  | Horizontal accuracy   |
+| double | mVpre  | Vertical accuracy     |
+| double | mXpre  | Geodetic latitude accuracy |
+| double | mYpre  | Geodetic longitude accuracy |
+| double |  mRms  |   Spatial accuracy    |
 
 ## NtripProtocolCode
 
-|       类型        |          名称           |   描述   |
-| :---------------: | :---------------------: | :------: |
-| NtripProtocolCode |    NC_ICY_200_OK       | 登录成功 |
-| NtripProtocolCode | ERROR_401_UNAUTHORIZED | 登录失败 |
+|       Type        |          Name           |   Description   |
+| :---------------: | :---------------------: | :-------------: |
+| NtripProtocolCode |    NC_ICY_200_OK       | Login successful |
+| NtripProtocolCode | ERROR_401_UNAUTHORIZED | Login failed    |
 
 ## EmPdaWorkModeStatus
 
-|        类型         |   名称   |        描述        |
-| :-----------------: | :------: | :----------------: |
-| EmPdaWorkModeStatus | LOGINING |     正在登录       |
-| EmPdaWorkModeStatus |  LOGOUT  |       注销         |
-| EmPdaWorkModeStatus | LOGINED  | 已登陆/登录成功    |
+|        Type         |   Name   |        Description        |
+| :-----------------: | :------: | :-----------------------: |
+| EmPdaWorkModeStatus | LOGINING |       Logging in          |
+| EmPdaWorkModeStatus |  LOGOUT  |        Logout             |
+| EmPdaWorkModeStatus | LOGINED  | Logged in/Login successful |
 
 ## NoneMagneticTiltInfo
 
-|  类型  |     名称      |        描述        |
-| :----: | :-----------: | :----------------: |
-| double |    mVarE      |  补偿点经度标准差  |
-| double |    mVarN      |  补偿点纬度标准差  |
-| double |    mVarU      |  补偿点高程标准差  |
-| double |   mVarTilt    |  竖直倾角标准差    |
-| double |  mVarDirect   |  倾斜方向角标准差  |
-| double |  mLatitude    |    补偿点纬度      |
-| double | mLontitude    |    补偿点经度      |
-| double |   mHeight     |    补偿点高程      |
-| double | mHeightOffset |     高程偏移       |
-| double |   mDiffAge    |     差分龄期       |
-| double |    mPitch     |      俯仰角        |
-| double |    mRoll      |      横滚角        |
-| double |   mHeading    |      航向角        |
+|  Type  |     Name      |        Description        |
+| :----: | :-----------: | :-----------------------: |
+| double |    mVarE      | Compensation point longitude standard deviation |
+| double |    mVarN      | Compensation point latitude standard deviation  |
+| double |    mVarU      | Compensation point elevation standard deviation |
+| double |   mVarTilt    | Vertical tilt angle standard deviation         |
+| double |  mVarDirect   | Tilt direction angle standard deviation        |
+| double |  mLatitude    |    Compensation point latitude      |
+| double | mLontitude    |    Compensation point longitude     |
+| double |   mHeight     |    Compensation point elevation     |
+| double | mHeightOffset |     Elevation offset       |
+| double |   mDiffAge    |     Differential age       |
+| double |    mPitch     |      Pitch angle          |
+| double |    mRoll      |      Roll angle           |
+| double |   mHeading    |      Heading angle        |
 
 ## CoorKernal
 
-|   类型   |   名称    |      描述      |
-| :------: | :-------: | :------------: |
-| Position |  rawBlh   | 接收机原始输出 |
-| Position |  wgsBlh   |     经纬度     |
-| Position |  wgsXyz   |    空间坐标    |
-| Position | localBlh  |   本地经纬度   |
-| Position | localXyz  |   本地XYZ      |
-| Position | localNeh  |  本地平面坐标  |
+|   Type   |   Name    |      Description      |
+| :------: | :-------: | :-------------------: |
+| Position |  rawBlh   | Receiver raw output   |
+| Position |  wgsBlh   |     Longitude and latitude     |
+| Position |  wgsXyz   |    Spatial coordinates    |
+| Position | localBlh  |   Local longitude and latitude   |
+| Position | localXyz  |   Local XYZ      |
+| Position | localNeh  |  Local plane coordinates  |
 
 ## SurveyPointPositionInfo
 
-|        类型         |        名称         |    描述    |
-| :-----------------: | :-----------------: | :--------: |
-|     CoorKernal      |    mCoorKernal      | 点坐标集合 |
-|       GpsTime       |      mGpsTime       |   卫星时   |
-|        Time         |       mTime         |    时间    |
-|  SatellitePrecision | mSatellitePrecision |  精度信息  |
-|       double        |      diffAge        |  差分龄期  |
+|        Type         |        Name         |    Description    |
+| :-----------------: | :-----------------: | :---------------: |
+|     CoorKernal      |    mCoorKernal      | Point coordinate set |
+|       GpsTime       |      mGpsTime       |   Satellite time   |
+|        Time         |       mTime         |    Time    |
+|  SatellitePrecision | mSatellitePrecision |  Precision information  |
+|       double        |      diffAge        |  Differential age  |
 
 ## RTKCamera
 
-|        类型         |        名称         |    描述    |
-| :-----------------: | :-----------------: | :--------: |
-|     CoorKernal      |    mCoorKernal      | 点坐标集合 |
-|       GpsTime       |      mGpsTime       |   卫星时   |
-|        Time         |       mTime         |    时间    |
-|  SatellitePrecision | mSatellitePrecision |  精度信息  |
-|       double        |      diffAge        |  差分龄期  |
+|        Type         |        Name         |    Description    |
+| :-----------------: | :-----------------: | :---------------: |
+|     CoorKernal      |    mCoorKernal      | Point coordinate set |
+|       GpsTime       |      mGpsTime       |   Satellite time   |
+|        Time         |       mTime         |    Time    |
+|  SatellitePrecision | mSatellitePrecision |  Precision information  |
+|       double        |      diffAge        |  Differential age  |
 
 ## BaseWarning
 
-|       类型       |       名称        |   描述   |
-| :--------------: | :---------------: | :------: |
-| EnumBaseWarning  | mEnumBaseWarning  | 偏移状态 |
+|       Type       |       Name        |   Description   |
+| :--------------: | :---------------: | :-------------: |
+| EnumBaseWarning  | mEnumBaseWarning  | Offset status   |
 
 ## EnumBaseWarning
 
-|          类型           |          名称           |      描述      |
-| :---------------------: | :---------------------: | :------------: |
-|   BASE_WARNING_NONE     |   BASE_WARNING_NONE     |     未偏移     |
-| BASE_WARNING_BASE_MOVE  | BASE_WARNING_BASE_MOVE  | 位置发生偏移   |
-
+|          Type           |          Name           |      Description      |
+| :---------------------: | :---------------------: | :-------------------: |
+|   BASE_WARNING_NONE     |   BASE_WARNING_NONE     |     No offset         |
+| BASE_WARNING_BASE_MOVE  | BASE_WARNING_BASE_MOVE  | Position offset occurred |
