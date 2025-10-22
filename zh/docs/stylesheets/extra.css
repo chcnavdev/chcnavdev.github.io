@@ -1,0 +1,49 @@
+/* 隐藏网站logo */
+.md-header__button.md-logo,
+.md-nav__title .md-nav__button.md-logo {
+    display: none !important;
+}
+
+/* 隐藏侧边栏中的logo */
+.md-nav--primary .md-nav__title .md-nav__button.md-logo {
+    display: none !important;
+}
+
+/* CHCNAV 橙色主题配色 - 精确匹配官网色彩 */
+:root {
+  /* 主要颜色 - CHCNAV 品牌橙色 */
+  --md-primary-fg-color:        #FF8C00;
+  --md-primary-fg-color--light: #FFA500;
+  --md-primary-fg-color--dark:  #FF7F00;
+  
+  /* 强调色 - CHCNAV 辅助橙色 */
+  --md-accent-fg-color:         #FF7F00;
+  --md-accent-fg-color--light:  #FFA500;
+  --md-accent-fg-color--dark:   #FF6600;
+  
+  /* 链接颜色 */
+  --md-typeset-a-color:         #FF8C00;
+  
+  /* 按钮和交互元素 */
+  --md-typeset-mark-color:      rgba(255, 140, 0, 0.2);
+  --md-admonition-fg-color:     #FF8C00;
+}
+
+/* 深色模式的橙色主题 */
+[data-md-color-scheme="slate"] {
+  /* 主要颜色 - 深色模式适配 */
+  --md-primary-fg-color:        #FFA500;
+  --md-primary-fg-color--light: #FFB84D;
+  --md-primary-fg-color--dark:  #FF8C00;
+  
+  /* 强调色 - 深色模式橙色 */
+  --md-accent-fg-color:         #FF8C00;
+  --md-accent-fg-color--light:  #FFA500;
+  --md-accent-fg-color--dark:   #FF7F00;
+  
+  /* 链接颜色 */
+  --md-typeset-a-color:         #FFA500;
+  
+  /* 深色模式下的标记和提示 */
+  --md-typeset-mark-color:      rgba(255, 165, 0, 0.3);
+}

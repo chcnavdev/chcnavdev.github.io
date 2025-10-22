@@ -5,6 +5,24 @@ theme:
   features:
     - search.suggest
   language: zh
+  palette:
+    # 浅色模式
+    - scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-7
+        name: 切换到深色模式
+    # 深色模式
+    - scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-4
+        name: 切换到浅色模式
+
+extra_css:
+  - stylesheets/extra.css
   
 nav:
   - 首页: index.md

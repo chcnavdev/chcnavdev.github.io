@@ -1,0 +1,49 @@
+/* Hide website logo */
+.md-header__button.md-logo,
+.md-nav__title .md-nav__button.md-logo {
+    display: none !important;
+}
+
+/* Hide logo in sidebar */
+.md-nav--primary .md-nav__title .md-nav__button.md-logo {
+    display: none !important;
+}
+
+/* CHCNAV Orange Theme Colors - Precise Brand Match */
+:root {
+  /* Primary colors - CHCNAV Brand Orange */
+  --md-primary-fg-color:        #FF8C00;
+  --md-primary-fg-color--light: #FFA500;
+  --md-primary-fg-color--dark:  #FF7F00;
+  
+  /* Accent colors - CHCNAV Secondary Orange */
+  --md-accent-fg-color:         #FF7F00;
+  --md-accent-fg-color--light:  #FFA500;
+  --md-accent-fg-color--dark:   #FF6600;
+  
+  /* Link colors */
+  --md-typeset-a-color:         #FF8C00;
+  
+  /* Buttons and interactive elements */
+  --md-typeset-mark-color:      rgba(255, 140, 0, 0.2);
+  --md-admonition-fg-color:     #FF8C00;
+}
+
+/* Dark mode orange theme */
+[data-md-color-scheme="slate"] {
+  /* Primary colors - Dark mode adapted */
+  --md-primary-fg-color:        #FFA500;
+  --md-primary-fg-color--light: #FFB84D;
+  --md-primary-fg-color--dark:  #FF8C00;
+  
+  /* Accent colors - Dark mode orange */
+  --md-accent-fg-color:         #FF8C00;
+  --md-accent-fg-color--light:  #FFA500;
+  --md-accent-fg-color--dark:   #FF7F00;
+  
+  /* Link colors */
+  --md-typeset-a-color:         #FFA500;
+  
+  /* Dark mode marks and hints */
+  --md-typeset-mark-color:      rgba(255, 165, 0, 0.3);
+}
