@@ -1,10 +1,12 @@
-## 从接收机获取数据
+# Receiver Communication
 
-您拿到 service 后，可以通过 service 的 requestReceiverListener 方法来实现对接收机数据的监听，requestReceiverListener 要求您传入 IReceiverListener.Stub 对 象，您可以继承该对象，实现相关接口，通过对接口的实现来获得需要的数据。其中有的回调 接口是会按一定的频率回调(比如位置信息和卫星信息)，有的接口是需要给接收机发命令才会回调。
+## Getting Data from Receiver
 
-## 发送数据给接收机(设置接收机)
+After obtaining the service, you can implement listening to receiver data through the service's requestReceiverListener method. requestReceiverListener requires you to pass in an IReceiverListener.Stub object. You can inherit this object and implement related interfaces to obtain the required data through interface implementation. Some callback interfaces will callback at a certain frequency (such as position information and satellite information), while some interfaces require sending commands to the receiver to trigger callbacks.
 
-您可以通过 ReceiverCmdManager 类来给接收机发送命令，这个类是个单例，直接调用即可，每个接口的含义见接口注释。
+## Sending Data to Receiver (Setting Receiver)
+
+You can send commands to the receiver through the ReceiverCmdManager class. This class is a singleton and can be called directly. The meaning of each interface can be found in the interface comments.
 
 ```java
 /***
@@ -457,11 +459,11 @@ public void setCmdStopPPK(Context context, PpkStopInfo ppkStopInfo) {}
 public void setCmdDataRouting(Context context, DataRoutingInfo info) {}
 ```
 
-## 卫星数据获取
+## Satellite Data Acquisition
 
-### 获取卫星数量
+### Getting Satellite Count
 
-本部分针对用户反馈的常见问题进行了补充说明，以便读者参考并实现所需功能。只需实现 `getSatelliteUsedNums` 方法，代码示例如下：
+This section provides supplementary explanations for common issues reported by users, for readers' reference and implementation of required functions. You only need to implement the `getSatelliteUsedNums` method. The code example is as follows:
 
 ```java
 @Override
@@ -471,16 +473,16 @@ public void getSatelliteUsedNums(SatelliteNumber satNumbers) throws RemoteExcept
 }
 ```
 
-### 视频流数据获取
+### Video Stream Data Acquisition
 
-本部分介绍如何通过SDK从RTK获取视频流数据。假设您的RTK设备同时具备下摄和前摄的功能，核心步骤如下：
+This section introduces how to obtain video stream data from RTK through the SDK. Assuming your RTK device has both ground camera and front camera capabilities, the core steps are as follows:
 
-1. 获取摄像头图像数据；
-2. 将图像数据渲染到界面。
+1. Get camera image data
+2. Render image data to the interface
 
-#### 获取图像数据并渲染到界面
+#### Getting Image Data and Rendering to Interface
 
-您可以使用 RtkCamera 类指定要获取图像数据的摄像头类型，然后通过设置回调函数来获取每一帧的图像数据，具体如下：
+You can use the RtkCamera class to specify the camera type for obtaining image data, then get each frame of image data by setting callback functions, as follows:
 
 ```java
 // CameraInfo
@@ -543,9 +545,9 @@ private void setupCameraCallback(CameraInfo cameraInfo) {
 }
 ```
 
-## 完整代码
+## Complete Code
 
-### 布局文件代码：
+### Layout File Code:
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -632,9 +634,7 @@ private void setupCameraCallback(CameraInfo cameraInfo) {
 </LinearLayout>
 ```
 
-
-
-### Activity 代码：
+### Activity Code:
 
 ```java
 /**
@@ -786,6 +786,3 @@ private void setupCameraCallback(CameraInfo cameraInfo) {
     }
 }
 ```
-
-
-
