@@ -4,36 +4,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="851dad76-e3b9-4b45-a0f5-444320cc6c52" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/zh/docs/gnssserver/AR放样.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/zh/docs/gnssserver/CORS连接.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/zh/docs/gnssserver/IMU.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/zh/docs/gnssserver/index.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/zh/docs/gnssserver/修订.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/zh/docs/gnssserver/前言.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/zh/docs/gnssserver/坐标转换.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/zh/docs/gnssserver/常用数据类型.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/zh/docs/gnssserver/快速开始.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/zh/docs/gnssserver/接收机通信.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/zh/docs/gnssserver/连接.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/zh/docs/测地通二次开发/基于txt文件开发.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/zh/docs/测地通二次开发/基于广播消息开发.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/zh/docs/测地通二次开发/测地通二次开发.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/en/mkdocs.yml" beforeDir="false" afterPath="$PROJECT_DIR$/en/mkdocs.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zh/docs/AR放样.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zh/docs/CORS连接.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zh/docs/IMU.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zh/docs/index.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zh/docs/修订.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zh/docs/前言.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zh/docs/坐标转换.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zh/docs/常用数据类型.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zh/docs/快速开始.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zh/docs/接收机通信.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zh/docs/连接.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zh/mkdocs.yml" beforeDir="false" afterPath="$PROJECT_DIR$/zh/mkdocs.yml" afterDir="false" />
-    </list>
+    <list default="true" id="851dad76-e3b9-4b45-a0f5-444320cc6c52" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
