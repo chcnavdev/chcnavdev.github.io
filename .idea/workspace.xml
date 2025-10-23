@@ -5,12 +5,44 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="851dad76-e3b9-4b45-a0f5-444320cc6c52" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/zh/docs/gnssserver/AR放样.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/zh/docs/gnssserver/CORS连接.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/zh/docs/gnssserver/IMU.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/zh/docs/gnssserver/index.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/zh/docs/gnssserver/修订.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/zh/docs/gnssserver/前言.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/zh/docs/gnssserver/坐标转换.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/zh/docs/gnssserver/常用数据类型.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/zh/docs/gnssserver/快速开始.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/zh/docs/gnssserver/接收机通信.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/zh/docs/gnssserver/连接.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/zh/docs/测地通二次开发/基于txt文件开发.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/zh/docs/测地通二次开发/基于广播消息开发.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/zh/docs/测地通二次开发/测地通二次开发.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/en/mkdocs.yml" beforeDir="false" afterPath="$PROJECT_DIR$/en/mkdocs.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zh/docs/AR放样.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/zh/docs/CORS连接.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/zh/docs/IMU.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/zh/docs/index.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/zh/docs/修订.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/zh/docs/前言.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/zh/docs/坐标转换.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/zh/docs/常用数据类型.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/zh/docs/快速开始.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/zh/docs/接收机通信.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/zh/docs/连接.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/zh/mkdocs.yml" beforeDir="false" afterPath="$PROJECT_DIR$/zh/mkdocs.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager">
+    <option name="groupingKeys">
+      <option value="module" />
+    </option>
   </component>
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
@@ -18,45 +50,45 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "cszeno"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;cszeno&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/chcnavdev/chcnavdev.github.io.git",
-    "accountId": "3b360dbf-b91f-4086-a720-ea7fdd9dc6dc"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/chcnavdev/chcnavdev.github.io.git&quot;,
+    &quot;accountId&quot;: &quot;3b360dbf-b91f-4086-a720-ea7fdd9dc6dc&quot;
   }
-}]]></component>
+}</component>
   <component name="GradleLocalSettings">
     <option name="myGradleUserHome" value="$USER_HOME$/.gradle/wrapper/dists/gradle-6.1.1-all/cfmwm155h49vnt3hynmlrsdst/gradle-6.1.1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 7
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="34C4OshPkJtd4Hy8b2WpewvAcg4" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.readMode.enableVisualFormatting": "true",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/huace/Desktop/mkdoc/chcnav",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
-    "show.migrate.to.gradle.popup": "false"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/huace/Desktop/mkdoc/chcnav&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SwiftWorkspaceSettings">
     <option name="detectedToolchain" value="true" />

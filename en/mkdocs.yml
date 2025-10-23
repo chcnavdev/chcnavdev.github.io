@@ -46,7 +46,8 @@ extra:
       lang: en
 
 plugins:
-  - search
+  - search:
+      lang: en
 
 markdown_extensions:
   - pymdownx.highlight:

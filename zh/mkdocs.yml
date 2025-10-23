@@ -3,7 +3,14 @@ site_url: https://chcnavdev.github.io/zh/
 theme:
   name: material
   features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - toc.integrate
     - search.suggest
+    - search.highlight
+    - content.code.copy
   language: zh
   palette:
     # 浅色模式
@@ -25,16 +32,22 @@ extra_css:
   - stylesheets/extra.css
   
 nav:
-  - 首页: index.md
-  - 修订记录: 修订.md
-  - 快速开始: 快速开始.md
-  - 连接: 连接.md
-  - 接收机通信: 接收机通信.md
-  - CORS连接: CORS连接.md
-  - 坐标转换: 坐标转换.md
-  - IMU: IMU.md
-  - AR放样: AR放样.md
-  - 常用数据类型: 常用数据类型.md
+  - GNSS Server:
+      - 首页: gnssserver/index.md
+      - 前言: gnssserver/前言.md
+      - 修订记录: gnssserver/修订.md
+      - 快速开始: gnssserver/快速开始.md
+      - 连接: gnssserver/连接.md
+      - 接收机通信: gnssserver/接收机通信.md
+      - CORS连接: gnssserver/CORS连接.md
+      - 坐标转换: gnssserver/坐标转换.md
+      - IMU: gnssserver/IMU.md
+      - AR放样: gnssserver/AR放样.md
+      - 常用数据类型: gnssserver/常用数据类型.md
+  - 测地通二次开发:
+      - 概述: 测地通二次开发/测地通二次开发.md
+      - 基于广播消息开发: 测地通二次开发/基于广播消息开发.md
+      - 基于txt文件开发: 测地通二次开发/基于txt文件开发.md
 
 extra:
   alternate:
@@ -46,7 +59,10 @@ extra:
       lang: en
 
 plugins:
-  - search
+  - search:
+      lang:
+        - zh
+        - en
 
 markdown_extensions:
   - pymdownx.highlight:
