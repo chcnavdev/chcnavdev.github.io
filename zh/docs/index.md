@@ -7,7 +7,6 @@
 ### GNSS Server
 完整的 GNSS Server SDK 开发指南，包含接口说明、示例代码和最佳实践。
 
-- [首页](gnssserver/index.md) - GNSS Server 概述
 - [前言](gnssserver/前言.md) - 开发前必读
 - [修订记录](gnssserver/修订.md) - 版本更新历史
 - [快速开始](gnssserver/快速开始.md) - 快速上手指南

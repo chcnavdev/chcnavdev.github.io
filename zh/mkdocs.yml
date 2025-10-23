@@ -34,7 +34,6 @@ extra_css:
 nav:
   - 首页: index.md
   - GNSS Server:
-      - 首页: gnssserver/index.md
       - 前言: gnssserver/前言.md
       - 修订记录: gnssserver/修订.md
       - 快速开始: gnssserver/快速开始.md
