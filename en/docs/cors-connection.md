@@ -1,4 +1,4 @@
-CORS连接之前，您需要准备用于CORS连接的账号、密码、源以及对应的IP地址和端口号，具体的连接代码如下：
+Before connecting with CORS, you need to prepare the account number, password, source, and corresponding IP address and port number used for CORS connection. The specific connection code is as follows:
 
 ```java
 mCorsConnect.setOnClickListener(new View.OnClickListener() {
@@ -32,7 +32,7 @@ mCorsConnect.setOnClickListener(new View.OnClickListener() {
             }
         });
 
-        mCorsDisConnect.setOnClickListener(new View.OnClickListener() {
+               mCorsDisConnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DiffConnectManager.getInstance().disConnect();
