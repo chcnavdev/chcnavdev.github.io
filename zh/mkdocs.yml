@@ -2,6 +2,7 @@ site_name: CHCNAV SDK 文档
 site_url: https://chcnavdev.github.io/zh/
 theme:
   name: material
+  favicon: images/favicon.png
   features:
     - navigation.tabs
     - navigation.sections
@@ -43,6 +44,7 @@ nav:
       - 坐标转换: gnssserver/坐标转换.md
       - IMU: gnssserver/IMU.md
       - AR放样: gnssserver/AR放样.md
+      - SLAM集成: gnssserver/SLAM.md
       - 常用数据类型: gnssserver/常用数据类型.md
   - 测地通二次开发:
       - 概述: 测地通二次开发/测地通二次开发.md

@@ -2,6 +2,7 @@ site_name: CHCNAV SDK Documentation
 site_url: https://chcnavdev.github.io/en/
 theme:
   name: material
+  favicon: images/favicon.png
   features:
     - search.suggest
   language: en
