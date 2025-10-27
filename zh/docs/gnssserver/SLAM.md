@@ -216,7 +216,7 @@ PositionSource.getInstance().addListener(new IPositionListener.Stub() {
 
 ### SlamInitGuideViewLayout 使用说明
 
-**重要提示**: `SlamInitGuideViewLayout`是business模块提供的可选UI组件。客户可以选择：
+**重要提示**: `SlamInitGuideViewLayout`是business模块提供的可选UI组件。您可以选择：
 
 1. **使用我们提供的UI组件**：直接集成business模块，使用现成的引导界面
 2. **自定义UI实现**：根据`ISlamDeviceListener`回调的状态信息，实现自己的用户界面
