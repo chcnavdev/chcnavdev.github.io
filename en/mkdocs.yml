@@ -34,7 +34,6 @@ nav:
   - CORS Connection: cors-connection.md
   - Coordinate Transformation: coordinate-transformation.md
   - IMU: imu.md
-  - AR Stakeout: ar-stakeout.md
   - Common Data Types: common-data-types.md
 
 extra:
