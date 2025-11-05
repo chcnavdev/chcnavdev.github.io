@@ -15,7 +15,6 @@
 - [CORS连接](gnssserver/CORS连接.md) - CORS 服务
 - [坐标转换](gnssserver/坐标转换.md) - 坐标系统转换
 - [IMU](gnssserver/IMU.md) - 惯性测量单元
-- [AR放样](gnssserver/AR放样.md) - 增强现实放样
 - [SLAM集成](gnssserver/SLAM.md) - SLAM集成
 - [常用数据类型](gnssserver/常用数据类型.md) - 数据结构说明
 

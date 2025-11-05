@@ -10,7 +10,6 @@ The CHCNAV SDK provides comprehensive tools for:
 - Real-time positioning
 - Coordinate transformation
 - IMU data processing
-- AR stakeout functionality
 
 ## Getting Started
 

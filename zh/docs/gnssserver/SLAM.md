@@ -11,14 +11,15 @@ SFix是基于SLAM（Simultaneous Localization and Mapping）技术的实时定�
 SFix功能的核心管理类，负责：
 
 - SLAM设备的初始化和控制
-- 激光雷达的开启/关闭
+- 激光雷达的开启/关闭/暂停
 - 状态监听和回调
 
 ### 2. ISlamDeviceListener
 
 SLAM设备状态监听接口，提供以下回调：
 
-- `onDeviceInitStatusChanged()`: 设备初始化状态变化
+- `onSceneStatus()`: SLAM场景操作状态变化（开启/暂停/关闭成功或失败）
+- `onInitStatus()`: SLAM设备初始化状态变化
 - `onBatteryInfoChanged()`: 电量信息变化
 - `onStorageInfoChanged()`: 存储空间信息变化
 
@@ -42,12 +43,48 @@ SLAM设备状态监听接口，提供以下回调：
 ```java
 public class SFixActivity extends AppCompatActivity {
     
+    // 添加操作类型枚举，用于区分不同的SLAM操作
+    private enum SlamOperation {
+        NONE,
+        OPENING,
+        PAUSING,
+        CLOSING
+    }
+
+    private SlamOperation mCurrentOperation = SlamOperation.NONE;
+    
     private ISlamDeviceListener slamDeviceListener = new ISlamDeviceListener.Stub() {
         @Override
-        public void onDeviceInitStatusChanged(SlamStatusInfo slamStatusInfo) throws RemoteException {
+        public void onSceneStatus(SlamSceneStatus slamSceneStatus) throws RemoteException {
             runOnUiThread(() -> {
-                // 处理状态变化
-                updateSlamStatus(slamStatusInfo);
+                // 检查操作是否成功
+                if (slamSceneStatus.getSlamSceneStatus().equals(EnumSlamSceneStatus.OPENED)) {
+                    // SLAM开启成功
+                    if (mCurrentOperation == SlamOperation.OPENING) {
+                        // 启动引导界面
+                        SlamGuideActivity.start(SFixActivity.this);
+                    }
+                } else if (slamSceneStatus.getSlamSceneStatus().equals(EnumSlamSceneStatus.PAUSE)) {
+                    // SLAM暂停成功
+                    handleSlamPaused();
+                } else if (slamSceneStatus.getSlamSceneStatus().equals(EnumSlamSceneStatus.CLOSED)) {
+                    // SLAM关闭成功
+                    handleSlamClosed();
+                } else if (slamSceneStatus.getSlamSceneStatus().equals(EnumSlamSceneStatus.FAIL)) {
+                    // SLAM操作失败
+                    String errorMessage = slamSceneStatus.getSlamSceneErrorCode().getMessage();
+                    handleSlamError(errorMessage);
+                }
+                // 重置操作状态
+                mCurrentOperation = SlamOperation.NONE;
+            });
+        }
+
+        @Override
+        public void onInitStatus(SlamInitStatus slamInitStatus) throws RemoteException {
+            runOnUiThread(() -> {
+                // 处理初始化状态变化
+                updateSlamInitStatus(slamInitStatus);
             });
         }
 
@@ -82,12 +119,9 @@ public class SFixActivity extends AppCompatActivity {
     }
     
     private void initSFix() throws RemoteException {
-        // 初始化SlamDeviceManager
-        SlamDeviceManager.init(this);
-        SlamDeviceManager.getInstance().addListener(slamDeviceListener);
-        
-        // 初始化位置监听
+        // 添加监听器
         PositionSource.getInstance().addListener(positionListener);
+        SlamDeviceManager.getInstance().addListener(slamDeviceListener);
     }
 }
 ```
@@ -97,6 +131,9 @@ public class SFixActivity extends AppCompatActivity {
 ```java
 private void startSFix() {
     try {
+        // 设置操作类型为开启
+        mCurrentOperation = SlamOperation.OPENING;
+        
         // 1. 启动惯性导航
         NoneMagneticTiltStartInfo startInfo = new NoneMagneticTiltStartInfo();
         startInfo.setAntennaHeight(1.8); // 设置天线高度（米）
@@ -107,19 +144,41 @@ private void startSFix() {
         SlamDeviceManager.getInstance().openSfix();
         
     } catch (RemoteException e) {
+        // 异常时重置操作状态
+        mCurrentOperation = SlamOperation.NONE;
         Log.e("SFix", "启动SFix失败", e);
         showErrorMessage("启动失败，请检查设备连接");
     }
 }
 ```
 
-### 3. 关闭SFix
+### 3. 暂停SFix
+
+```java
+private void pauseSFix() {
+    try {
+        // 设置操作类型为暂停
+        mCurrentOperation = SlamOperation.PAUSING;
+        SlamDeviceManager.getInstance().pauseSlam();
+    } catch (RemoteException e) {
+        // 异常时重置操作状态
+        mCurrentOperation = SlamOperation.NONE;
+        Log.e("SFix", "暂停SFix失败", e);
+    }
+}
+```
+
+### 4. 关闭SFix
 
 ```java
 private void stopSFix() {
     try {
+        // 设置操作类型为关闭
+        mCurrentOperation = SlamOperation.CLOSING;
         SlamDeviceManager.getInstance().close();
     } catch (RemoteException e) {
+        // 异常时重置操作状态
+        mCurrentOperation = SlamOperation.NONE;
         Log.e("SFix", "关闭SFix失败", e);
     }
 }
@@ -129,24 +188,14 @@ private void stopSFix() {
 
 ### SlamDeviceManager API
 
-#### 初始化方法
-
-```java
-// 单例初始化（必须在使用前调用）
-public static void init(@NonNull Context context)
-
-// 获取单例实例
-public static SlamDeviceManager getInstance()
-```
-
 #### 核心功能方法
 
 ```java
 // 开启SFix模式
 public void openSfix() throws RemoteException
 
-// 开启ViLidar模式（待实现）
-public void openViLidar() throws RemoteException
+// 暂停SLAM功能
+public void pauseSlam() throws RemoteException
 
 // 关闭SLAM功能
 public void close() throws RemoteException
@@ -163,10 +212,16 @@ public void removeListener(ISlamDeviceListener listener) throws RemoteException
 ```java
 public interface ISlamDeviceListener {
     /**
-     * SLAM设备初始化状态变化回调
-     * @param slamStatusInfo 状态信息，包含状态码和提示消息
+     * SLAM场景操作状态回调
+     * @param slamSceneStatus 场景状态信息，包含操作结果和错误码
      */
-    void onDeviceInitStatusChanged(SlamStatusInfo slamStatusInfo) throws RemoteException;
+    void onSceneStatus(SlamSceneStatus slamSceneStatus) throws RemoteException;
+    
+    /**
+     * SLAM设备初始化状态变化回调
+     * @param slamInitStatus 初始化状态信息
+     */
+    void onInitStatus(SlamInitStatus slamInitStatus) throws RemoteException;
     
     /**
      * 电量信息变化回调
@@ -182,16 +237,84 @@ public interface ISlamDeviceListener {
 }
 ```
 
-### SlamStatusInfo 状态信息
+### SlamSceneStatus 场景状态信息
 
-SlamStatusInfo包含以下主要状态：
+SlamSceneStatus包含以下主要状态：
 
-- `SYSTEM_STATUS_UNKNOWN`: 未知状态
-- `SYSTEM_STATUS_INITIAL`: 初始化中，需要保持静止
-- `SYSTEM_STATUS_INITIAL_NOT_FIX`: 初始化中，RTK未固定，需要移动到空旷区域
-- `SYSTEM_STATUS_GNSS_INITIAL`: GNSS初始化完成，需要按提示移动完成SLAM初始化
-- `SYSTEM_STATUS_SLAM_RUN`: SLAM运行中，初始化完成
-- `SYSTEM_STATUS_SLAM_ERROR`: SLAM设备错误
+- `OPENED`: SLAM开启成功
+- `PAUSE`: SLAM暂停成功
+- `CLOSED`: SLAM关闭成功
+- `FAIL`: SLAM操作失败
+
+**使用示例：**
+
+```java
+@Override
+public void onSceneStatus(SlamSceneStatus slamSceneStatus) throws RemoteException {
+    EnumSlamSceneStatus status = slamSceneStatus.getSlamSceneStatus();
+    switch (status) {
+        case OPENED:
+            // 处理开启成功
+            break;
+        case PAUSE:
+            // 处理暂停成功
+            break;
+        case CLOSED:
+            // 处理关闭成功
+            break;
+        case FAIL:
+            // 处理操作失败
+            EnumSlamSceneErrorCode errorCode = slamSceneStatus.getSlamSceneErrorCode();
+            String errorMessage = errorCode.getMessage();
+            break;
+    }
+}
+```
+
+### SlamInitStatus 初始化状态信息
+
+SlamInitStatus包含以下主要状态：
+
+- `SYSTEM_STATUS_UNKNOWN(-1)`: 未知状态，SLAM状态更新中
+- `SYSTEM_STATUS_INITIAL(0)`: 初始化中，需要保持静止
+- `SYSTEM_STATUS_INITIAL_NOT_FIX(1)`: 初始化中，RTK未固定，需要移动到空旷区域
+- `SYSTEM_STATUS_GNSS_INITIAL(2)`: GNSS初始化完成，需要按提示移动完成SLAM初始化
+- `SYSTEM_STATUS_SLAM_RUN(3)`: SLAM运行中，初始化完成，可以开始测量
+- `SYSTEM_STATUS_SLAM_RUN_LOW(4)`: SLAM运行中，精度变差
+- `SYSTEM_STATUS_SLAM_RUN_RTK_NOT_FIX(5)`: SLAM运行中，RTK精度差或未固定
+- `SYSTEM_STATUS_SLAM_STOP(6)`: SLAM停止
+- `SYSTEM_STATUS_SLAM_SAVING(7)`: SLAM保存中
+- `SYSTEM_STATUS_SLAM_ERROR(8)`: SLAM设备错误，需要重新初始化
+- `SYSTEM_STATUS_SLAM_SYSTEM_INIT(9)`: SLAM系统初始化
+- `SYSTEM_STATUS_INITIAL_RTK_LESS(10)`: 初始化过程中，RTK信号弱
+- `SYSTEM_STATUS_SLAM_RUN_RTK_LESS(11)`: 运行过程中，RTK信号弱
+
+**使用示例：**
+
+```java
+@Override
+public void onInitStatus(SlamInitStatus slamInitStatus) throws RemoteException {
+    EnumSlamInitStatus status = slamInitStatus.getSlamInitStatus();
+    switch (status) {
+        case SYSTEM_STATUS_INITIAL:
+            showMessage("请保持静止，正在初始化...");
+            break;
+        case SYSTEM_STATUS_INITIAL_NOT_FIX:
+            showMessage("请移动到空旷区域，RTK未固定");
+            break;
+        case SYSTEM_STATUS_GNSS_INITIAL:
+            showMessage("请按提示移动完成SLAM初始化");
+            break;
+        case SYSTEM_STATUS_SLAM_RUN:
+            showMessage("初始化完成，可以开始测量");
+            break;
+        case SYSTEM_STATUS_SLAM_ERROR:
+            showMessage("SLAM设备错误，请重新初始化");
+            break;
+        // ... 其他状态处理
+    }
+}
+```
 
 ### PositionSource 位置数据
 
@@ -223,25 +346,7 @@ PositionSource.getInstance().addListener(new IPositionListener.Stub() {
 
 #### 选项1：使用提供的UI组件
 
-如果选择使用我们提供的UI组件，需要：
-
-1. **添加business模块依赖**：
-
-```gradle
-implementation 'com.huace.gnssserver:business:latest_version'
-```
-
-2. **在布局文件中添加组件**：
-
-```xml
-<com.huace.gnssserver.business.api.slam.SlamInitGuideViewLayout
-    android:id="@+id/viewSlamInit"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:visibility="gone" />
-```
-
-3. **在代码中使用**：
+##### 方式1：在Activity中直接使用
 
 ```java
 private SlamInitGuideViewLayout mSlamInitGuideViewLayout;
@@ -252,11 +357,11 @@ private void initViews() {
 
 private ISlamDeviceListener slamDeviceListener = new ISlamDeviceListener.Stub() {
     @Override
-    public void onDeviceInitStatusChanged(SlamStatusInfo slamStatusInfo) throws RemoteException {
+    public void onInitStatus(SlamInitStatus slamInitStatus) throws RemoteException {
         runOnUiThread(() -> {
             // 自动更新UI状态
             if (mSlamInitGuideViewLayout != null) {
-                mSlamInitGuideViewLayout.updateStatus(slamStatusInfo.getStatus());
+                mSlamInitGuideViewLayout.updateStatus(slamInitStatus);
             }
         });
     }
@@ -264,70 +369,323 @@ private ISlamDeviceListener slamDeviceListener = new ISlamDeviceListener.Stub() 
 };
 ```
 
+##### 方式2：使用独立的引导弹窗Activity
+
+```java
+/**
+ * SLAM 初始化引导弹窗 Activity
+ * 以弹窗形式显示 SlamInitGuideViewLayout
+ */
+public class SlamGuideActivity extends AppCompatActivity {
+    
+    private SlamInitGuideViewLayout mSlamInitGuideViewLayout;
+    
+    private final ISlamDeviceListener mSlamDeviceListener = new ISlamDeviceListener.Stub() {
+        @Override
+        public void onSceneStatus(SlamSceneStatus slamSceneStatus) {
+            // 不需要处理场景状态
+        }
+
+        @Override
+        public void onInitStatus(SlamInitStatus slamInitStatus) {
+            runOnUiThread(() -> {
+                // 更新引导界面状态
+                mSlamInitGuideViewLayout.updateStatus(slamInitStatus);
+                
+                // 如果SLAM运行成功，自动关闭引导界面
+                if (slamInitStatus.getSlamInitStatus() == EnumSlamInitStatus.SYSTEM_STATUS_SLAM_RUN) {
+                    new Handler().postDelayed(() -> finish(), 200);
+                }
+            });
+        }
+
+        @Override
+        public void onBatteryInfoChanged(int remainingPower) {
+            // 引导界面不需要处理电池信息
+        }
+
+        @Override
+        public void onStorageInfoChanged(SlamDeviceStorageInfo storageInfo) {
+            // 引导界面不需要处理存储信息
+        }
+    };
+
+    /**
+     * 启动 SLAM 引导弹窗
+     */
+    public static void start(Context context) {
+        Intent intent = new Intent(context, SlamGuideActivity.class);
+        context.startActivity(intent);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setupDialogStyle(); // 设置弹窗样式
+        setContentView(R.layout.activity_slam_guide);
+        
+        initView();
+        initListener();
+    }
+
+    private void initListener() {
+        // 注册 SLAM 设备监听器
+        SlamDeviceManager.getInstance().addListener(mSlamDeviceListener);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // 移除监听器
+        SlamDeviceManager.getInstance().removeListener(mSlamDeviceListener);
+    }
+}
+```
+
 #### 选项2：自定义UI实现
 
 如果选择自定义UI实现，可以根据状态回调自行处理：
 
 ```java
-private void updateCustomUI(SlamStatusInfo slamStatusInfo) {
-    // 根据状态自行处理对应的UI
+private void updateCustomUI(SlamInitStatus slamInitStatus) {
+    EnumSlamInitStatus status = slamInitStatus.getSlamInitStatus();
+    switch (status) {
+        case SYSTEM_STATUS_INITIAL:
+            showCustomGuidance("请保持静止", R.drawable.keep_still_animation);
+            break;
+        case SYSTEM_STATUS_GNSS_INITIAL:
+            showCustomGuidance("请按提示移动", R.drawable.move_guidance_animation);
+            break;
+        case SYSTEM_STATUS_SLAM_RUN:
+            hideGuidanceAndStartSurvey();
+            break;
+        // ... 其他状态处理
+    }
 }
 ```
 
-### UI组件功能特性
+## 完整集成示例
 
-SlamInitGuideViewLayout提供以下功能：
+### 主Activity完整代码示例
 
-1. **自动状态切换**：根据SLAM状态自动更新UI显示
-2. **动态引导动画**：不同状态显示对应的GIF动画
-3. **多语言支持**：支持中英文切换
-4. **自动隐藏**：初始化完成后自动隐藏界面
-5. **手动控制**：支持手动显示/隐藏
+```java
+public class SFixActivity extends AppCompatActivity {
+    private static final String TAG = "SFixActivity";
+
+    private enum SlamOperation {
+        NONE, OPENING, PAUSING, CLOSING
+    }
+
+    private SlamOperation mCurrentOperation = SlamOperation.NONE;
+    private TextView mTvSlamInitState;
+    private TextView mTvBatteryLevel;
+
+    private ISlamDeviceListener mSlamDeviceListener = new ISlamDeviceListener.Stub() {
+        @Override
+        public void onSceneStatus(SlamSceneStatus slamSceneStatus) throws RemoteException {
+            runOnUiThread(() -> {
+                if (slamSceneStatus.getSlamSceneStatus().equals(EnumSlamSceneStatus.OPENED)) {
+                    // 只有在开启操作时才启动引导弹窗
+                    if (mCurrentOperation == SlamOperation.OPENING) {
+                        SlamGuideActivity.start(SFixActivity.this);
+                    }
+                } else if (slamSceneStatus.getSlamSceneStatus().equals(EnumSlamSceneStatus.FAIL)) {
+                    String errorMessage = slamSceneStatus.getSlamSceneErrorCode().getMessage();
+                    Toast.makeText(SFixActivity.this, "操作失败: " + errorMessage, Toast.LENGTH_SHORT).show();
+                }
+                mCurrentOperation = SlamOperation.NONE;
+            });
+        }
+
+        @Override
+        public void onInitStatus(SlamInitStatus slamInitStatus) throws RemoteException {
+            runOnUiThread(() -> {
+                mTvSlamInitState.setText(slamInitStatus.getSlamInitStatus().name());
+            });
+        }
+
+        @Override
+        public void onBatteryInfoChanged(int remainingPower) throws RemoteException {
+            runOnUiThread(() -> {
+                mTvBatteryLevel.setText(remainingPower + "%");
+            });
+        }
+
+        @Override
+        public void onStorageInfoChanged(SlamDeviceStorageInfo storageInfo) throws RemoteException {
+            // 处理存储信息
+        }
+    };
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_sfix);
+        
+        initViews();
+        initListeners();
+    }
+
+    private void initViews() {
+        mTvSlamInitState = findViewById(R.id.tvSlamInitStatus);
+        mTvBatteryLevel = findViewById(R.id.tvBatteryLevel);
+        
+        findViewById(R.id.btnStartSFix).setOnClickListener(v -> startSFix());
+        findViewById(R.id.btnPauseSFix).setOnClickListener(v -> pauseSFix());
+        findViewById(R.id.btnStopSFix).setOnClickListener(v -> stopSFix());
+    }
+
+    private void initListeners() {
+        try {
+            PositionSource.getInstance().addListener(positionListener);
+            SlamDeviceManager.getInstance().addListener(mSlamDeviceListener);
+        } catch (RemoteException e) {
+            Log.e(TAG, "Failed to add listeners", e);
+        }
+    }
+
+    private void startSFix() {
+        try {
+            mCurrentOperation = SlamOperation.OPENING;
+            
+            // 启动惯性导航
+            NoneMagneticTiltStartInfo startInfo = new NoneMagneticTiltStartInfo();
+            startInfo.setAntennaHeight(1.8);
+            startInfo.setFrequency(EnumDataFrequency.DATA_FREQUENCY_5HZ);
+            ReceiverCmdManager.getInstance().setCmdStartNoneMagneticTilt(this, startInfo);
+
+            // 开启SFix
+            SlamDeviceManager.getInstance().openSfix();
+        } catch (RemoteException e) {
+            mCurrentOperation = SlamOperation.NONE;
+            Log.e(TAG, "Failed to start SFix", e);
+        }
+    }
+
+    private void pauseSFix() {
+        try {
+            mCurrentOperation = SlamOperation.PAUSING;
+            SlamDeviceManager.getInstance().pauseSlam();
+        } catch (RemoteException e) {
+            mCurrentOperation = SlamOperation.NONE;
+            Log.e(TAG, "Failed to pause SFix", e);
+        }
+    }
+
+    private void stopSFix() {
+        try {
+            mCurrentOperation = SlamOperation.CLOSING;
+            SlamDeviceManager.getInstance().close();
+        } catch (RemoteException e) {
+            mCurrentOperation = SlamOperation.NONE;
+            Log.e(TAG, "Failed to stop SFix", e);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        try {
+            PositionSource.getInstance().removeListener(positionListener);
+            SlamDeviceManager.getInstance().removeListener(mSlamDeviceListener);
+        } catch (Exception e) {
+            Log.e(TAG, "Error clearing listeners in onDestroy", e);
+        }
+    }
+}
+```
 
 ## 常见问题
 
-### Q1: 初始化报错
+### Q1: 如何区分不同的SLAM操作结果？
 
-**A**: 确保在使用SlamDeviceManager之前调用了`SlamDeviceManager.init(context)`方法。
+**A**: 使用操作状态枚举来跟踪当前操作：
 
 ```java
-// 正确的初始化顺序
+private enum SlamOperation {
+    NONE, OPENING, PAUSING, CLOSING
+}
+
+private SlamOperation mCurrentOperation = SlamOperation.NONE;
+
+// 在执行操作前设置状态
+mCurrentOperation = SlamOperation.OPENING;
+SlamDeviceManager.getInstance().openSfix();
+
+// 在回调中根据状态处理结果
 @Override
-protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    
-    // 1. 先初始化
-    SlamDeviceManager.init(this);
-    
-    // 2. 再使用
-    SlamDeviceManager.getInstance().addListener(listener);
+public void onSceneStatus(SlamSceneStatus slamSceneStatus) {
+    if (mCurrentOperation == SlamOperation.OPENING && 
+        slamSceneStatus.getSlamSceneStatus().equals(EnumSlamSceneStatus.OPENED)) {
+        // 处理开启成功
+    }
+    mCurrentOperation = SlamOperation.NONE;
 }
 ```
 
-### Q2: SFix启动后没有状态回调
+### Q2: SLAM初始化状态过多，如何简化处理？
 
-**A**: 检查以下几点：
+**A**: 可以将状态分组处理：
 
-1. 确保正确添加了监听器
-2. 确保设备支持SLAM功能
-3. 检查设备连接状态
-4. 查看日志是否有错误信息
+```java
+private void handleSlamInitStatus(SlamInitStatus slamInitStatus) {
+    EnumSlamInitStatus status = slamInitStatus.getSlamInitStatus();
+    
+    if (isInitializingStatus(status)) {
+        showInitializingUI(status);
+    } else if (isRunningStatus(status)) {
+        showRunningUI(status);
+    } else if (isErrorStatus(status)) {
+        showErrorUI(status);
+    }
+}
 
-### Q3: 位置信息不更新
+private boolean isInitializingStatus(EnumSlamInitStatus status) {
+    return status == EnumSlamInitStatus.SYSTEM_STATUS_INITIAL ||
+           status == EnumSlamInitStatus.SYSTEM_STATUS_INITIAL_NOT_FIX ||
+           status == EnumSlamInitStatus.SYSTEM_STATUS_GNSS_INITIAL;
+}
 
-**A**: 确保：
+private boolean isRunningStatus(EnumSlamInitStatus status) {
+    return status == EnumSlamInitStatus.SYSTEM_STATUS_SLAM_RUN ||
+           status == EnumSlamInitStatus.SYSTEM_STATUS_SLAM_RUN_LOW;
+}
 
-1. 已添加位置监听器
-2. 设备已获取到GNSS信号
-3. 检查权限是否正确授予
-4. 设备已注册
+private boolean isErrorStatus(EnumSlamInitStatus status) {
+    return status == EnumSlamInitStatus.SYSTEM_STATUS_SLAM_ERROR;
+}
+```
 
-### Q4: UI组件不显示
+### Q3: 如何处理SLAM操作失败？
 
-**A**: 如果使用SlamInitGuideViewLayout：
+**A**: 检查SlamSceneStatus中的错误码：
 
-1. 确保已添加business模块依赖
-2. 检查布局文件中的visibility属性
+```java
+@Override
+public void onSceneStatus(SlamSceneStatus slamSceneStatus) {
+    if (slamSceneStatus.getSlamSceneStatus().equals(EnumSlamSceneStatus.FAIL)) {
+        EnumSlamSceneErrorCode errorCode = slamSceneStatus.getSlamSceneErrorCode();
+        String errorMessage = errorCode.getMessage();
+        
+        // 根据错误码进行相应处理
+        handleSlamError(errorCode, errorMessage);
+    }
+}
+```
+
+### Q4: 引导界面何时自动关闭？
+
+**A**: 当SLAM状态变为`SYSTEM_STATUS_SLAM_RUN`时自动关闭：
+
+```java
+@Override
+public void onInitStatus(SlamInitStatus slamInitStatus) {
+    if (slamInitStatus.getSlamInitStatus() == EnumSlamInitStatus.SYSTEM_STATUS_SLAM_RUN) {
+        // 延迟关闭，让用户看到完成状态
+        new Handler().postDelayed(() -> finish(), 200);
+    }
+}
+```
 
 ### Q5: 内存泄漏问题
 
@@ -337,8 +695,34 @@ protected void onCreate(Bundle savedInstanceState) {
 @Override
 protected void onDestroy() {
     super.onDestroy();
-    // 移除所有监听器
-    SlamDeviceManager.getInstance().removeListener(slamDeviceListener);
-    PositionSource.getInstance().removeListener(positionListener);
+    try {
+        // 移除所有监听器
+        SlamDeviceManager.getInstance().removeListener(mSlamDeviceListener);
+        PositionSource.getInstance().removeListener(mPositionListener);
+    } catch (Exception e) {
+        Log.e(TAG, "Error clearing listeners", e);
+    }
 }
 ```
+
+## 总结
+
+新版SLAM API的主要变化：
+
+1. **回调接口变化**：
+    - `onDeviceInitStatusChanged()` → `onInitStatus()`
+    - 新增 `onSceneStatus()` 回调用于处理操作结果
+
+2. **数据结构变化**：
+    - `SlamStatusInfo` → `SlamInitStatus` + `SlamSceneStatus`
+    - 更详细的状态枚举和错误码
+
+3. **新增功能**：
+    - `pauseSlam()` 方法支持暂停SLAM
+    - 操作状态跟踪，区分不同操作的回调
+
+4. **UI组件使用**：
+    - 支持独立弹窗形式的引导界面
+    - 自动状态管理和界面关闭
+
+这些变化使得SLAM集成更加灵活和可控，开发者可以更精确地处理各种SLAM操作状态。
