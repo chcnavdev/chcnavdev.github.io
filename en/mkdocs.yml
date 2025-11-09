@@ -34,7 +34,7 @@ nav:
   - CORS Connection: cors-connection.md
   - Coordinate Transformation: coordinate-transformation.md
   - IMU: imu.md
-  - SLAM: slam.md
+  - SLAM: SLAM.md
   - Common Data Types: common-data-types.md
 
 extra:
