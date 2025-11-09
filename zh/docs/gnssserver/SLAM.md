@@ -11,8 +11,8 @@ SFix是基于SLAM（Simultaneous Localization and Mapping）技术的实时定�
 SFix功能的核心管理类，负责：
 
 - SLAM设备的初始化和控制
-- 激光雷达的开启/关闭/暂停
-- 状态监听和回调
+- SLAM设备的开启/关闭/暂停
+- 状态监听
 
 ### 2. ISlamDeviceListener
 
@@ -29,12 +29,7 @@ SLAM设备状态监听接口，提供以下回调：
 
 ### 4. SlamInitGuideViewLayout（可选UI组件）
 
-业务模块提供的SLAM初始化引导视图，包含：
-
-- 动态GIF引导动画
-- 状态提示文本
-- 自动状态切换
-- 完成后自动隐藏
+根据状态提供Slam初始化引导视图
 
 ## 快速开始
 
@@ -266,6 +261,9 @@ public void onSceneStatus(SlamSceneStatus slamSceneStatus) throws RemoteExceptio
             // 处理操作失败
             EnumSlamSceneErrorCode errorCode = slamSceneStatus.getSlamSceneErrorCode();
             String errorMessage = errorCode.getMessage();
+            break;
+        case default:
+            // 处理默认
             break;
     }
 }
@@ -704,25 +702,3 @@ protected void onDestroy() {
     }
 }
 ```
-
-## 总结
-
-新版SLAM API的主要变化：
-
-1. **回调接口变化**：
-    - `onDeviceInitStatusChanged()` → `onInitStatus()`
-    - 新增 `onSceneStatus()` 回调用于处理操作结果
-
-2. **数据结构变化**：
-    - `SlamStatusInfo` → `SlamInitStatus` + `SlamSceneStatus`
-    - 更详细的状态枚举和错误码
-
-3. **新增功能**：
-    - `pauseSlam()` 方法支持暂停SLAM
-    - 操作状态跟踪，区分不同操作的回调
-
-4. **UI组件使用**：
-    - 支持独立弹窗形式的引导界面
-    - 自动状态管理和界面关闭
-
-这些变化使得SLAM集成更加灵活和可控，开发者可以更精确地处理各种SLAM操作状态。
