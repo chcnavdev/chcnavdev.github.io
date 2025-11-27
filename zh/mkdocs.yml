@@ -43,6 +43,7 @@ nav:
       - CORS连接: gnssserver/CORS连接.md
       - 坐标转换: gnssserver/坐标转换.md
       - IMU: gnssserver/IMU.md
+      - AR放样: gnssserver/AR放样.md
       - SLAM集成: gnssserver/SLAM.md
       - 常用数据类型: gnssserver/常用数据类型.md
   - 测地通二次开发:
