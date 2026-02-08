@@ -1,11 +1,14 @@
-## SLAM 集成
-本开发文档用于指导第三方开发者在 Android 应用中集成 SLAM 功能。  
-SLAM 系统包含两种模式：
+# SLAM 集成
+
+本开发文档用于指导第三方开发者在 Android 应用中集成 SLAM 功能。
+
+SLAM 系统包含三种模式：
 
 - **SFix**：GNSS + 激光雷达融合定位
 - **ViLiDar**：在 SFix 基础上增加相机、拍照、像素点转坐标能力
+- **Point Cloud**：提供点云流端口与工程路径查询
 
-两种模式通过 SLAM 管理接口 `ISlamDeviceManager` 来完成 SLAM 的启动、暂停、关闭等控制。
+上述模式通过 SLAM 管理接口 `ISlamDeviceManager` 来完成 SLAM 的启动、暂停、关闭等控制。
 
 
 
@@ -39,13 +42,15 @@ ISlamDeviceManager slamManager =
 `ISlamDeviceManager` 提供 SLAM 的核心控制接口：
 
 | 方法 | 说明                 |
-||--|
+|------|----------------------|
 | `openSfix()` | 开启 SFix 模式         |
 | `recoverySfix()` | 从暂停恢复 SFix         |
 | `openViLidar()` | 开启 ViLiDar 模式      |
 | `recoveryViLidar()` | 从暂停恢复 ViLiDar      |
+| `openPointCloud()` | 开启点云模式 |
+| `queryProjectInfo(projectId)` | 查询工程远程路径与打包进度 |
 | `pauseSlam()` | 暂停 SFix/ViLiDar 工作 |
-| `close()` | 停止 SFix/ViLiDar 工作 |
+| `close()` | 停止 SFix/ViLiDar/Point Cloud 工作 |
 | `addListener(ISlamDeviceListener)` | 注册监听器              |
 | `removeListener(ISlamDeviceListener)` | 移除监听器              |
 | `preProcessPicture(gpsTime)` | （ViLiDar）帧预处理      |
@@ -64,25 +69,30 @@ slamManager.addListener(new ISlamDeviceListener.Stub() {
     public void onSceneStatus(SlamSceneStatus status) {
         // SLAM 开启/暂停/关闭 结果
     }
-    
+
+    @Override
+    public void onProjectInfoStatus(SlamProjectInfo slamProjectInfo) {
+        // 工程信息查询结果（Point Cloud 使用）
+    }
+
     @Override
     public void onInitStatus(SlamInitStatus status) {
         // 初始化状态变化
     }
-    
+
     @Override
     public void onPreProcessPicResult(SlamPreProcessPictureStatus slamPreProcessPictureStatus) {
         // ViLidar 图片预处理结果
     }
-    
+
     @Override
     public void onPixelToCoordinateResult(SlamSampleCoordinateResultStatus slamSampleCoordinateResultStatus) {
         // ViLidar 像素点转坐标结果
     }
-    
+
     @Override
     public void onBatteryInfoChanged(BatteryLevelDetail batteryLevelDetail) {}
-    
+
     @Override
     public void onStorageInfoChanged(SlamDeviceStorageInfo storage) {}
 });
@@ -94,9 +104,9 @@ slamManager.addListener(new ISlamDeviceListener.Stub() {
 
 开发者可通过 `onInitStatus()` 获取 SLAM 初始化的各个阶段变化，从而决定：
 
-- 是否显示初始化界面  
-- 是否允许用户开始测量  
-- 是否提示用户移动设备或静止等待  
+- 是否显示初始化界面
+- 是否允许用户开始测量
+- 是否提示用户移动设备或静止等待
 
 示例：
 
@@ -125,7 +135,7 @@ SDK 提供部分 UI 组件，开发者如需可以直接使用。
 
 ### SlamInitGuideViewLayout（可选的初始化流程引导 UI）
 
-用于展示 SLAM 初始化步骤，例如“请保持静止”、“请移动设备”、“初始化完成”等。
+用于展示 SLAM 初始化步骤，例如"请保持静止"、"请移动设备"、"初始化完成"等。
 
 示例：
 
@@ -223,13 +233,13 @@ ViLiDar 在 SFix 基础上扩展了相机能力，可实现 **像素点 → 地�
 
 ### 整体流程
 
-1. 注册 SLAM 监听器  
-2. 打开相机  
-3. 启动惯导  
-4. `openViLidar()` 开启 SLAM  
-5. 调用 `preProcessPicture()` 获取静态图  
-6. 用户点击像素点  
-7. 调用 `calcCoordinateByPixel()` 转坐标  
+1. 注册 SLAM 监听器
+2. 打开相机
+3. 启动惯导
+4. `openViLidar()` 开启 SLAM
+5. 调用 `preProcessPicture()` 获取静态图
+6. 用户点击像素点
+7. 调用 `calcCoordinateByPixel()` 转坐标
 
 
 
@@ -302,11 +312,96 @@ public void onPixelToCoordinateResult(SlamSampleCoordinateResultStatus result) {
 
 
 
+## Point Cloud 集成指南
+
+
+
+### 设备能力检查
+
+使用前需确认设备支持点云：
+
+```java
+ISlamDeviceInfoProvider provider = slamManager.getSlamDeviceInfoProvider();
+if (provider != null && provider.isSupportPointCloud()) {
+    // 支持点云
+}
+```
+
+
+
+### 启动点云
+
+```java
+// 1. 启动惯导（同 SFix）
+NoneMagneticTiltStartInfo info = new NoneMagneticTiltStartInfo();
+info.setAntennaHeight(1.8);
+info.setFrequency(EnumDataFrequency.DATA_FREQUENCY_5HZ);
+ReceiverCmdManager.getInstance().setCmdStartNoneMagneticTilt(context, info);
+
+// 2. 开启点云
+slamManager.openPointCloud();
+```
+
+
+
+### 获取点云流端口与工程 ID
+
+在 `onSceneStatus` 中，当状态为 `OPENED` 时：
+
+```java
+@Override
+public void onSceneStatus(SlamSceneStatus status) {
+    if (status.getSlamSceneStatus() == EnumSlamSceneStatus.OPENED) {
+        int port = slamManager.getSlamDeviceInfoProvider().getPointCloudStreamPort();
+        long projectId = status.getProjectId();
+        // 使用 port 连接点云流，使用 projectId 查询工程信息
+    }
+}
+```
+
+
+
+### 查询工程远程路径
+
+```java
+slamManager.queryProjectInfo(projectId);
+```
+
+通过 `onProjectInfoStatus` 获取结果：
+
+```java
+@Override
+public void onProjectInfoStatus(SlamProjectInfo info) {
+    if (info.getEnumSlamProjectInfoStatus() == EnumSlamProjectInfoStatus.SUCCESS
+            && info.getSlamProjectInfoStatus() != null) {
+        SlamProjectInfoStatus status = info.getSlamProjectInfoStatus();
+        String path = status.getProjectPath();   // SFTP 远程路径
+        int progress = status.getProgress();     // 打包进度 0–100
+        long remainTime = status.getRemainTime(); // 预估剩余时间
+    }
+}
+```
+
+
+
+### 停止点云
+
+```java
+slamManager.close();
+```
+
+
+
+### 注意事项
+
+- 点云模式 **不支持** 暂停与恢复，仅支持 `openPointCloud()` 与 `close()`
+- 可使用 `SlamInitGuideViewLayout` 展示初始化引导
+
+
+
 ## 资源清理
 
 ```java
 slamManager.removeListener(slamListener);
 PositionSource.getInstance().removeListener(positionListener);
 ```
-
-

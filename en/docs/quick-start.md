@@ -4,38 +4,13 @@ This section aims to help you quickly get started with the SDK, focusing on how 
 
 ## Permissions
 
-Before using the SDK, ensure that your application has the necessary permissions. These permissions include Bluetooth (this section only uses Bluetooth connection, not involving WiFi), and permissions to read and write external storage, as the SDK needs external storage to read and write configuration files and log files. Please add permissions in `AndroidManifest.xml`.
+Before using the SDK, ensure that your application has the necessary permissions. This section only uses Bluetooth connection and does not involve WiFi. Please add Bluetooth permissions in `AndroidManifest.xml`:
 
 ```xml
 <!-- Permission to use Bluetooth features -->
 <uses-permission android:name="android.permission.BLUETOOTH"/>
 <!-- Permission to administer Bluetooth settings -->
 <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
-<!-- Permission to read from external storage -->
-<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-<!-- Permission to write to external storage -->
-<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-```
-
-Note that in Android 10, Android 11, and higher versions, the permission request method for external storage has some differences. Android 10 introduced Scoped Storage, and you can add the following code in AndroidManifest.xml:
-
-```xml
-<application
-    android:requestLegacyExternalStorage="true"
-    ... >
-```
-
-The requestLegacyExternalStorage flag is completely deprecated in Android 11, and all applications must follow the Scoped Storage model. At the same time, a new special permission is introduced that allows applications to obtain permissions similar to traditional global file access. The specific declaration code is as follows:
-
-```xml
-<uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>
-```
-
-At the same time, in the code, you need to guide users to manually grant permissions in system settings:
-
-```java
-Intent intent = new Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
-startActivity(intent);
 ```
 
 ## Initialize SDK
@@ -60,7 +35,7 @@ new Thread(new Runnable() {
 }).start();
 ```
 
-Where `App.getInstance().getApplicationContext()` is the application-level Context, and `SdcardUtils.getAppFolder()` can be any path with read and write permissions. `mService.requestReceiverListener(mReceiverListener)` is mainly used to set data callbacks, such as coordinate data.
+Where `App.getInstance().getApplicationContext()` is the application-level Context, and `SdcardUtils.getAppFolder()` can be an appropriate path. `mService.requestReceiverListener(mReceiverListener)` is mainly used to set data callbacks, such as coordinate data.
 
 ## Connect Device
 

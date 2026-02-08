@@ -15,4 +15,6 @@
 |  2025-01-16   | Xu Zengbao |         Added interface for getting base station offset warnings         |
 |  2025-10-27   | Xu Zengbao |                  Added SFix integration related content                  |
 |  2025-11-27   | Xu Zengbao |                Added ViLiDar integration related content                 |
+|  2026-02-08   | Xu Zengbao |                Removed external storage permission requirements          |
+|  2026-02-08   | Xu Zengbao |                  Added point cloud integration related content           |
 

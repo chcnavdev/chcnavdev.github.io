@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="851dad76-e3b9-4b45-a0f5-444320cc6c52" name="Changes" comment="" />
+    <list default="true" id="851dad76-e3b9-4b45-a0f5-444320cc6c52" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/en/docs/SLAM.md" beforeDir="false" afterPath="$PROJECT_DIR$/en/docs/SLAM.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/en/docs/quick-start.md" beforeDir="false" afterPath="$PROJECT_DIR$/en/docs/quick-start.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/en/docs/revision.md" beforeDir="false" afterPath="$PROJECT_DIR$/en/docs/revision.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zh/docs/gnssserver/SLAM.md" beforeDir="false" afterPath="$PROJECT_DIR$/zh/docs/gnssserver/SLAM.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zh/docs/gnssserver/修订.md" beforeDir="false" afterPath="$PROJECT_DIR$/zh/docs/gnssserver/修订.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zh/docs/gnssserver/快速开始.md" beforeDir="false" afterPath="$PROJECT_DIR$/zh/docs/gnssserver/快速开始.md" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

@@ -1,11 +1,14 @@
-## SLAM Integration
-This development document guides third-party developers on how to integrate SLAM functionality into Android applications.  
-The SLAM system includes two modes:
+# SLAM Integration
 
-- **SFix**: GNSS + LiDAR fusion positioning  
+This development document guides third-party developers on how to integrate SLAM functionality into Android applications.
+
+The SLAM system includes three modes:
+
+- **SFix**: GNSS + LiDAR fusion positioning
 - **ViLiDar**: Based on SFix, adds camera, image capture, and pixel-to-coordinate transformation capabilities
+- **Point Cloud**: Provides point cloud stream port and project path query
 
-Both modes are controlled through the SLAM management interface `ISlamDeviceManager`, which is used to start, pause, and stop SLAM operations.
+All modes are controlled through the SLAM management interface `ISlamDeviceManager`, which is used to start, pause, and stop SLAM operations.
 
 
 
@@ -43,9 +46,11 @@ ISlamDeviceManager slamManager =
 | `openSfix()` | Start SFix mode |
 | `recoverySfix()` | Resume SFix after pause |
 | `openViLidar()` | Start ViLiDar mode |
-| `recoveryViLidar()` | Resume ViLiDar |
+| `recoveryViLidar()` | Resume ViLiDar after pause |
+| `openPointCloud()` | Start Point Cloud mode|
+| `queryProjectInfo(projectId)` | Query project remote path and packaging progress |
 | `pauseSlam()` | Pause SFix/ViLiDar |
-| `close()` | Stop SFix/ViLiDar |
+| `close()` | Stop SFix/ViLiDar/Point Cloud |
 | `addListener(ISlamDeviceListener)` | Register listener |
 | `removeListener(ISlamDeviceListener)` | Remove listener |
 | `preProcessPicture(gpsTime)` | (ViLiDar) Frame preprocessing |
@@ -64,7 +69,12 @@ slamManager.addListener(new ISlamDeviceListener.Stub() {
     public void onSceneStatus(SlamSceneStatus status) {
         // SLAM start/pause/stop result
     }
-    
+
+    @Override
+    public void onProjectInfoStatus(SlamProjectInfo slamProjectInfo) {
+        // Project info query result (used by Point Cloud)
+    }
+
     @Override
     public void onInitStatus(SlamInitStatus status) {
         // Initialization state changes
@@ -299,6 +309,92 @@ public void onPixelToCoordinateResult(SlamSampleCoordinateResultStatus result) {
     // Retrieve geographic coordinate result
 }
 ```
+
+
+
+## Point Cloud Integration Guide
+
+
+### Device Capability Check
+
+Before use, confirm that the device supports point cloud:
+
+```java
+ISlamDeviceInfoProvider provider = slamManager.getSlamDeviceInfoProvider();
+if (provider != null && provider.isSupportPointCloud()) {
+    // Point cloud supported
+}
+```
+
+
+
+### Starting Point Cloud
+
+```java
+// 1. Start inertial navigation (same as SFix)
+NoneMagneticTiltStartInfo info = new NoneMagneticTiltStartInfo();
+info.setAntennaHeight(1.8);
+info.setFrequency(EnumDataFrequency.DATA_FREQUENCY_5HZ);
+ReceiverCmdManager.getInstance().setCmdStartNoneMagneticTilt(context, info);
+
+// 2. Start Point Cloud
+slamManager.openPointCloud();
+```
+
+
+
+### Getting Point Cloud Stream Port and Project ID
+
+In `onSceneStatus`, when the status is `OPENED`:
+
+```java
+@Override
+public void onSceneStatus(SlamSceneStatus status) {
+    if (status.getSlamSceneStatus() == EnumSlamSceneStatus.OPENED) {
+        int port = slamManager.getSlamDeviceInfoProvider().getPointCloudStreamPort();
+        long projectId = status.getProjectId();
+        // Use port to connect to point cloud stream, use projectId to query project info
+    }
+}
+```
+
+
+
+### Query Project Remote Path
+
+```java
+slamManager.queryProjectInfo(projectId);
+```
+
+Get result via `onProjectInfoStatus`:
+
+```java
+@Override
+public void onProjectInfoStatus(SlamProjectInfo info) {
+    if (info.getEnumSlamProjectInfoStatus() == EnumSlamProjectInfoStatus.SUCCESS
+            && info.getSlamProjectInfoStatus() != null) {
+        SlamProjectInfoStatus status = info.getSlamProjectInfoStatus();
+        String path = status.getProjectPath();   // SFTP remote path
+        int progress = status.getProgress();     // Packaging progress 0–100
+        long remainTime = status.getRemainTime(); // Estimated remaining time
+    }
+}
+```
+
+
+
+### Stopping Point Cloud
+
+```java
+slamManager.close();
+```
+
+
+
+### Notes
+
+- Point Cloud mode **does not support** pause and resume, only `openPointCloud()` and `close()` are supported
+- `SlamInitGuideViewLayout` can be used to display initialization guidance
 
 
 
