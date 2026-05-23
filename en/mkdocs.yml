@@ -36,6 +36,7 @@ nav:
   - IMU: imu.md
   - AR Stakeout: ar-stakeout.md
   - SLAM: SLAM.md
+  - Laser Measurement: laser.md
   - Common Data Types: common-data-types.md
 
 extra:

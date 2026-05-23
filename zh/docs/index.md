@@ -17,6 +17,7 @@
 - [IMU](gnssserver/IMU.md) - 惯性测量单元
 - [AR放样](gnssserver/AR放样.md) - AR放样
 - [SLAM集成](gnssserver/SLAM.md) - SLAM集成
+- [激光测量](gnssserver/激光.md) - 激光测量
 - [常用数据类型](gnssserver/常用数据类型.md) - 数据结构说明
 
 ### 测地通二次开发

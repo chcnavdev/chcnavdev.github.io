@@ -12,6 +12,7 @@ The CHCNAV SDK provides comprehensive tools for:
 - IMU data processing
 - Slam integrated development
 - AR stakeout functionality
+- Laser measurement
 
 ## Getting Started
 
