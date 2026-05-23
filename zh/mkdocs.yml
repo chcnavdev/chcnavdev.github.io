@@ -45,7 +45,7 @@ nav:
       - IMU: gnssserver/IMU.md
       - AR放样: gnssserver/AR放样.md
       - SLAM集成: gnssserver/SLAM.md
-      - 激光测量: 激光.md
+      - 激光测量: gnssserver/激光.md
       - 常用数据类型: gnssserver/常用数据类型.md
   - 测地通二次开发:
       - 概述: 测地通二次开发/测地通二次开发.md
