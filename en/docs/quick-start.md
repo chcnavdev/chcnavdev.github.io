@@ -94,6 +94,13 @@ mBTDisConnect.setOnClickListener(new View.OnClickListener() {
 ```
 
 ## Get Position Data
+Please note that the location information obtained from the interface below is directly the ground point coordinates. When using IMU for tilt measurement, it will be converted to ground point coordinates using tilt angle and other information.\
+Additionally, the pole height can be set using the following interface:
+```java
+AntennaManager.getInstance().getAntennaSettings().setHeight();
+```
+If not set, the default height is 2 meters.
+
 
 ```java
 // Monitor location data
